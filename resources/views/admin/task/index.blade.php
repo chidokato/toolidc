@@ -83,6 +83,7 @@
                                 <th>Nhà cung cấp</th>
                                 <th>Số tiền</th>
                                 <th>Ngày hoàn thành</th>
+                                <th></th>
                             </tr>
                         </thead>
                         
