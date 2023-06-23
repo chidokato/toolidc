@@ -57,13 +57,13 @@ class TaskController extends Controller
         if($request->supplier){
             $data->where('supplier_id',$request->supplier);
         }
-        // if(isset($request->datefilter)){
-        //     $datefilter = explode(" - ", $request->datefilter);
-        //     $day1 = date('Y-m-d',strtotime($datefilter[0]));
-        //     $day2 = date('Y-m-d',strtotime($datefilter[1]));
-        //     // $data->whereBetween('created_at', [$day1, $day2]);
-        //     $data->whereDate('created_at','>=', $day1)->whereDate('created_at','<=', $day2);
-        // }
+        if(isset($request->datefilter)){
+            $datefilter = explode(" - ", $request->datefilter);
+            $day1 = date('Y-m-d',strtotime($datefilter[0]));
+            $day2 = date('Y-m-d',strtotime($datefilter[1]));
+            // $data->whereBetween('created_at', [$day1, $day2]);
+            $data->whereDate('date','>=', $day1)->whereDate('date','<=', $day2);
+        }
         $data = $data->paginate($request->paginate);
 
         // echo "string";
