@@ -1,0 +1,165 @@
+:root {
+    --main-color:#aa8453;
+    --sub-color:#e0781c;
+    --light-color:#fff;
+
+    /*--body-fontface:'UTM Avo', sans-serif;
+    --title-fontface:'UTM Avo';
+    --subtitle-fontface:'UTM Avo';*/
+}
+
+.lang_icon{
+	border-left: 1px solid var(--main-color);
+}
+.lang_icon .dropdown-toggle{ padding-left: 17px !important; }
+.lang_icon .dropdown-toggle:after{
+	/*content: '' !important;*/
+	content: url(../img/lang.png) !important;
+	left: -10px;
+    transform: translateY(-42%) rotate(0deg) !important;
+    -webkit-transition: all 300ms ease-in-out 0s;
+}
+.header-style .lang_icon .dropdown-toggle:after{
+    content: url(../img/lang_bg.png) !important;
+}
+/*.lang_icon .dropdown-toggle:hover:after{
+	content: url(../img/lang_bg.png) !important;
+}*/
+
+.nav-primary-hover .navbar-nav .active>.nav-link, .nav-primary-hover .navbar-nav .nav-link:hover, .nav-primary-hover .navbar-nav .active>.nav-link:hover, .nav-primary-hover .navbar-nav .active>.nav-link{
+	/*color: #fff !important;*/
+}
+.fixed-bg-primary.fixed-top, .nav-primary-hover.nav-line-active .navbar-nav .active>.nav-link:before, .nav-primary-hover.nav-down-line-active .navbar-nav .active>.nav-link:before, .bg-primary{ width: 35px; background-color: #ddb60f !important;  }
+.post-content h2{ font-size: 1.2rem }
+.news .thumb-blog-horizontal img{ height: 200px; object-fit: cover; width: 100%; }
+.news .thumb-blog-horizontal .post-content p{ height: 65px; overflow: hidden; line-height: 1.4rem; margin-bottom: .5rem }
+.iteam-product .thumbnail-img img{ height: 250px; width: 100%; object-fit: cover; }
+
+h1.listing-title{ font-size: 1.7rem; line-height: 48px; }
+h2.heading-title{
+    font-size: 1.3rem; border-bottom: 1px solid #ddd; padding-bottom: 0px; line-height: 38px; position: relative;
+    padding-top: 120px;
+    margin-top: -120px;
+    /* display: inline-block; */
+    z-index: 0;
+}
+h2.heading-title::after {
+    content: '';
+    position: absolute;
+    height: 1px;
+    background-color: var(--sub-color);
+    width: 40px;
+    left: 0;
+    bottom: -1px;
+}
+.project .content{
+    text-align: justify;
+    color: #000;
+    position: relative;
+    z-index: 1;
+}
+.listing-price span{
+    font-size: 1rem;
+    font-weight: 100;
+}
+.product-offers ul li{
+    /*position: relative;*/
+}
+.product-offers>ul>li:before {
+    display: inline-block;
+    font-family: "Font Awesome 5 Free";
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    text-align: center;
+    text-decoration: inherit;
+    vertical-align: middle;
+    margin-right: 10px;
+    color: var(--theme-primary-color);
+}
+.product-offers>ul>li:before {
+    content: "\f02b";
+}
+
+.post h1{
+    font-size: 1.6rem;
+}
+.post-desc{
+    font-style: italic;
+}
+.header-style-1 .nav-primary-hover .navbar-nav .nav-link:hover{
+    color: #fff !important;
+}
+.nav-primary-hover .navbar-nav .nav-link{
+    position: relative;
+}
+.nav-primary-hover .navbar-nav .nav-link:hover:before{
+    content: '';
+    position: absolute;
+    height: 2px;
+    width: 35px;
+    background: #ffc107;
+    bottom: 16px;
+}
+.header-style-1 .nav-primary-hover .navbar-nav .active>.nav-link{
+    color: #fff !important;
+}
+
+.content ul li{
+    list-style: circle;
+    margin-left: 20px;
+}
+
+.content blockquote ul{
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+}
+.content blockquote ul li{
+    width: 47%;
+}
+
+.property-grid-1 .listing-title{
+    position: relative;
+    margin-bottom: 10px;
+    margin-bottom: 7px !important;
+    padding-bottom: 3px;
+}
+.property-grid-1 .listing-title:after{
+    position: absolute;
+    content: '';
+    width: 50px;
+    height: 2px;
+    left: 0px;
+    bottom: 0px;
+    background: #ddb60f;
+}
+.img-col-3{
+    height: 250px;
+}
+.post-content h2 a{
+    font-size: 1.1rem;
+    line-height: 1.6rem;
+}
+.thumb-blog-horizontal .post-image {
+    width: 37%;
+}
+.thumb-blog-horizontal .post-content {
+    width: 63%;
+}
+.inner-page-banner h1{ font-size: 2rem }
+.widget_recent_property li img{
+    width: 120px;height: auto;
+}
+.sicky-70{
+    position: sticky;
+    top: 70px;
+}
+.sicky-120{
+    position: sticky;
+    top: 120px;
+}
+.menuproject{
+    background: #e9ecef;z-index: 2;
+}
