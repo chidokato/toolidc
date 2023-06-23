@@ -41,7 +41,7 @@
         <div class="col-xl-2 col-lg-2">
             <div class="form-group">
                 <label class="">Thời gian</label>
-                <input class="form-control" type="date" name="date">
+                <input class="form-control" type="text" name="datefilter" value="" />
             </div>
         </div>
         <div class="col-xl-1 col-lg-1">
@@ -94,6 +94,7 @@
                                 <td>{{$val->Channel->name}}</td>
                                 <td>{{$val->Supplier->name}}</td>
                                 <td>{{ number_format($val->price) }}đ</td>
+                                <td>{{$val->date}}</td>
                                 <td style="display: flex;">
                                     <a href="{{route('task.edit',[$val->id])}}" class="mr-2"><i class="fas fa-edit" aria-hidden="true"></i></a>
                                     <form action="{{route('task.destroy', [$val->id])}}" method="POST">
@@ -119,6 +120,27 @@
     .table{ position: relative; }
     .tatall{ position: absolute; top: 10px; right: 20px; }
 </style>
+
+<script type="text/javascript">
+$(function() {
+
+  $('input[name="datefilter"]').daterangepicker({
+      autoUpdateInput: false,
+      locale: {
+          cancelLabel: 'Clear'
+      }
+  });
+
+  $('input[name="datefilter"]').on('apply.daterangepicker', function(ev, picker) {
+      $(this).val(picker.startDate.format('MM/DD/YYYY') + ' - ' + picker.endDate.format('MM/DD/YYYY'));
+  });
+
+  $('input[name="datefilter"]').on('cancel.daterangepicker', function(ev, picker) {
+      $(this).val('');
+  });
+
+});
+</script>
 
 <?php 
     function addeditcat ($data, $parent=0, $str='',$select=0)
