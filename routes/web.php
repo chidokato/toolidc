@@ -16,9 +16,9 @@ use App\Http\Controllers\HomeController;
 
 use Laravel\Socialite\Facades\Socialite;
 
-Route::get('/', [LoginController::class, 'index'])->name('login');
-Route::get('admin', [LoginController::class, 'index'])->name('login');
-Route::post('admin', [LoginController::class, 'store']);
+Route::get('/', [LoginController::class, 'index']);
+Route::get('admin', [LoginController::class, 'index']);
+Route::POST('admin', [LoginController::class, 'store']);
 Route::get('logout', [LoginController::class, 'logout'])->name('logout');
 
 
@@ -47,6 +47,7 @@ Route::middleware(['auth'])->group(function () {
         Route::resource('channel',ChannelController::class);
         Route::resource('project',ProjectController::class);
         Route::resource('supplier',SupplierController::class);
+        
         Route::resource('task',TaskController::class);
         Route::POST('task/search', [TaskController::class, 'search']);
 

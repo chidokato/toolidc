@@ -4,7 +4,7 @@
 @include('admin.layout.header')
 @include('admin.alert')
 <div class="d-sm-flex align-items-center justify-content-between mb-3 flex">
-    <h2 class="h3 mb-0 text-gray-800 line-1 size-1-3-rem">{{__('lang.category')}}</h2>
+    <h2 class="h3 mb-0 text-gray-800 line-1 size-1-3-rem">Quản lý người dùng</h2>
     <a class="add-iteam" href="{{route('users.create')}}"><button class="btn-success form-control" type="button"><i class="fa fa-plus" aria-hidden="true"></i> {{__('lang.add')}}</button></a>
 </div>
 
@@ -26,6 +26,8 @@
                             <tr>
                                 <th></th>
                                 <th>Name</th>
+                                <th>Email</th>
+                                <th>Quyền</th>
                                 <th>date</th>
                                 <th></th>
                             </tr>
@@ -34,11 +36,13 @@
                             @foreach($users as $val)
                             <tr>
                                 <td>{{$val->id}}</td>
-                                <td><a href="{{route('users.edit',[$val->id])}}">{{$val->name}}</a></td>
+                                <td><a href="{{route('users.edit',[$val->id])}}">{{$val->yourname}}</a></td>
+                                <td>{{$val->email}}</td>
+                                <td>{{$val->permission == 1? "SuperAdmin" : "Admin"}}</td>
                                 <td>{{$val->created_at}}</td>
                                 <td>
                                     <a href="{{route('users.edit',[$val->id])}}" class="mr-2"><i class="fas fa-edit" aria-hidden="true"></i></a>
-                                    <!-- <form action="{{route('category.destroy', [$val->id])}}" method="POST">
+                                    <!-- <form action="{{route('users.destroy', [$val->id])}}" method="POST">
                                       @method('DELETE')
                                       @csrf
                                       <button onclick="return confirm('xác nhận')">Delete</button>

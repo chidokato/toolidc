@@ -27,7 +27,7 @@
         @include('admin.layout.navbar')
         <div id="content-wrapper" class="d-flex flex-column">
             <div id="content">
-                
+                @include('admin.layout.header')
                 <div class="container-fluid">
                     @yield('content')
                 </div>

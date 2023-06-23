@@ -19,7 +19,6 @@ class UserController extends Controller
      */
     public function index()
     {
-        $locale = Session::get('locale');
         $users = User::orderBy('id', 'DESC')->get();
         return view('admin.user.index', compact('users'));
     }
@@ -31,7 +30,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.user.create');
     }
 
     /**
@@ -42,23 +41,26 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request, [
-            'email' => 'required|email:filter',
-            'password' => 'required'
-        ]);
-
-        if (Auth::attempt([
-                'email' => $request->input('email'),
-                'password' => $request->input('password'),
-                'permission' => '1'
-            ], $request->input('remember'))) {
-
-            return redirect()->route('admin');
-            // return redirect('admin/main');
-        }
-
-        Session::flash('error', 'Email hoặc Password không đúng');
-        return redirect()->back();
+        $this->validate($request,
+        [
+            'password' => 'Required',
+            'passwordagain' => 'Required|same:password',
+            'email'=>'required|email|unique:users,email',
+        ],
+        [
+            'email.unique'=>'Email đã tồn tại',
+        ] );
+        $data = $request->all();
+        $User = new User();
+        $User->email = $request->email;
+        $User->password = bcrypt($request->password);
+        $User->permission = $request->permission;
+        $User->yourname = $request->yourname;
+        $User->address = $request->address;
+        $User->phone = $request->phone;
+        $User->facebook = $request->facebook;
+        $User->save();
+        return redirect('admin/users')->with('success','successfully');
     }
 
     /**
@@ -81,6 +83,10 @@ class UserController extends Controller
     public function edit($id)
     {
         //
+        $data = User::find($id);
+        return view('admin.user.edit', compact(
+            'data'
+        ));
     }
 
     /**
@@ -92,7 +98,28 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $User = User::find($id);
+
+        if($request->changepassword == "on")
+        {
+            $this->validate($request,
+            [
+                'password' => 'Required',
+                'passwordagain' => 'Required|same:password'                
+            ],
+            [] );
+            $User->password = bcrypt($request->password);
+        }
+
+        $User->email = $request->email;
+        $User->permission = $request->permission;
+        $User->yourname = $request->yourname;
+        $User->address = $request->address;
+        $User->phone = $request->phone;
+        $User->facebook = $request->facebook;
+        $User->save();
+        return redirect()->back()->with('success','Thành công');
+        // return redirect('admin/users')->with('success','successfully');
     }
 
     /**
@@ -105,6 +132,8 @@ class UserController extends Controller
     {
         echo "ok";
     }
+
+
 
     public function logout()
     {
