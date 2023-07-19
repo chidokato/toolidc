@@ -169,6 +169,8 @@ class TaskController extends Controller
         $task->channel_id = $data['channel_id'];
         $task->project_id = $data['project_id'];
         $task->supplier_id = $data['supplier_id'];
+        $task->team_id = $data['team_id'];
+        $task->u_id = $data['u_id'];
         $task->date = $data['date'];
         $task->name = $data['name'];
         $task->content = $data['content'];
