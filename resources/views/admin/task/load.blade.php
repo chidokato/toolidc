@@ -19,7 +19,7 @@
                                 <td>{{$val->Project->name}}</td>
                                 <td>{{$val->Channel->name}}</td>
                                 <td>{{$val->Supplier->name}}</td>
-                                <td>{{$val->Team->name}}</td>
+                                <td>{{ $val->team_id==''? '':$val->Team->name}} ({{$val->u_id==''? '':$val->User->yourname}})</td>
                                 <td>{{ number_format($val->price) }}đ</td>
                                 <td>{{$val->date}}</td>
                                 <td style="display: flex;">
