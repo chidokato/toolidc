@@ -121,7 +121,7 @@
 
 <style type="text/css">
     .table{ position: relative; }
-    .tatall{ position: absolute; top: 10px; right: 20px; }
+    .tatall{ position: absolute; top: 10px; right: 20px; color: red; font-weight: bold; }
 </style>
 
 <script type="text/javascript">
