@@ -21,7 +21,7 @@ class TeamController extends Controller
     {
         // $data = Team::first();
         $data = Team::get();
-        return view('admin.Team.index', compact(
+        return view('admin.team.index', compact(
             'data',
         ));
     }
