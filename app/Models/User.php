@@ -46,6 +46,10 @@ class User extends Authenticatable
     {
         return $this->hasMany(Task::class, 'u_id', 'id');
     }
+    public function Team()
+    {
+        return $this->hasOne(Team::class, 'id', 'team_id');
+    }
 }
 
 

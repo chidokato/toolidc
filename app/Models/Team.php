@@ -13,4 +13,8 @@ class Team extends Model
     {
         return $this->hasMany(Task::class, 'team_id', 'id');
     }
+    public function User()
+    {
+        return $this->hasMany(User::class, 'team_id', 'id');
+    }
 }
