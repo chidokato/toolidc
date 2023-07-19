@@ -37,7 +37,8 @@
               <div class="form-group row">
                 <label class="col-sm-2 col-form-label">Tổng tiền</label>
                 <div class="col-sm-10">
-                  <input type="text" class="form-control" name="price" id="currency-field" pattern="^\d{1,3}(,\d{3})*(\.\d+)?$" value="" data-type="currency" placeholder="Tổng tiền">
+                  <!-- <input type="text" class="form-control" name="price" id="currency-field" pattern="^\d{1,3}(,\d{3})*(\.\d+)?$" value="" data-type="currency" placeholder="Tổng tiền"> -->
+                  <input type="text" class="form-control" name="price" value="" placeholder="Tổng tiền">
                 </div>
               </div>
 
