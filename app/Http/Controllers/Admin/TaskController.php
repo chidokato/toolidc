@@ -27,7 +27,7 @@ class TaskController extends Controller
         $Channel = Channel::get();
         $Project = Project::get();
         $Supplier = Supplier::get();
-        $data = Task::get();
+        $data = Task::orderBy('id', 'desc')->get();
         return view('admin.task.index', compact(
             'Channel',
             'Project',
