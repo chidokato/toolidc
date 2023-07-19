@@ -13,6 +13,7 @@ use App\Models\Channel;
 use App\Models\Project;
 use App\Models\Supplier;
 use App\Models\Team;
+use App\Models\User;
 
 class TaskController extends Controller
 {
@@ -27,11 +28,13 @@ class TaskController extends Controller
         $Channel = Channel::get();
         $Project = Project::get();
         $Supplier = Supplier::get();
+        $team = Team::get();
         $data = Task::orderBy('id', 'desc')->get();
         return view('admin.task.index', compact(
             'Channel',
             'Project',
             'Supplier',
+            'team',
             'data',
         ));
     }
@@ -133,11 +136,21 @@ class TaskController extends Controller
      */
     public function edit($id)
     {
+        $user = '';
+        $data = Task::find($id);
         $Channel = Channel::get();
         $Project = Project::get();
         $Supplier = Supplier::get();
-        $data = Task::find($id);
-        return view('admin.task.edit', compact('Channel', 'Project', 'Supplier', 'data'));
+        $team = Team::get();
+        if($data->team_id!=""){$user = User::where('team_id', $data->team_id)->get();}
+        return view('admin.task.edit', compact(
+            'Channel', 
+            'Project', 
+            'Supplier', 
+            'team', 
+            'user', 
+            'data'
+        ));
     }
 
     /**
