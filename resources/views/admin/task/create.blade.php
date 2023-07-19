@@ -74,6 +74,24 @@
                   </select>
                 </div>
               </div>
+
+              <div class="form-group row">
+                <label class="col-sm-2 col-form-label">Đội nhóm</label>
+                <div class="col-sm-5">
+                  <select name="team_id" class="form-control select2" id="team">
+                    <option value="">--Chọn đội nhóm--</option>
+                    @foreach($team as $val)
+                    <option value="{{$val->id}}">{{$val->name}}</option>
+                    @endforeach
+                  </select>
+                </div>
+                <div class="col-sm-5">
+                  <select name="u_id" class="form-control select2" id="user">
+                    <option value="">--Chọn nhân viên--</option>
+                    
+                  </select>
+                </div>
+              </div>
               
               <div class="form-group row">
                 <label class="col-sm-2 col-form-label">Ngày phát sinh</label>

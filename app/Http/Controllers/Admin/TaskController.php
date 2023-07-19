@@ -12,6 +12,7 @@ use App\Models\Task;
 use App\Models\Channel;
 use App\Models\Project;
 use App\Models\Supplier;
+use App\Models\Team;
 
 class TaskController extends Controller
 {
@@ -85,7 +86,8 @@ class TaskController extends Controller
         $Channel = Channel::get();
         $Project = Project::get();
         $Supplier = Supplier::get();
-        return view('admin.task.create', compact('Channel', 'Project', 'Supplier'));
+        $team = Team::get();
+        return view('admin.task.create', compact('Channel', 'Project', 'Supplier', 'team'));
     }
 
     /**
@@ -103,6 +105,8 @@ class TaskController extends Controller
         $task->channel_id = $data['channel_id'];
         $task->project_id = $data['project_id'];
         $task->supplier_id = $data['supplier_id'];
+        $task->team_id = $data['team_id'];
+        $task->u_id = $data['u_id'];
         $task->date = $data['date'];
         $task->name = $data['name'];
         $task->content = $data['content'];

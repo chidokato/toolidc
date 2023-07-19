@@ -139,3 +139,13 @@ $(document).ready(function() {
 
 
 // submit form
+
+$(document).ready(function(){
+    $("select#team").change(function(){
+        var id = $(this).val();
+        // alert(id);
+        $.get("ajax/change_team/"+id,function(data){
+            $("#user").html(data);
+        });
+    });
+});

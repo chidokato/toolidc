@@ -64,6 +64,15 @@
                                   <input value="{{$data->yourname}}" name="yourname" placeholder="..." type="text" class="form-control">
                               </div>
                               <div class="form-group">
+                                  <label>Đội Nhóm</label>
+                                  <select name="team_id" class="form-control">
+                                    <option value="">...</option>
+                                    @foreach($team as $val)
+                                    <option <?php if($val->id==$data->team_id){ echo "selected"; } ?> value="{{$val->id}}">{{$val->name}}</option>
+                                    @endforeach
+                                  </select>
+                              </div>
+                              <div class="form-group">
                                   <label>Địa chỉ</label>
                                   <input value="{{$data->address}}" name="address" placeholder="..." type="text" class="form-control">
                               </div>

@@ -13,6 +13,7 @@ use App\Models\CategoryTranslation;
 use App\Models\ProvinceTranslation;
 use App\Models\DistrictTranslation;
 use App\Models\WardTranslation;
+use App\Models\User;
 
 class AjaxController extends Controller
 {
@@ -21,6 +22,15 @@ class AjaxController extends Controller
         $data = CategoryTranslation::where('category_id',$id)->get();
         foreach ($data as $key => $value) {
     		echo '<input value="'.$value->id.'" name="category_id:'.$value->locale.'" type="hidden">';
+        }
+    }
+
+    public function change_team($id)
+    {
+        $data = User::where('team_id',$id)->get();
+        echo "<option value=''>...</option>";
+        foreach ($data as $key => $value) {
+    		echo '<option value="'.$value->id.'">'.$value->name.'</option>';
         }
     }
 

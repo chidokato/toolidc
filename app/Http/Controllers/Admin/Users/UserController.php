@@ -6,9 +6,10 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Session;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Auth;
 
 use App\Models\User;
-use Illuminate\Support\Facades\Auth;
+use App\Models\Team;
 
 class UserController extends Controller
 {
@@ -30,7 +31,8 @@ class UserController extends Controller
      */
     public function create()
     {
-        return view('admin.user.create');
+        $team = Team::get();
+        return view('admin.user.create', compact('team'));
     }
 
     /**
@@ -59,6 +61,7 @@ class UserController extends Controller
         $User->address = $request->address;
         $User->phone = $request->phone;
         $User->facebook = $request->facebook;
+        $User->team_id = $request->team_id;
         $User->save();
         return redirect('admin/users')->with('success','successfully');
     }
@@ -84,8 +87,10 @@ class UserController extends Controller
     {
         //
         $data = User::find($id);
+        $team = Team::get();
         return view('admin.user.edit', compact(
-            'data'
+            'data',
+            'team',
         ));
     }
 
@@ -117,6 +122,7 @@ class UserController extends Controller
         $User->address = $request->address;
         $User->phone = $request->phone;
         $User->facebook = $request->facebook;
+        $User->team_id = $request->team_id;
         $User->save();
         return redirect()->back()->with('success','Thành công');
         // return redirect('admin/users')->with('success','successfully');

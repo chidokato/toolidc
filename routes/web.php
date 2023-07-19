@@ -10,6 +10,7 @@ use App\Http\Controllers\Admin\ChannelController;
 use App\Http\Controllers\Admin\ProjectController;
 use App\Http\Controllers\Admin\SupplierController;
 use App\Http\Controllers\Admin\TaskController;
+use App\Http\Controllers\Admin\TeamController;
 
 use App\Http\Controllers\AjaxController;
 use App\Http\Controllers\HomeController;
@@ -32,9 +33,11 @@ Route::get('/auth/google/callback', function () {
     // $user->token
 });
 
+
 // ajax
 Route::group(['prefix'=>'ajax'],function(){
     Route::get('change_cate_lang/{id}', [AjaxController::class, 'change_cate_lang']);
+    Route::get('change_team/{id}', [AjaxController::class, 'change_team']);
     
 });
 
@@ -47,6 +50,7 @@ Route::middleware(['auth'])->group(function () {
         Route::resource('channel',ChannelController::class);
         Route::resource('project',ProjectController::class);
         Route::resource('supplier',SupplierController::class);
+        Route::resource('team',TeamController::class);
         
         Route::resource('task',TaskController::class);
         Route::POST('task/search', [TaskController::class, 'search']);
