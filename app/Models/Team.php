@@ -9,5 +9,8 @@ class Team extends Model
 {
     use HasFactory;
 
-    
+    public function Task()
+    {
+        return $this->hasMany(Task::class, 'team_id', 'id');
+    }
 }

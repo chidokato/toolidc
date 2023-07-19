@@ -5,6 +5,7 @@
                                 <th>Dự án</th>
                                 <th>Kênh chạy</th>
                                 <th>Nhà cung cấp</th>
+                                <th>Đội nhóm</th>
                                 <th>Số tiền</th>
                                 <th>Ngày hoàn thành</th>
                                 <th></th>
@@ -18,6 +19,7 @@
                                 <td>{{$val->Project->name}}</td>
                                 <td>{{$val->Channel->name}}</td>
                                 <td>{{$val->Supplier->name}}</td>
+                                <td>{{$val->Team->name}}</td>
                                 <td>{{ number_format($val->price) }}đ</td>
                                 <td>{{$val->date}}</td>
                                 <td style="display: flex;">

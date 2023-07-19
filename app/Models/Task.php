@@ -21,5 +21,13 @@ class Task extends Model
 	{
 	    return $this->hasOne(Supplier::class, 'id', 'supplier_id');
 	}
+	public function Team()
+	{
+	    return $this->hasOne(Team::class, 'id', 'team_id');
+	}
+	public function User()
+	{
+	    return $this->hasOne(User::class, 'id', 'u_id');
+	}
 }
 
