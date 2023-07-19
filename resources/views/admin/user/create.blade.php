@@ -44,18 +44,19 @@
                               <div class="form-group">
                                   <label>Quyền người dùng</label>
                                   <select name="permission" class="form-control">
+                                    <option value="6">Member</option>
                                     <option value="1">SuperAdmin</option>
                                     <option value="2">Admin</option>
-                                    <option value="6">Member</option>
+                                    
                                   </select>
                               </div>
                               <div class="form-group">
                                   <div class="edit_pass"><label>Mật khẩu</label> <!-- <label class="cursor_pointer"><input type="checkbox" id='changepassword' name="changepassword" />  <strong>EDIT</strong> </label> --> </div>
-                                  <input  name="password" placeholder="Password" type="password" class="form-control pass">
+                                  <input value="123456" name="password" placeholder="Password" type="password" class="form-control pass">
                               </div>
                               <div class="form-group">
                                   <label class="">Nhập lại mật khẩu</label>
-                                  <input  name="passwordagain" placeholder="Confirm password" type="password" class="form-control pass">
+                                  <input value="123456" name="passwordagain" placeholder="Confirm password" type="password" class="form-control pass">
                               </div>
                           </div>
                           <div class="col-md-6">
