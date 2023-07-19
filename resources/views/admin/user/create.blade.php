@@ -46,6 +46,7 @@
                                   <select name="permission" class="form-control">
                                     <option value="1">SuperAdmin</option>
                                     <option value="2">Admin</option>
+                                    <option value="6">Member</option>
                                   </select>
                               </div>
                               <div class="form-group">
