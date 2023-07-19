@@ -30,7 +30,7 @@ class AjaxController extends Controller
         $data = User::where('team_id',$id)->get();
         echo "<option value=''>...</option>";
         foreach ($data as $key => $value) {
-    		echo '<option value="'.$value->id.'">'.$value->name.'</option>';
+    		echo '<option value="'.$value->id.'">'.$value->yourname.'</option>';
         }
     }
 
