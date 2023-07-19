@@ -38,7 +38,7 @@
                                 <td>{{$val->id}}</td>
                                 <td><a href="{{route('users.edit',[$val->id])}}">{{$val->yourname}}</a></td>
                                 <td>{{$val->email}}</td>
-                                <td>{{$val->permission == 1? "SuperAdmin" : "Admin"}}</td>
+                                <td>{{$val->permission}}</td>
                                 <td>{{$val->created_at}}</td>
                                 <td>
                                     <a href="{{route('users.edit',[$val->id])}}" class="mr-2"><i class="fas fa-edit" aria-hidden="true"></i></a>
