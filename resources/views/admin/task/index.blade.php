@@ -40,6 +40,15 @@
         </div>
         <div class="col-xl-2 col-lg-2">
             <div class="form-group">
+                <label class="">Đội nhóm</label>
+                <select name="team" class="form-control select2">
+                    <option value="">...</option>
+                    <?php addeditcat ($team,0,$str='',old('parent_id')); ?> 
+                </select>
+            </div>
+        </div>
+        <div class="col-xl-2 col-lg-2">
+            <div class="form-group">
                 <label class="">Thời gian</label>
                 <input class="form-control" type="text" name="datefilter" value="" />
             </div>
@@ -75,43 +84,7 @@
             <div class="tab-content overflow">
                 <div class="tab-pane active" id="loadchat">
                     @if(count($data) > 0)
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th>Dự án</th>
-                                <th>Kênh chạy</th>
-                                <th>Nhà cung cấp</th>
-                                <th>Đội nhóm</th>
-                                <th>Số tiền</th>
-                                <th>Ngày hoàn thành</th>
-                                <th></th>
-                            </tr>
-                        </thead>
-                        
-                        <tbody>
-                            <?php $tatall = 0; ?>
-                            @foreach($data as $val)
-                            <tr>
-                                <td>{{$val->Project->name}}</td>
-                                <td>{{$val->Channel->name}}</td>
-                                <td>{{$val->Supplier->name}}</td>
-                                <td>{{ $val->team_id==''? '':$val->Team->name}} ({{$val->u_id==''? '':$val->User->yourname}})</td>
-                                <td>{{ number_format($val->price) }}đ</td>
-                                <td>{{$val->date}}</td>
-                                <td style="display: flex;">
-                                    <a href="{{route('task.edit',[$val->id])}}" class="mr-2"><i class="fas fa-edit" aria-hidden="true"></i></a>
-                                    <form action="{{route('task.destroy', [$val->id])}}" method="POST">
-                                      @method('DELETE')
-                                      @csrf
-                                      <button class="button_none" onclick="return confirm('Bạn muốn xóa bản ghi ?')"><i class="fas fa-trash-alt"></i></button>
-                                    </form>
-                                </td>
-                            </tr>
-                            <?php $tatall = $tatall + $val->price; ?>
-                            @endforeach
-                        </tbody>
-                        <div class="tatall">Tổng tiền: {{ number_format($tatall) }}đ</div>
-                    </table>
+                        @include('admin.task.load')
                     @endif
                 </div>
             </div>

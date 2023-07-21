@@ -34,6 +34,7 @@ class TaskController extends Controller
             'Channel',
             'Project',
             'Supplier',
+            'Supplier',
             'team',
             'data',
         ));
@@ -60,6 +61,9 @@ class TaskController extends Controller
         }
         if($request->supplier){
             $data->where('supplier_id',$request->supplier);
+        }
+        if($request->team){
+            $data->where('team_id',$request->team);
         }
         if(isset($request->datefilter)){
             $datefilter = explode(" - ", $request->datefilter);
