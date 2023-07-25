@@ -5,6 +5,13 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
+use App\Models\Task;
+use App\Models\Channel;
+use App\Models\Project;
+use App\Models\Supplier;
+use App\Models\Team;
+use App\Models\User;
+
 class MainController extends Controller
 {
     /**
@@ -15,7 +22,10 @@ class MainController extends Controller
     public function index()
     {
         // echo "trang chủ admin";
-        return view('admin.layout.main');
+        $project = Project::get();
+        return view('admin.main.index', compact(
+            'project',
+        ));
     }
 
     /**

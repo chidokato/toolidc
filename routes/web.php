@@ -46,17 +46,15 @@ Route::middleware(['auth'])->group(function () {
     Route::prefix('admin')->group(function () {
         // main
         Route::get('main', [MainController::class, 'index'])->name('admin');
+        Route::get('project/export', [ProjectController::class, 'export']);
 
         Route::resource('channel',ChannelController::class);
         Route::resource('project',ProjectController::class);
         Route::resource('supplier',SupplierController::class);
         Route::resource('team',TeamController::class);
-        
         Route::resource('task',TaskController::class);
         Route::POST('task/search', [TaskController::class, 'search']);
-
         Route::resource('users',UserController::class);
-
         Route::group(['prefix'=>'section'],function(){
             Route::get('index/{pid}', [SectionController::class, 'index']);
         });

@@ -9,6 +9,8 @@ use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
 
 use App\Models\Project;
+use App\Models\Total;
+use App\Models\Task;
 
 class ProjectController extends Controller
 {
@@ -31,6 +33,33 @@ class ProjectController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function export()
+    {
+        $note = 'project';
+        $date = '2023-06';
+        $project = Project::get();
+        foreach ($project as $key => $value) {
+            $Task = Task::where('project_id',$value->id)->where('date','like',"%$date%")->get();
+            $i = 0;
+            foreach ($Task as $key => $val) {
+                $i = $i + $val->price;
+            }
+            $countTotal = Total::where('date', $date)->where('project_id', $value->id)->count();
+            if($countTotal > 0){
+                $Total = Total::where('date', $date)->where('project_id', $value->id)->first();
+                $Total->peice = $i;
+                $Total->save();
+            }else{
+                $Total = new Total();
+                $Total->project_id = $value->id;
+                $Total->peice = $i;
+                $Total->date = $date;
+                $Total->save();
+            }
+        }
+        return redirect()->back();
+    }
+
     public function create()
     {
         $project = Project::get();

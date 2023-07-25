@@ -20,6 +20,8 @@
     <!-- select2 multiple css -->
     <link href="admin_asset/select2/css/select2.min.css" rel="stylesheet">
 
+    @yield('css')
+
 </head>
 
 <body id="page-top">
@@ -37,12 +39,10 @@
         
     </div>
     <!-- Footer -->
-            
-            <!-- End of Footer -->
-
-            <a class="scroll-to-top rounded" href="#page-top">
-            <i class="fas fa-angle-up"></i>
-        </a>
+        <!-- End of Footer -->
+        <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+    </a>
 
     <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
@@ -87,7 +87,6 @@
     <script src="admin_asset/jquery-easing/jquery.easing.min.js"></script>
     <script src="admin_asset/js/sb-admin-2.min.js"></script>
     <script src="admin_asset/js/pages/crud/file-upload/image-inpute3c3.js?v=7.2.5"></script>
-
     
     <script src="http://code.jquery.com/jquery-latest.js"></script>
 
