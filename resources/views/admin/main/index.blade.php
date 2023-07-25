@@ -7,9 +7,16 @@
 @section('js')
 <script type="text/javascript" src="//cdn.datatables.net/1.13.5/js/jquery.dataTables.min.js"></script>
 <script type="text/javascript">
-    let table = new DataTable('.myTable', {
-        responsive: true
+    // let table = new DataTable('.myTable', {
+    //     responsive: true
+    // });
+
+    $(document).ready(function() {
+        $('.myTable').DataTable({
+            "order": [[0, "desc"]] // Sắp xếp cột thứ 2 (cột Age) từ lớn đến bé
+        });
     });
+
 </script>
 @endsection
 
