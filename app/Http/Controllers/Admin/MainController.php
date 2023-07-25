@@ -23,8 +23,12 @@ class MainController extends Controller
     {
         // echo "trang chủ admin";
         $project = Project::get();
+        $Team = Team::get();
+        $User = User::get();
         return view('admin.main.index', compact(
             'project',
+            'Team',
+            'User',
         ));
     }
 
