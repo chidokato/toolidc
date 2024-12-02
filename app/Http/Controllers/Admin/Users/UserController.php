@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin\Users;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Session;
+use DB;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
 
@@ -18,10 +19,35 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    // public function index()
+    // {
+    //     $users = User::orderBy('id', 'DESC')->get();
+    //     return view('admin.user.index', compact('users'));
+    // }
+
+    public function index(Request $request)
     {
-        $users = User::orderBy('id', 'DESC')->get();
-        return view('admin.user.index', compact('users'));
+        $teams = Team::orderBy('id', 'DESC')->get();
+        $perPage = $request->get('per_page', 20); // Mặc định là 20 nếu không có lựa chọn
+        $key = $request->get('key', '');
+        $team_id = $request->get('team', '');
+        
+        $query = User::query();
+
+        if ($key) {
+            $query->where('yourname', 'like', '%' . $key . '%');
+        }
+
+        if ($team_id) {
+            $query->where('team_id', $team_id);
+        }
+
+        $users = $query->paginate($perPage);
+
+        return view('admin.user.index', compact(
+            'teams',
+            'users',
+        ));
     }
 
     /**
@@ -64,6 +90,31 @@ class UserController extends Controller
         $User->team_id = $request->team_id;
         $User->save();
         return redirect('admin/users')->with('success','successfully');
+    }
+
+    public function upfile(Request $request)
+    {
+        // $request->validate([
+        //     'txt_file' => 'required|file|mimes:txt',
+        // ]);
+
+        $file = $request->file('txt_file');
+
+        $fileContent = file($file->getRealPath(), FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+
+        // dd($fileContent);
+
+        foreach ($fileContent as $line) {
+            $data = explode(',', $line);
+            DB::table('users')->insert([
+                'yourname' => $data[1],
+                'team_id' => $data[2],
+                'sku' => $data[0],
+                // 'email ' => $data[4],
+            ]);
+        }
+
+        return back()->with('success', 'success.');
     }
 
     /**
@@ -121,6 +172,7 @@ class UserController extends Controller
         $User->yourname = $request->yourname;
         $User->address = $request->address;
         $User->phone = $request->phone;
+        $User->sku = $request->sku;
         $User->facebook = $request->facebook;
         $User->team_id = $request->team_id;
         $User->save();

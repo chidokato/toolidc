@@ -29,16 +29,51 @@
     <!-- <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i> Generate Report</a> -->
 </div>
 
+<?php 
+    $totalAmount = 0;
+    $totals_team = [];
+    $totals_user = [];
+    $totals_project = [];
+    foreach ($task as $row) {
+        if (isset($totals_team[$row['teams_name']])) {
+            $totals_team[$row['teams_name']] += $row['actual_costs'];
+        } else {
+            $totals_team[$row['teams_name']] = $row['actual_costs'];
+        }
+
+        if (isset($totals_user[$row['yourname']])) {
+            $totals_user[$row['yourname']] += $row['actual_costs'];
+        } else {
+            $totals_user[$row['yourname']] = $row['actual_costs'];
+        }
+
+        if (isset($totals_project[$row['project_name']])) {
+            $totals_project[$row['project_name']] += $row['actual_costs'];
+        } else {
+            $totals_project[$row['project_name']] = $row['actual_costs'];
+        }
+
+        $totalAmount += $row['actual_costs'];
+    }
+    
+
+    arsort($totals_team);
+    arsort($totals_user);
+    arsort($totals_project);
+
+    // dd($totals_project);
+
+?>
+
 <div class="row">
-    <!-- Earnings (Monthly) Card Example -->
     <div class="col-xl-3 col-md-6 mb-4">
         <div class="card border-left-primary shadow h-100 py-2">
             <div class="card-body">
                 <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
                         <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                            Earnings (Monthly)</div>
-                        <div class="h5 mb-0 font-weight-bold text-gray-800">$40,000</div>
+                            Tổng tiền thực tế</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{ number_format($totalAmount) }} đ</div>
                     </div>
                     <div class="col-auto">
                         <i class="fas fa-calendar fa-2x text-gray-300"></i>
@@ -48,15 +83,14 @@
         </div>
     </div>
 
-    <!-- Earnings (Monthly) Card Example -->
     <div class="col-xl-3 col-md-6 mb-4">
         <div class="card border-left-success shadow h-100 py-2">
             <div class="card-body">
                 <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
                         <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
-                            Earnings (Annual)</div>
-                        <div class="h5 mb-0 font-weight-bold text-gray-800">$215,000</div>
+                            Tổng số dự án</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{ number_format(count($project)) }}</div>
                     </div>
                     <div class="col-auto">
                         <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
@@ -66,17 +100,16 @@
         </div>
     </div>
 
-    <!-- Earnings (Monthly) Card Example -->
     <div class="col-xl-3 col-md-6 mb-4">
         <div class="card border-left-info shadow h-100 py-2">
             <div class="card-body">
                 <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
-                        <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Tasks
+                        <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Tổng số nhân viên
                         </div>
                         <div class="row no-gutters align-items-center">
                             <div class="col-auto">
-                                <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">50%</div>
+                                <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">{{ number_format(count($User)) }}</div>
                             </div>
                             <div class="col">
                                 <div class="progress progress-sm mr-2">
@@ -93,15 +126,14 @@
         </div>
     </div>
 
-    <!-- Pending Requests Card Example -->
     <div class="col-xl-3 col-md-6 mb-4">
         <div class="card border-left-warning shadow h-100 py-2">
             <div class="card-body">
                 <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
                         <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
-                            Pending Requests</div>
-                        <div class="h5 mb-0 font-weight-bold text-gray-800">18</div>
+                            Tổng số nhóm</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{ number_format(count($Team)) }}</div>
                     </div>
                     <div class="col-auto">
                         <i class="fas fa-comments fa-2x text-gray-300"></i>
@@ -112,32 +144,43 @@
     </div>
 </div>
 
+
 <div class="row">
-    <div class="col-xl-6 col-lg-6">
+    <div class="col-xl-3 col-lg-3">
+        <div class="card shadow mb-4">
+            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                <h6 class="m-0 font-weight-bold text-primary">Lọc</h6>
+            </div>
+            <div class="card-body">
+                
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="row">
+    <div class="col-xl-3 col-lg-3">
         <div class="card shadow mb-4">
             <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                 <h6 class="m-0 font-weight-bold text-primary">Dự án</h6>
             </div>
             <div class="card-body">
-                <table class="table display myTable">
+                <table class="table display">
                     <thead>
-                        <tr>
-                            <th style="text-align: right;">Tổng tiền</th>
-                            <th>Tên dự án</th>
+                        <tr >
+                            <th>Dự án ({{count($totals_project)}}) </th>
+                            <th style="text-align: right;">{{ number_format($totalAmount) }}</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach($project as $val)
+                        @foreach($totals_project as $project_name => $total)
                         <tr>
+                            <td>{{$project_name}}</td>
                             <td style="text-align: right;">
-                                <?php $Tasks = Task::where('project_id',$val->id)->get(); ?>
-                                <?php $i = 0; ?>
-                                <?php foreach ($Tasks as $key => $Task) {
-                                    $i = $i + $Task->price;
-                                } ?>
-                                {{ number_format($i) }}
+                                {{ number_format($total, 0, ',', '.') }}
                             </td>
-                            <td>{{$val->name}}</td>
                         </tr>
                         @endforeach
                     </tbody>
@@ -146,31 +189,26 @@
         </div>
     </div>
 
-    <div class="col-xl-6 col-lg-6">
+    <div class="col-xl-3 col-lg-3">
         <div class="card shadow mb-4">
             <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                <h6 class="m-0 font-weight-bold text-primary">Đội nhóm</h6>
+                <h6 class="m-0 font-weight-bold text-primary">Nhóm</h6>
             </div>
             <div class="card-body">
-                <table class="table display myTable" >
+                <table class="table display">
                     <thead>
                         <tr>
-                            <th style="text-align: right;">Tổng tiền</th>
-                            <th>Tên dự án</th>
+                            <th>Nhóm</th>
+                            <th style="text-align: right;">{{ number_format($totalAmount) }}</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach($Team as $val)
+                        @foreach($totals_team as $yourname => $total)
                         <tr>
+                            <td>{{$yourname}}</td>
                             <td style="text-align: right;">
-                                <?php $Tasks = Task::where('team_id',$val->id)->get(); ?>
-                                <?php $i = 0; ?>
-                                <?php foreach ($Tasks as $key => $Task) {
-                                    $i = $i + $Task->price;
-                                } ?>
-                                {{ number_format($i) }}
+                                {{ number_format($total, 0, ',', '.') }}
                             </td>
-                            <td>{{$val->name}}</td>
                         </tr>
                         @endforeach
                     </tbody>
@@ -179,31 +217,26 @@
         </div>
     </div>
 
-    <div class="col-xl-6 col-lg-6">
+    <div class="col-xl-3 col-lg-3">
         <div class="card shadow mb-4">
             <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                <h6 class="m-0 font-weight-bold text-primary">Thành viên</h6>
+                <h6 class="m-0 font-weight-bold text-primary">Nhân viên</h6>
             </div>
             <div class="card-body">
-                <table class="table display myTable" >
+                <table class="table display">
                     <thead>
                         <tr>
-                            <th style="text-align: right;">Tổng tiền</th>
                             <th>Tên dự án</th>
+                            <th style="text-align: right;">Tổng tiền</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach($User as $val)
+                        @foreach($totals_user as $u_id => $total)
                         <tr>
+                            <td>{{$u_id}}</td>
                             <td style="text-align: right;">
-                                <?php $Tasks = Task::where('u_id',$val->id)->get(); ?>
-                                <?php $i = 0; ?>
-                                <?php foreach ($Tasks as $key => $Task) {
-                                    $i = $i + $Task->price;
-                                } ?>
-                                {{ number_format($i) }}
+                                {{ number_format($total, 0, ',', '.') }}
                             </td>
-                            <td>{{$val->yourname}}</td>
                         </tr>
                         @endforeach
                     </tbody>
@@ -211,6 +244,8 @@
             </div>
         </div>
     </div>
+
+    
     
 </div>
 

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Session;
+use DB;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
 
@@ -82,6 +83,27 @@ class ProjectController extends Controller
         return redirect('admin/project')->with('success','successfully');
     }
 
+    public function upfile(Request $request)
+    {
+        $request->validate([
+            'txt_file' => 'required|file|mimes:txt',
+        ]);
+
+        $file = $request->file('txt_file');
+
+        $fileContent = file($file->getRealPath(), FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+
+        foreach ($fileContent as $line) {
+            $data = explode('"', $line);
+            DB::table('projects')->insert([
+                'user_id' => 1,
+                'name' => $data[0],
+            ]);
+        }
+
+        return back()->with('success', 'success.');
+    }
+
     /**
      * Display the specified resource.
      *
@@ -120,7 +142,6 @@ class ProjectController extends Controller
         $Project = Project::find($id);
         $Project->name = $data['name'];
         $Project->save();
-
         // return redirect()->back();
         return redirect('admin/project')->with('success','successfully');
     }

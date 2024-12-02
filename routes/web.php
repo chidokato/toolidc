@@ -13,12 +13,13 @@ use App\Http\Controllers\Admin\TaskController;
 use App\Http\Controllers\Admin\TeamController;
 
 use App\Http\Controllers\AjaxController;
+use App\Http\Controllers\ExcelController;
 use App\Http\Controllers\HomeController;
-
+use App\Http\Controllers\ExcelImportController;
 use Laravel\Socialite\Facades\Socialite;
 
 Route::get('/', [LoginController::class, 'index']);
-Route::get('admin', [LoginController::class, 'index']);
+Route::get('admin', [LoginController::class, 'index'])->name('login');
 Route::POST('admin', [LoginController::class, 'store']);
 Route::get('logout', [LoginController::class, 'logout'])->name('logout');
 
@@ -41,6 +42,7 @@ Route::group(['prefix'=>'ajax'],function(){
     
 });
 
+Route::post('/import-excel', [ExcelImportController::class, 'importExcel'])->name('import.excel');
 
 Route::middleware(['auth'])->group(function () {
     Route::prefix('admin')->group(function () {
@@ -54,10 +56,16 @@ Route::middleware(['auth'])->group(function () {
         Route::resource('team',TeamController::class);
         Route::resource('task',TaskController::class);
         Route::POST('task/search', [TaskController::class, 'search']);
+        Route::POST('task/destroy', [TaskController::class, 'destroy'])->name('task.destroy');
         Route::resource('users',UserController::class);
         Route::group(['prefix'=>'section'],function(){
             Route::get('index/{pid}', [SectionController::class, 'index']);
         });
+
+        Route::post('team/upfile', [TeamController::class, 'upfile'])->name('team.upfile');
+        Route::post('project/upfile', [ProjectController::class, 'upfile'])->name('project.upfile');
+        Route::post('users/upfile', [UserController::class, 'upfile'])->name('users.upfile');
+        Route::post('task/upfile', [TaskController::class, 'upfile'])->name('task.upfile');
     });
 });
 

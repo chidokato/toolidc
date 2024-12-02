@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Session;
+use DB;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
 
@@ -49,9 +50,29 @@ class TeamController extends Controller
         $team = new Team();
         $team->user_id = Auth::User()->id;
         $team->name = $data['name'];
-        $team->parent = $data['parent'];
         $team->save();
         return redirect('admin/team')->with('success','successfully');
+    }
+
+    public function upfile(Request $request)
+    {
+        $request->validate([
+            'txt_file' => 'required|file|mimes:txt',
+        ]);
+
+        $file = $request->file('txt_file');
+
+        $fileContent = file($file->getRealPath(), FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+
+        foreach ($fileContent as $line) {
+            $data = explode(',', $line);
+            DB::table('teams')->insert([
+                'user_id' => 1,
+                'name' => $data[0],
+            ]);
+        }
+
+        return back()->with('success', 'success.');
     }
 
     /**
@@ -91,7 +112,6 @@ class TeamController extends Controller
         // dd($data);
         $team = Team::find($id);
         $team->name = $data['name'];
-        $team->parent = $data['parent'];
         $team->save();
 
         return redirect()->back();

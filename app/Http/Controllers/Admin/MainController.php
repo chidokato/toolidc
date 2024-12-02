@@ -21,11 +21,24 @@ class MainController extends Controller
      */
     public function index()
     {
-        // echo "trang chủ admin";
+        // $arays = Task::get();
+        // foreach($arays as $aray){
+        //     $aa = Task::find($aray->id);
+        //     if($aa->team == 'NHóm Lộc'){ $aa->team = 6; }
+        //     $aa->save();
+        // }
+
+        $task = Task::
+            leftJoin('users', 'users.id', '=', 'tasks.u_id')
+            ->leftJoin('teams', 'teams.id', '=', 'tasks.team_id')
+            ->leftJoin('projects', 'projects.id', '=', 'tasks.project_id')
+            ->select('tasks.*', 'users.yourname', 'projects.name AS project_name', 'teams.name AS teams_name')
+            ->get();
         $project = Project::get();
         $Team = Team::get();
         $User = User::get();
         return view('admin.main.index', compact(
+            'task',
             'project',
             'Team',
             'User',

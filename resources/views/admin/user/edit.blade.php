@@ -65,6 +65,10 @@
                                   <input value="{{$data->yourname}}" name="yourname" placeholder="..." type="text" class="form-control">
                               </div>
                               <div class="form-group">
+                                  <label>Mã NV</label>
+                                  <input value="{{$data->sku}}" name="sku" placeholder="..." type="text" class="form-control">
+                              </div>
+                              <div class="form-group">
                                   <label>Đội Nhóm</label>
                                   <select name="team_id" class="form-control">
                                     <option value="">...</option>
