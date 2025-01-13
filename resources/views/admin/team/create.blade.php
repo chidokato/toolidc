@@ -35,8 +35,17 @@
                 <div class="row">
                   <div class="col-md-6">
                       <div class="form-group">
-                          <label>View</label>
+                          <label>Tên nhóm</label>
                           <input name="name" placeholder="..." type="text" class="form-control">
+                      </div>
+                  </div>
+                  <div class="col-md-6">
+                      <div class="form-group">
+                          <label>Tên nhóm</label>
+                          <select class="form-control" name="parent">
+                              <option value="0">root</option>
+                              <?php dequy_list ($team,0,$str='',old('parent')); ?>
+                          </select>
                       </div>
                   </div>
                   

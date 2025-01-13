@@ -50,6 +50,7 @@ class TeamController extends Controller
         $team = new Team();
         $team->user_id = Auth::User()->id;
         $team->name = $data['name'];
+        $team->parent = $data['parent'];
         $team->save();
         return redirect('admin/team')->with('success','successfully');
     }
@@ -112,6 +113,7 @@ class TeamController extends Controller
         // dd($data);
         $team = Team::find($id);
         $team->name = $data['name'];
+        $team->parent = $data['parent'];
         $team->save();
 
         return redirect()->back();

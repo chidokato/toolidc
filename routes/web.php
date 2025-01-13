@@ -23,7 +23,6 @@ Route::get('admin', [LoginController::class, 'index'])->name('login');
 Route::POST('admin', [LoginController::class, 'store']);
 Route::get('logout', [LoginController::class, 'logout'])->name('logout');
 
-
 Route::get('/auth/google', function () {
     return Socialite::driver('google')->redirect();
 });
@@ -48,6 +47,9 @@ Route::middleware(['auth'])->group(function () {
     Route::prefix('admin')->group(function () {
         // main
         Route::get('main', [MainController::class, 'index'])->name('admin');
+        Route::post('generate', [MainController::class, 'generateImage']);
+
+
         Route::get('project/export', [ProjectController::class, 'export']);
 
         Route::resource('channel',ChannelController::class);

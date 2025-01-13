@@ -30,16 +30,11 @@
                                     <th>ID</th>
                                     <th>Name</th>
                                     <th>date</th>
+                                    <th></th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach($data as $val)
-                                <tr>
-                                    <td>{{$val->id}}</td>
-                                    <td>{{$val->name}}</td>
-                                    <td>{{$val->created_at}}</td>
-                                </tr>
-                                @endforeach
+                                <?php dequycategory ($data,0,$str='',old('parent')); ?>  
                             </tbody>
                     </table>
                     @endif
@@ -48,5 +43,34 @@
         </div>
     </div>
 </div>
+
+
+<?php 
+    function dequycategory ($menulist, $parent=0, $str='')
+    {
+        foreach ($menulist as $val) 
+        {
+            if ($val['parent'] == $parent) 
+            { 
+                ?>
+                    <tr style="border-bottom: 1px solid #f3f6f9;">
+                        <td>{{$val->id}}</td>
+                        <td><a href="{{route('team.edit',[$val->id])}}">{{$str}}{{$val->name}}</a></td>
+                        <td class="date">{{date('d/m/Y',strtotime($val->created_at))}} <sup title="Sửa lần cuối: {{date('d/m/Y',strtotime($val->updated_at))}}"><i class="fa fa-question-circle-o" aria-hidden="true"></i></sup> </td>
+                        <td style="display: flex;">
+                            <a href="{{route('team.edit',[$val->id])}}" class="mr-3"><i class="fas fa-edit" aria-hidden="true"></i></a>
+                            <form action="{{route('team.destroy', [$val->id])}}" method="POST">
+                              @method('DELETE')
+                              @csrf
+                              <button class="button_none" onclick="return confirm('Bạn muốn xóa bản ghi ?')"><i class="fas fa-trash-alt"></i></button>
+                            </form>
+                        </td>
+                    </tr>
+                <?php
+                dequycategory ($menulist, $val['id'], $str.'__');
+            }
+        }
+    }
+?>
 
 @endsection

@@ -46,7 +46,6 @@
                                 <th></th>
                                 <th>Mã NV</th>
                                 <th>Name</th>
-                                <th>Team</th>
                                 <th>Email</th>
                                 <th>Quyền</th>
                                 <th>date</th>
@@ -59,7 +58,6 @@
                                 <td>{{$val->id}}</td>
                                 <td>{{$val->sku}}</td>
                                 <td><a href="{{route('users.edit',[$val->id])}}">{{$val->yourname}}</a></td>
-                                <td>{{$val->team_id==''? '' : $val->Team->name}}</td>
                                 <td>{{$val->email}}</td>
                                 <td>{{$val->permission}}</td>
                                 <td>{{$val->created_at}}</td>

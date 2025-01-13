@@ -180,6 +180,7 @@ return [
         Laravel\Socialite\SocialiteServiceProvider::class,
 
 
+
     ],
 
     /*

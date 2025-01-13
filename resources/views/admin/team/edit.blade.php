@@ -40,6 +40,15 @@
                           <input value="{{$data->name}}" name="name" placeholder="..." type="text" class="form-control">
                       </div>
                   </div>
+                  <div class="col-md-6">
+                      <div class="form-group">
+                          <label>Tên nhóm</label>
+                          <select class="form-control" name="parent">
+                              <option value="0">root</option>
+                              <?php addeditcat ($team,0,$str='',$data['parent']); ?>
+                          </select>
+                      </div>
+                  </div>
                   
               </div>
             </div>

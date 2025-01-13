@@ -145,6 +145,15 @@
 </div>
 
 
+<h1>Chèn Tên Lên Ảnh</h1>
+<form action="admin/generate" method="POST">
+    @csrf
+    <label for="username">Nhập tên của bạn:</label>
+    <input type="text" id="username" name="username" required>
+    <button type="submit">Chuyển</button>
+</form>
+
+
 <div class="row">
     <div class="col-xl-3 col-lg-3">
         <div class="card shadow mb-4">
