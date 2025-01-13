@@ -57,7 +57,7 @@ class MainController extends Controller
         $username = $request->input('username');
 
         // Tải ảnh gốc
-        $baseImagePath = public_path('images/base_image.png'); // Đảm bảo ảnh tồn tại
+        $baseImagePath = public_path('data/anh.jpg'); // Đảm bảo ảnh tồn tại
         $image = Image::make($baseImagePath);
 
         // Cấu hình font, kích thước và màu chữ
