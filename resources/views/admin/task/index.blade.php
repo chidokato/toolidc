@@ -138,11 +138,6 @@
                                     </td>
                                     <td style="display: flex;">
                                         <a href="{{route('task.edit',[$val->id])}}" class="mr-2"><i class="fas fa-edit" aria-hidden="true"></i></a>
-                                        <form action="{{route('task.destroy', [$val->id])}}" method="POST">
-                                          @method('DELETE')
-                                          @csrf
-                                          <button class="button_none" onclick="return confirm('Bạn muốn xóa bản ghi ?')"><i class="fas fa-trash-alt"></i></button>
-                                        </form>
                                     </td>
                                 </tr>
                                 @endforeach
