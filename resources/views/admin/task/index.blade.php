@@ -130,7 +130,7 @@
                                     <td>{{$val->Channel->name}}</td>
                                     <td>{{$val->Supplier->name}}</td>
                                     <td>
-                                        <div>{{ $val->User->yourname }}</div>
+                                        <div>{{ $val->u_id?$val->User->yourname:'' }}</div>
                                         <div class="small">{{ $val->Team->name }}</div>
                                     </td>
                                     <td>
