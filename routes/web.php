@@ -36,8 +36,8 @@ Route::get('/auth/google/callback', function () {
 
 // ajax
 Route::group(['prefix'=>'ajax'],function(){
-    Route::get('change_cate_lang/{id}', [AjaxController::class, 'change_cate_lang']);
-    Route::get('change_team/{id}', [AjaxController::class, 'change_team']);
+    Route::get('cty/{id}', [AjaxController::class, 'cty']);
+    Route::get('san/{id}', [AjaxController::class, 'san']);
     
 });
 

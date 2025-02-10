@@ -7,32 +7,28 @@ use Session;
 use Illuminate\Http\Request;
 use Image;
 use File;
-use App\Models\Category;
-use App\Models\Images;
-use App\Models\CategoryTranslation;
-use App\Models\ProvinceTranslation;
-use App\Models\DistrictTranslation;
-use App\Models\WardTranslation;
+use App\Models\Team;
 use App\Models\User;
 
 class AjaxController extends Controller
 {
-    public function change_cate_lang($id)
+    public function cty($id)
     {
-        $data = CategoryTranslation::where('category_id',$id)->get();
-        foreach ($data as $key => $value) {
-    		echo '<input value="'.$value->id.'" name="category_id:'.$value->locale.'" type="hidden">';
+        $data = Team::where('parent',$id)->get();
+        echo '<option value="">--Chọn sàn--</option>';
+        foreach ($data as $key => $val) {
+            echo '<option value="'.$val->id.'">'.$val->name.'</option>';
+        }
+    }
+    public function san($id)
+    {
+        $data = Team::where('parent',$id)->get();
+        echo '<option value="">--Chọn nhóm--</option>';
+        foreach ($data as $key => $val) {
+            echo '<option value="'.$val->id.'">'.$val->name.'</option>';
         }
     }
 
-    public function change_team($id)
-    {
-        $data = User::where('team_id',$id)->get();
-        echo "<option value=''>...</option>";
-        foreach ($data as $key => $value) {
-    		echo '<option value="'.$value->id.'">'.$value->yourname.'</option>';
-        }
-    }
 
    
 }

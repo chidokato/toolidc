@@ -133,8 +133,18 @@ class TaskController extends Controller
         $Channel = Channel::get();
         $Project = Project::get();
         $Supplier = Supplier::get();
-        $team = Team::get();
-        return view('admin.task.create', compact('Channel', 'Project', 'Supplier', 'team'));
+        $cty = Team::where('parent',0)->get();
+        $san = Team::where('parent',1)->get();
+        $nhom = Team::where('parent',1)->get();
+        $user = User::get();
+        return view('admin.task.create', compact(
+            'Channel',
+            'Project',
+            'Supplier',
+            'cty',
+            'san',
+            'user'
+        ));
     }
 
     public function upfile(Request $request)
@@ -179,8 +189,11 @@ class TaskController extends Controller
         $task->channel_id = $data['channel_id'];
         $task->project_id = $data['project_id'];
         $task->supplier_id = $data['supplier_id'];
+        $task->cty_id = $data['cty_id'];
+        $task->san_id = $data['san_id'];
         $task->team_id = $data['team_id'];
         $task->u_id = $data['u_id'];
+        $task->user_sku = $data['user_sku'];
         $task->date = $data['date'];
         $task->name = $data['name'];
         $task->content = $data['content'];

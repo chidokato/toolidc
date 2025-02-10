@@ -35,16 +35,19 @@
               
 
               <div class="form-group row">
-                <label class="col-sm-2 col-form-label">Tổng tiền</label>
-                <div class="col-sm-10">
-                  <!-- <input type="text" class="form-control" name="price" id="currency-field" pattern="^\d{1,3}(,\d{3})*(\.\d+)?$" value="" data-type="currency" placeholder="Tổng tiền"> -->
-                  <input type="text" class="form-control" name="price" value="" placeholder="Tổng tiền">
+                <label class="col-sm-2 col-form-label">Chi phí</label>
+                <div class="col-sm-5">
+                  <input type="text" class="form-control" name="actual_costs" id="currency-field" pattern="^\d{1,3}(,\d{3})*(\.\d+)?$" value="" data-type="currency" placeholder="Chi phí thực tế">
                 </div>
+                <div class="col-sm-5">
+                  <input type="text" class="form-control" name="expected_costs" id="currency-field" pattern="^\d{1,3}(,\d{3})*(\.\d+)?$" value="" data-type="currency" placeholder="Chi phí dự kiến">
+                </div>
+                
               </div>
 
               <div class="form-group row">
                 <label class="col-sm-2 col-form-label">Kênh chạy</label>
-                <div class="col-sm-10">
+                <div class="col-sm-5">
                   <select name="channel_id" class="form-control select2" >
                     <option value="">--Chọn kênh chạy--</option>
                     <?php dequy_list ($Channel,0,$str='',old('parent_id')); ?>
@@ -54,7 +57,7 @@
 
               <div class="form-group row">
                 <label class="col-sm-2 col-form-label">Dự án</label>
-                <div class="col-sm-10">
+                <div class="col-sm-5">
                   <select name="project_id" class="form-control select2" >
                     <option value="">--Chọn dự án--</option>
                     @foreach($Project as $val)
@@ -66,7 +69,7 @@
 
               <div class="form-group row">
                 <label class="col-sm-2 col-form-label">Nhà cung cấp</label>
-                <div class="col-sm-10">
+                <div class="col-sm-5">
                   <select name="supplier_id" class="form-control select2" >
                     <option value="">--Chọn nhà cung cấp--</option>
                     @foreach($Supplier as $val)
@@ -78,26 +81,48 @@
 
               <div class="form-group row">
                 <label class="col-sm-2 col-form-label">Đội nhóm</label>
-                <div class="col-sm-5">
-                  <select name="team_id" class="form-control select2" id="team">
-                    <option value="">--Chọn đội nhóm--</option>
-                    @foreach($team as $val)
-                    <option value="{{$val->id}}">{{$val->name}}</option>
+                <div class="col-sm-3">
+                  <select name="cty_id" class="form-control select2" id="cty">
+                    @foreach($cty as $val)
+                    <option value="{{ $val->id }}">{{ $val->name }}</option>
                     @endforeach
                   </select>
                 </div>
+                <div class="col-sm-3">
+                  <select name="san_id" class="form-control select2" id="san">
+                    <option value="">--Chọn sàn--</option>
+                    @foreach($san as $val)
+                    <option value="{{ $val->id }}">{{ $val->name }}</option>
+                    @endforeach
+                  </select>
+                </div>
+                <div class="col-sm-3">
+                  <select name="team_id" class="form-control select2" id="nhom">
+                    <option value="">--Chọn nhóm--</option>
+                  </select>
+                </div>
+                
+                
+              </div>
+
+              <div class="form-group row">
+                <label class="col-sm-2 col-form-label">Nhân Viên</label>
                 <div class="col-sm-5">
                   <select name="u_id" class="form-control select2" id="user">
                     <option value="">--Chọn nhân viên--</option>
-                    
+                    @foreach($user as $val)
+                    <option value="{{ $val->id }}">{{ $val->sku }} | {{ $val->yourname }}</option>
+                    @endforeach
                   </select>
+                  <input type="hidden" name="user_sku" id="user_sku"> <!-- Input ẩn -->
                 </div>
               </div>
               
               <div class="form-group row">
-                <label class="col-sm-2 col-form-label">Ngày phát sinh</label>
-                <div class="col-sm-10">
-                  <input name="date" type="date" class="form-control" placeholder="Ngày phát sinh">
+                <label class="col-sm-2 col-form-label">Thời gian</label>
+                <div class="col-sm-5">
+                  <!-- <input name="date" type="date" class="form-control" placeholder="Ngày phát sinh"> -->
+                  <input class="form-control" type="text" name="datefilter" value="{{request()->datefilter}}" />
                 </div>
               </div>
 
@@ -236,6 +261,15 @@ function formatCurrency(input, blur) {
   caret_pos = updated_len - original_len + caret_pos;
   input[0].setSelectionRange(caret_pos, caret_pos);
 }
+
+
+$(document).ready(function(){
+    $("#user").change(function(){
+        var userSku = $("#user option:selected").data("id");
+        $("#user_sku").val(userSku); // Gán giá trị vào input ẩn
+    });
+});
+
 
 
 

@@ -149,3 +149,22 @@ $(document).ready(function(){
         });
     });
 });
+
+
+$(document).ready(function(){
+    $("#cty").change(function(){
+        var id = $(this).val();
+        $("#nhom").html('<option value="">--Chọn nhóm--</option>'); // Reset #nhom về rỗng
+        $.get("ajax/cty/"+id,function(data){
+            $("#san").html(data);
+        });
+    });
+});
+$(document).ready(function(){
+    $("#san").change(function(){
+        var id = $(this).val();
+        $.get("ajax/san/"+id,function(data){
+            $("#nhom").html(data);
+        });
+    });
+});
