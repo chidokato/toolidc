@@ -46,6 +46,21 @@
               </div>
 
               <div class="form-group row">
+                <label class="col-sm-2 col-form-label">Tỷ lệ hỗ trợ</label>
+                <div class="col-sm-5">
+                  <select name="support_rate" class="form-control">
+                    <option value="">--chọn--</option>
+                    <option value="100%">100%</option>
+                    <option value="90%">90%</option>
+                    <option value="80%">80%</option>
+                    <option value="50%">50%</option>
+                    <option value="30%">30%</option>
+                  </select>
+                </div>
+                
+              </div>
+
+              <div class="form-group row">
                 <label class="col-sm-2 col-form-label">Kênh chạy</label>
                 <div class="col-sm-5">
                   <select name="channel_id" class="form-control select2" >
@@ -123,6 +138,13 @@
                 <div class="col-sm-5">
                   <!-- <input name="date" type="date" class="form-control" placeholder="Ngày phát sinh"> -->
                   <input class="form-control" type="text" name="datefilter" value="{{request()->datefilter}}" />
+                </div>
+              </div>
+
+              <div class="form-group row">
+                <label class="col-sm-2 col-form-label">Xác nhận</label>
+                <div class="col-sm-5">
+                  <input class="" type="checkbox" name="confirm" value="TRUE" /> Xác nhận
                 </div>
               </div>
 
