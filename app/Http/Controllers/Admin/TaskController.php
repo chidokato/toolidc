@@ -38,7 +38,12 @@ class TaskController extends Controller
             $query->where('project_id', $project_id);
         }
         if ($channel_id) {
-            $query->where('channel_id', $channel_id);
+            $channel_array = [$channel_id];
+            $Channels = Channel::where('parent', $channel_id)->get();
+            foreach ($Channels as $key => $Channel) {
+                $channel_array[] = $Channel->id;
+            }
+            $query->whereIn('channel_id', $channel_array);
         }
         if ($supplier_id) {
             $query->where('supplier_id', $supplier_id);
