@@ -96,7 +96,7 @@
                                     <th>
                                         <label class="container"><input type="checkbox" id='select-all' ><span class="checkmark"></span></label>
                                         <div class="option" style="display: none;">
-                                            <button class="button_none" onclick="return confirm('Bạn muốn xóa bản ghi ?')"><i class="fas fa-trash-alt"></i> Xóa tất cả</button>
+                                            <button class="button_none" onclick="return confirm('Bạn muốn xóa bản ghi ?')"><i class="fas fa-trash-alt"></i> Xóa các bản ghi đã chọn</button>
                                         </div>
                                     </th>
                                     <th>Dự án</th>
@@ -138,6 +138,11 @@
                                     </td>
                                     <td style="display: flex;">
                                         <a href="{{route('task.edit',[$val->id])}}" class="mr-2"><i class="fas fa-edit" aria-hidden="true"></i></a>
+                                        <form action="{{route('task.destroy', [$val->id])}}" method="POST">
+                                          @method('DELETE')
+                                          @csrf
+                                          <button class="button_none" onclick="return confirm('Bạn muốn xóa bản ghi ?')"><i class="fas fa-trash-alt"></i></button>
+                                        </form>
                                     </td>
                                 </tr>
                                 @endforeach
