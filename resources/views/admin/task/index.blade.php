@@ -131,7 +131,7 @@
                                     <td>{{$val->Supplier->name}}</td>
                                     <td>
                                         <div>{{ $val->u_id?$val->User->yourname:'' }}</div>
-                                        <div class="small">{{ $val->Team->name }}</div>
+                                        <div class="small">{{ $val->team_id?$val->Team->name:'' }}</div>
                                     </td>
                                     <td>
                                         <div>{{ \Carbon\Carbon::parse($val->date_start)->format('d/m/Y') }} - {{ \Carbon\Carbon::parse($val->date_end)->format('d/m/Y') }} </div>
