@@ -76,8 +76,8 @@
             <div class="form-group">
                 <label class=""></label>
                 <div class="input-group">
-                    <button type="submit" class="form-control btn btn-primary"><i class="fas fa-search"></i> Tìm kiếm</button>
-                    <!-- <button type="button" class="form-control btn btn-secondary" onclick="window.location.href='{{ url()->current() }}'"><i class="fas fa-sync-alt"></i></button> -->
+                    <button type="submit" class="form-control btn btn-primary"><i class="fas fa-search"></i> </button>
+                    <button type="button" class="form-control btn btn-secondary" onclick="window.location.href='{{ url()->current() }}'"><i class="fas fa-sync-alt"></i></button>
                 </div>
             </div>
         </div>
