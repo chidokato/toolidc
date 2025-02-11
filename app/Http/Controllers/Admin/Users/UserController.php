@@ -42,7 +42,7 @@ class UserController extends Controller
             $query->where('team_id', $team_id);
         }
 
-        $users = $query->paginate($perPage);
+        $users = $query->orderBy('id', 'DESC')->paginate($perPage);
 
         return view('admin.user.index', compact(
             'teams',
@@ -108,9 +108,7 @@ class UserController extends Controller
             $data = explode(',', $line);
             DB::table('users')->insert([
                 'yourname' => $data[1],
-                'team_id' => $data[2],
                 'sku' => $data[0],
-                // 'email ' => $data[4],
             ]);
         }
 
