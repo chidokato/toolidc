@@ -63,6 +63,16 @@
         </div>
         <div class="col-xl-2 col-lg-2">
             <div class="form-group">
+                <label class="">Admin</label>
+                <select name="admin_id" class="form-control select2">
+                    <option value="">...</option>
+                    <option value="1">Mr. Tuấn</option>
+                    <option value="181">Ms. Thúy</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-xl-2 col-lg-2">
+            <div class="form-group">
                 <label class=""></label>
                 <div class="input-group">
                     <button type="submit" class="form-control btn btn-primary"><i class="fas fa-search"></i> Tìm kiếm</button>
