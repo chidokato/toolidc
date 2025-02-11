@@ -26,7 +26,6 @@
                                 <tr>
                                     <th></th>
                                     <th></th>
-                                    <th>Name</th>
                                     <th>date</th>
                                     <th></th>
                                 </tr>
@@ -55,7 +54,6 @@
                         <td>
                             <a href="{{route('channel.edit',[$val->id])}}">{{$str}}{{$val->name}}</a>
                         </td>
-                        <td>{{$str}}{{$val->name}}</td>
                         <td>{{$val->updated_at}}</td>
                         <td style="display: flex;">
                             <a href="{{route('channel.edit',[$val->id])}}" class="mr-2"><i class="fas fa-edit" aria-hidden="true"></i></a>
