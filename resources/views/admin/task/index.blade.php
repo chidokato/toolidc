@@ -104,6 +104,7 @@
                                     <th>Nhà cung cấp</th>
                                     <th>Nhân viên</th>
                                     <th>Thời gian</th>
+                                    <th>Admin</th>
                                     <th></th>
                                 </tr>
                             </thead>
@@ -133,6 +134,10 @@
                                     </td>
                                     <td>
                                         <div>{{ \Carbon\Carbon::parse($val->date_start)->format('d/m/Y') }} - {{ \Carbon\Carbon::parse($val->date_end)->format('d/m/Y') }} </div>
+                                    </td>
+                                    <td>
+                                        {{ $val->user_id==1 ? 'Mr. Tuấn':'' }}
+                                        {{ $val->user_id==181 ? 'Ms. Thúy':'' }}
                                     </td>
                                     <td style="display: flex;">
                                         <a href="{{route('task.edit',[$val->id])}}" class="mr-2"><i class="fas fa-edit" aria-hidden="true"></i></a>
