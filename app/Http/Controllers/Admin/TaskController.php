@@ -161,18 +161,20 @@ class TaskController extends Controller
         foreach ($fileContent as $line) {
             $data = explode(',', $line);
             $task = new Task();
-            $task->user = Auth::User()->yourname;
-            $task->channel_id = $data[3];
-            $task->project_id = $data[2];
-            $task->supplier_id = $data[4];
+            $task->user_id = Auth::User()->id;
+            $task->channel_id = $data[5];
+            $task->project_id = $data[4];
+            $task->supplier_id = $data[6];
+            $task->cty_id = $data[3];
+            $task->san_id = $data[2];
             $task->team_id = $data[1];
             $task->u_id = $data[0];
-            $task->support_rate = $data[6];
-            $task->confirm = $data[7];
-            $task->expected_costs = str_replace( array('.') , '', $data[5] );
-            $task->actual_costs = str_replace( array('.') , '', $data[8] );
-            $task->date_start = $data[9];
-            $task->date_end = $data[10];
+            $task->support_rate = $data[8];
+            $task->confirm = $data[9];
+            $task->expected_costs = str_replace( array('.') , '', $data[7] );
+            $task->actual_costs = str_replace( array('.') , '', $data[10] );
+            $task->date_start = $data[11];
+            $task->date_end = $data[12];
             $task->save();
         }
         return back()->with('success', 'success.');
