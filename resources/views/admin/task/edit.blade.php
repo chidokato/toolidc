@@ -32,19 +32,33 @@
                 <h6 class="m-0 font-weight-bold text-primary">Thêm tác vụ</h6>
             </div>
             <div class="card-body">
-              
+              <div class="form-group row">
+                <label class="col-sm-2 col-form-label">Chi phí</label>
+                <div class="col-sm-5">
+                  <input type="text" value="{{ number_format($data->actual_costs) }}" class="form-control" name="actual_costs" id="currency-field" pattern="^\d{1,3}(,\d{3})*(\.\d+)?$" value="" data-type="currency" placeholder="Chi phí thực tế">
+                </div>
+                <div class="col-sm-5">
+                  <input type="text" value="{{ number_format($data->expected_costs) }}" class="form-control" name="expected_costs" id="currency-field" pattern="^\d{1,3}(,\d{3})*(\.\d+)?$" value="" data-type="currency" placeholder="Chi phí dự kiến">
+                </div>
+              </div>
 
               <div class="form-group row">
-                <label class="col-sm-2 col-form-label">Tổng tiền</label>
-                <div class="col-sm-10">
-                  <input type="text" value="{{ number_format($data->price) }}" class="form-control" name="price"  placeholder="Tổng tiền">
-                  <!-- <input type="text" value="{{ number_format($data->price) }}" class="form-control" name="price" id="currency-field" pattern="^\d{1,3}(,\d{3})*(\.\d+)?$" value="" data-type="currency" placeholder="Tổng tiền"> -->
+                <label class="col-sm-2 col-form-label">Tỷ lệ hỗ trợ</label>
+                <div class="col-sm-5">
+                  <select name="support_rate" class="form-control">
+                    <!-- <option value="">--chọn--</option> -->
+                    <option {{ $data->support_rate == '100%' ? 'selected' :'' }} value="100%">100%</option>
+                    <option {{ $data->support_rate == '90%' ? 'selected' :'' }} value="90%">90%</option>
+                    <option {{ $data->support_rate == '80%' ? 'selected' :'' }} value="80%">80%</option>
+                    <option {{ $data->support_rate == '50%' ? 'selected' :'' }} value="50%">50%</option>
+                    <option {{ $data->support_rate == '30%' ? 'selected' :'' }} value="30%">30%</option>
+                  </select>
                 </div>
               </div>
 
               <div class="form-group row">
                 <label class="col-sm-2 col-form-label">Kênh chạy</label>
-                <div class="col-sm-10">
+                <div class="col-sm-5">
                   <select name="channel_id" class="form-control select2" >
                     <option value="">--Chọn kênh chạy--</option>
                     <?php addeditcat ($Channel,0, $str='',$data['channel_id']) ?>
@@ -54,7 +68,7 @@
 
               <div class="form-group row">
                 <label class="col-sm-2 col-form-label">Dự án</label>
-                <div class="col-sm-10">
+                <div class="col-sm-5">
                   <select name="project_id" class="form-control select2" >
                     <option value="">--Chọn dự án--</option>
                     <?php addeditcat ($Project,0, $str='',$data['project_id']) ?>
@@ -64,7 +78,7 @@
 
               <div class="form-group row">
                 <label class="col-sm-2 col-form-label">Nhà cung cấp</label>
-                <div class="col-sm-10">
+                <div class="col-sm-5">
                   <select name="supplier_id" class="form-control select2" >
                     <option value="">--Chọn nhà cung cấp--</option>
                     <?php addeditcat ($Supplier,0, $str='',$data['supplier_id']) ?>
@@ -74,28 +88,55 @@
 
               <div class="form-group row">
                 <label class="col-sm-2 col-form-label">Đội nhóm</label>
-                <div class="col-sm-5">
-                  <select name="team_id" class="form-control select2" id="team">
-                    <option value="">--Chọn đội nhóm--</option>
-                    <?php addeditcat ($team,0, $str='',$data['team_id']) ?>
+                <div class="col-sm-3">
+                  <select name="cty_id" class="form-control select2" id="cty">
+                    @foreach($cty as $val)
+                    <option {{ $val->id == $data->cty_id ? 'selected' :'' }} value="{{ $val->id }}">{{ $val->name }}</option>
+                    @endforeach
                   </select>
                 </div>
-                <div class="col-sm-5">
-                  <select name="u_id" class="form-control select2" id="user">
-                    <option value="">--Chọn nhân viên--</option>
-                    @foreach($user as $val)
-                    <option <?php if($val->id==$data->u_id){echo "selected";} ?> value="{{$val->id}}">{{$val->yourname}}</option>
+                <div class="col-sm-3">
+                  <select name="san_id" class="form-control select2" id="san">
+                    <option value="">--Chọn sàn--</option>
+                    @foreach($san as $val)
+                    <option {{ $val->id == $data->san_id ? 'selected' :'' }} value="{{ $val->id }}">{{ $val->name }}</option>
+                    @endforeach
+                  </select>
+                </div>
+                <div class="col-sm-3">
+                  <select name="team_id" class="form-control select2" id="nhom">
+                    <option value="">--Chọn nhóm--</option>
+                    @foreach($nhom as $val)
+                    <option {{ $val->id == $data->nhom_id ? 'selected' :'' }} value="{{ $val->id }}">{{ $val->name }}</option>
                     @endforeach
                   </select>
                 </div>
               </div>
 
-              
-              
               <div class="form-group row">
-                <label class="col-sm-2 col-form-label">Ngày hoàn thành</label>
-                <div class="col-sm-10">
-                  <input name="date" value="{{$data->date}}" type="date" class="form-control" placeholder="Ngày hoàn thành">
+                <label class="col-sm-2 col-form-label">Nhân Viên</label>
+                <div class="col-sm-5">
+                  <select name="u_id" class="form-control select2" id="user">
+                    <option value="">--Chọn nhân viên--</option>
+                    @foreach($user as $val)
+                    <option {{ $val->id == $data->u_id ? 'selected' :'' }} value="{{ $val->id }}">{{ $val->sku }} | {{ $val->yourname }}</option>
+                    @endforeach
+                  </select>
+                  <input type="hidden" name="user_sku" id="user_sku"> <!-- Input ẩn -->
+                </div>
+              </div>
+
+              <div class="form-group row">
+                <label class="col-sm-2 col-form-label">Thời gian</label>
+                <div class="col-sm-5">
+                  <input class="form-control" type="text" name="datefilter" value="{{request()->datefilter}}" placeholder="{{ date_format(date_create($data->date_start), 'd/m/Y').' - '.date_format(date_create($data->date_end), 'd/m/Y') }}" />
+                </div>
+              </div>
+
+              <div class="form-group row">
+                <label class="col-sm-2 col-form-label">Xác nhận</label>
+                <div class="col-sm-5" style="display: flex;align-items: center;">
+                  <label><input {{ $data->confirm == 'TRUE' ? 'checked' : '' }} type="checkbox" name="confirm" value="TRUE" /> Xác nhận</label>
                 </div>
               </div>
 

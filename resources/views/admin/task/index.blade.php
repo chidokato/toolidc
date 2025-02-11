@@ -51,9 +51,7 @@
                 <label class="">Đội nhóm</label>
                 <select name="team_id" class="form-control select2">
                     <option value="">...</option>
-                    @foreach($team as $val)
-                    <option <?php if(request()->team_id==$val->id){ echo 'selected'; } ?> value="{{$val->id}}">{{$val->name}}</option>
-                    @endforeach
+                    <?php addeditcat ($team,0,$str='',request()->channel_id); ?> 
                 </select>
             </div>
         </div>
@@ -117,7 +115,7 @@
                                         <label class="container"><input name="id[]" value="{{$val->id}}" type="checkbox" id="task_{{ $val->id }}" class="task-checkbox" ><span class="checkmark"></span></label>
                                     </td>
                                     <td>
-                                        <div>{{$val->Project->name}}</div>
+                                        <div>{{$val->project_id ? $val->Project->name : ''}}</div>
                                         <div class="small">Hỗ trợ: {{$val->support_rate}}</div class="sm">
                                     </td>
                                     <td>

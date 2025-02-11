@@ -140,7 +140,6 @@ class TaskController extends Controller
         $Supplier = Supplier::get();
         $cty = Team::where('parent',0)->get();
         $san = Team::where('parent',1)->get();
-        $nhom = Team::where('parent',1)->get();
         $user = User::get();
         return view('admin.task.create', compact(
             'Channel',
@@ -237,18 +236,21 @@ class TaskController extends Controller
      */
     public function edit($id)
     {
-        $user = '';
         $data = Task::find($id);
         $Channel = Channel::get();
         $Project = Project::get();
         $Supplier = Supplier::get();
-        $team = Team::get();
-        if($data->team_id!=""){$user = User::where('team_id', $data->team_id)->get();}
+        $cty = Team::where('parent',0)->get();
+        $san = Team::where('parent',$data['cty_id'])->get();
+        $nhom = Team::where('parent',$data['san_id'])->get();
+        $user = User::get();
         return view('admin.task.edit', compact(
             'Channel', 
             'Project', 
             'Supplier', 
-            'team', 
+            'cty', 
+            'san', 
+            'nhom', 
             'user', 
             'data'
         ));
@@ -266,13 +268,27 @@ class TaskController extends Controller
         $data = $request->all();
         // dd($data);
         $task = Task::find($id);
-        $task->price = str_replace( array(',') , '', $data['price'] );
         $task->channel_id = $data['channel_id'];
         $task->project_id = $data['project_id'];
         $task->supplier_id = $data['supplier_id'];
+        $task->cty_id = $data['cty_id'];
+        $task->san_id = $data['san_id'];
         $task->team_id = $data['team_id'];
         $task->u_id = $data['u_id'];
-        $task->date = $data['date'];
+        $task->user_sku = $data['user_sku'];
+        $task->support_rate = $data['support_rate'];
+        $task->confirm = $request->get('confirm');
+        $task->expected_costs = str_replace( array(',') , '', $data['expected_costs'] );
+        $task->actual_costs = str_replace( array(',') , '', $data['actual_costs'] );
+        // Xử lý datefilter
+        if ($request->get('datefilter')) {
+            $dates = explode(' - ', $request->get('datefilter'));
+            if (count($dates) === 2) {
+                // Chuyển đổi từ định dạng MM/DD/YYYY sang YYYY-MM-DD
+                $task->date_start = \Carbon\Carbon::createFromFormat('m/d/Y', trim($dates[0]))->format('Y-m-d');
+                $task->date_end = \Carbon\Carbon::createFromFormat('m/d/Y', trim($dates[1]))->format('Y-m-d');
+            }
+        }
         $task->name = $data['name'];
         $task->content = $data['content'];
         $task->save();

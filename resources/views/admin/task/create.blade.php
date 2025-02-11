@@ -42,14 +42,13 @@
                 <div class="col-sm-5">
                   <input type="text" class="form-control" name="expected_costs" id="currency-field" pattern="^\d{1,3}(,\d{3})*(\.\d+)?$" value="" data-type="currency" placeholder="Chi phí dự kiến">
                 </div>
-                
               </div>
 
               <div class="form-group row">
                 <label class="col-sm-2 col-form-label">Tỷ lệ hỗ trợ</label>
                 <div class="col-sm-5">
                   <select name="support_rate" class="form-control">
-                    <option value="">--chọn--</option>
+                    <!-- <option value="">--chọn--</option> -->
                     <option value="100%">100%</option>
                     <option value="90%">90%</option>
                     <option value="80%">80%</option>
@@ -57,7 +56,6 @@
                     <option value="30%">30%</option>
                   </select>
                 </div>
-                
               </div>
 
               <div class="form-group row">
@@ -144,7 +142,7 @@
               <div class="form-group row">
                 <label class="col-sm-2 col-form-label">Xác nhận</label>
                 <div class="col-sm-5">
-                  <input class="" type="checkbox" name="confirm" value="TRUE" /> Xác nhận
+                  <label><input class="" type="checkbox" name="confirm" value="TRUE" /> Xác nhận</label>
                 </div>
               </div>
 
