@@ -23,7 +23,7 @@ class ProjectController extends Controller
     public function index()
     {
         // $data = Project::first();
-        $data = Project::get();
+        $data = Project::orderBy('id', 'DESC')->get();
         return view('admin.project.index', compact(
             'data',
         ));
