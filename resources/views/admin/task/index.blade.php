@@ -15,6 +15,16 @@
 
 <form class="width100" action="{{ url()->current() }}" method="GET">
     <div class="row">
+        <div class="col-xl-1 col-lg-1">
+            <div class="form-group">
+                <label class="">Admin</label>
+                <select name="admin_id" class="form-control select2">
+                    <option value="">...</option>
+                    <option <?php if(request()->admin_id==1){ echo 'selected'; } ?> value="1">Mr. Tuấn</option>
+                    <option <?php if(request()->admin_id==181){ echo 'selected'; } ?> value="181">Ms. Thúy</option>
+                </select>
+            </div>
+        </div>
         <div class="col-xl-2 col-lg-2">
             <div class="form-group">
                 <label class="">Dự án</label>
@@ -26,7 +36,7 @@
                 </select>
             </div>
         </div>
-        <div class="col-xl-2 col-lg-2">
+        <div class="col-xl-1 col-lg-1">
             <div class="form-group">
                 <label class="">Kênh chạy</label>
                 <select name="channel_id" class="form-control select2">
@@ -35,7 +45,7 @@
                 </select>
             </div>
         </div>
-        <div class="col-xl-2 col-lg-2">
+        <div class="col-xl-1 col-lg-1">
             <div class="form-group">
                 <label class="">Nhà cung cấp</label>
                 <select name="supplier_id" class="form-control select2">
@@ -61,22 +71,13 @@
                 <input class="form-control" type="text" name="datefilter" value="{{request()->datefilter}}" />
             </div>
         </div>
-        <div class="col-xl-2 col-lg-2">
-            <div class="form-group">
-                <label class="">Admin</label>
-                <select name="admin_id" class="form-control select2">
-                    <option value="">...</option>
-                    <option value="1">Mr. Tuấn</option>
-                    <option value="181">Ms. Thúy</option>
-                </select>
-            </div>
-        </div>
-        <div class="col-xl-2 col-lg-2">
+        
+        <div class="col-xl-1 col-lg-1">
             <div class="form-group">
                 <label class=""></label>
                 <div class="input-group">
                     <button type="submit" class="form-control btn btn-primary"><i class="fas fa-search"></i> Tìm kiếm</button>
-                    <button type="button" class="form-control btn btn-secondary" onclick="window.location.href='{{ url()->current() }}'"><i class="fas fa-sync-alt"></i></button>
+                    <!-- <button type="button" class="form-control btn btn-secondary" onclick="window.location.href='{{ url()->current() }}'"><i class="fas fa-sync-alt"></i></button> -->
                 </div>
             </div>
         </div>
@@ -85,7 +86,7 @@
 
     <div class="row">
         <div class="col-xl-12 col-lg-12">
-            <div class="card shadow mb-4">
+            <div class="card shadow mb-4 mt-4">
                 <div class="card-header d-flex flex-row align-items-center justify-content-between">
                     <ul class="nav nav-pills">
                         <li><a data-toggle="tab" class="nav-link active" href="#tab1">Tất cả</a></li>
@@ -187,6 +188,7 @@
     width: 90%;
     height: 40px; line-height:40px; padding-left:30px;  }
     .option button{ color:#858796 }
+    .form-group{ margin-bottom:0px }
 </style>
 
 <script type="text/javascript">
