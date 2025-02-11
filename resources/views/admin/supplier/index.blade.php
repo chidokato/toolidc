@@ -25,6 +25,7 @@
                             <thead>
                                 <tr>
                                     <th></th>
+                                    <th></th>
                                     <th>Name</th>
                                     <th>date</th>
                                     <th></th>
@@ -50,6 +51,7 @@
             { 
                 ?>
                     <tr id="supplier">
+                        <td>{{$val->id}}</td>
                         <td>
                             <a href="{{route('supplier.edit',[$val->id])}}">{{$str}}{{$val->name}}</a>
                         </td>
