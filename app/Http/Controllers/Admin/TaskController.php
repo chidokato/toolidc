@@ -29,7 +29,7 @@ class TaskController extends Controller
         $channel_id = $request->get('channel_id', ''); // Kênh
         $supplier_id = $request->get('supplier_id', ''); // Nhà cung cấp
         $team_id = $request->get('team_id', ''); // nhóm
-        $admin_id = $request->get('admin_id', ''); // nhóm
+        $admin_id = $request->get('admin_id', ''); // admin
         $sort = $request->get('sort', 'desc'); // Mặc định là sắp xếp giảm dần
         $datefilter = $request->get('datefilter'); // datefilter
 
@@ -50,7 +50,11 @@ class TaskController extends Controller
             $query->where('supplier_id', $supplier_id);
         }
         if ($team_id) {
-            $query->where('team_id', $team_id);
+            $query->where(function ($q) use ($team_id) {
+                $q->where('team_id', $team_id)
+                  ->orWhere('cty_id', $team_id)
+                  ->orWhere('san_id', $team_id);
+            });
         }
         if ($admin_id) {
             $query->where('user_id', $admin_id);
