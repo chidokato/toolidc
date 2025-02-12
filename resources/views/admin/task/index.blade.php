@@ -111,8 +111,7 @@
                                     <th>Dự án</th>
                                     <th>Chi phí</th>
                                     <th>Xác nhận</th>
-                                    <th>Kênh chạy</th>
-                                    <th>Nhà cung cấp</th>
+                                    <th>Kênh / NCC</th>
                                     <th>Sàn / cty</th>
                                     <th>Nhân viên</th>
                                     <th>Thời gian</th>
@@ -138,8 +137,10 @@
                                     <td>
                                         <label class="container"><input <?php if($val->confirm == 'TRUE' || $val->confirm == 'true'){echo "checked";} ?> type="checkbox" id='hot_post' ><span class="checkmark"></span></label>
                                     </td>
-                                    <td>{{ $val->channel_id ? $val->Channel->name : ''}}</td>
-                                    <td>{{ $val->supplier_id ? $val->Supplier->name : ''}}</td>
+                                    <td>
+                                        <div>{{ $val->channel_id ? $val->Channel->name : ''}}</div>
+                                        <div class="small">{{ $val->supplier_id ? $val->Supplier->name : ''}}</div>
+                                    </td>
                                     <td>
                                         <div>{{ $val->floor->name ?? '...' }}</div>
                                         <div class="small">{{ $val->company->name ?? '...'  }}</div>
@@ -149,7 +150,7 @@
                                         <div class="small">{{ $val->team->name ?? '...'  }}</div>
                                     </td>
                                     <td>
-                                        <div>{{ \Carbon\Carbon::parse($val->date_start)->format('d/m/Y') }} - {{ \Carbon\Carbon::parse($val->date_end)->format('d/m/Y') }} </div>
+                                        <div>{{ \Carbon\Carbon::parse($val->date_start)->format('d/m/Y') }} <div class="small">- {{ \Carbon\Carbon::parse($val->date_end)->format('d/m/Y') }}</div> </div>
                                     </td>
                                     <td>
                                         {{ $val->user_id==1 ? 'Mr. Tuấn':'' }}
