@@ -173,7 +173,7 @@
                     <thead>
                         <tr>
                             <th>Công ty</th>
-                            <th style="text-align: right;">{{ number_format($totals_san->sum('total_cost'), 0, ',', '.') }}</th>
+                            <th style="text-align: right;">{{ number_format($totals_company->sum('total_cost'), 0, ',', '.') }}</th>
                         </tr>
                     </thead>
                     <tbody>
