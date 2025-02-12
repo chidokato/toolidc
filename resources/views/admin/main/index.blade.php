@@ -289,12 +289,12 @@
                                 }
                             @endphp
                             <tr>
-                                <td><strong>{{ $parent['channel']->name }}</strong> (Kênh cha)</td>
+                                <td><strong>{{ $parent['channel']->name }}</strong></td>
                                 <td>{{ number_format($totalCost, 0, ',', '.') }} VNĐ</td>
                             </tr>
                             @foreach($parent['children'] as $child)
                                 <tr>
-                                    <td>— {{ $child->name }} (Kênh con)</td>
+                                    <td>— {{ $child->name }}</td>
                                     <td>{{ number_format($child->total_cost, 0, ',', '.') }} VNĐ</td>
                                 </tr>
                             @endforeach
