@@ -61,7 +61,7 @@
                 <label class="">Đội nhóm</label>
                 <select name="team_id" class="form-control select2">
                     <option value="">...</option>
-                    <?php addeditcat ($team,0,$str='',request()->channel_id); ?> 
+                    <?php addeditcat ($team,0,$str='',request()->team_id); ?> 
                 </select>
             </div>
         </div>
