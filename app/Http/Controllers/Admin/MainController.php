@@ -24,29 +24,45 @@ class MainController extends Controller
      */
     public function index()
     {
-        // $arays = Task::get();
-        // foreach($arays as $aray){
-        //     $aa = Task::find($aray->id);
-        //     if($aa->team == 'NHóm Lộc'){ $aa->team = 6; }
-        //     $aa->save();
-        // }
+        $task = Task::with(['user:id,yourname', 'team:id,name', 'project:id,name'])->get();
+        $projects = Project::select('id', 'name')->get();
+        $users = User::select('id', 'yourname')->get();
 
-        $task = Task::
-            leftJoin('users', 'users.id', '=', 'tasks.u_id')
-            ->leftJoin('teams', 'teams.id', '=', 'tasks.team_id')
-            ->leftJoin('projects', 'projects.id', '=', 'tasks.project_id')
-            ->select('tasks.*', 'users.yourname', 'projects.name AS project_name', 'teams.name AS teams_name')
-            ->get();
-        $project = Project::get();
-        $Team = Team::get();
-        $User = User::get();
-        return view('admin.main.index', compact(
+        $totals_company = Task::join('teams as companies', 'tasks.cty_id', '=', 'companies.id')
+        ->select('companies.id', 'companies.name as company_name', \DB::raw('SUM(tasks.actual_costs) as total_cost'))
+        ->groupBy('companies.id', 'companies.name')
+        ->orderByDesc('total_cost')
+        ->get();
+
+        $totals_san = Task::join('teams as sans', 'tasks.san_id', '=', 'sans.id')
+        ->select('sans.id', 'sans.name as san_name', \DB::raw('SUM(tasks.actual_costs) as total_cost'))
+        ->groupBy('sans.id', 'sans.name')
+        ->orderByDesc('total_cost')
+        ->get();
+
+        $totals_team = Task::join('teams as team', 'tasks.team_id', '=', 'team.id')
+        ->whereNotNull('tasks.actual_costs')
+        ->select(
+            'team.id',
+            'team.name as team_name',
+            \DB::raw('SUM(tasks.actual_costs) as total_cost')
+        )
+        ->groupBy('team.id', 'team.name')
+        ->orderByDesc('total_cost')
+        ->get();
+
+        $totalAmount = collect($task)->sum(fn($t) => $t->actual_costs ?? 0);
+
+        return view('admin.main.index', compact('totalAmount',
             'task',
-            'project',
-            'Team',
-            'User',
+            'projects',
+            'users',
+            'totals_company',
+            'totals_san',
+            'totals_team'
         ));
     }
+
 
     public function generateImage(Request $request)
     {
