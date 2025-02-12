@@ -113,7 +113,7 @@
                                     <th>Xác nhận</th>
                                     <th>Kênh chạy</th>
                                     <th>Nhà cung cấp</th>
-                                    <th>Công ty</th>
+                                    <th>Sàn / cty</th>
                                     <th>Nhân viên</th>
                                     <th>Thời gian</th>
                                     <th>Admin</th>
