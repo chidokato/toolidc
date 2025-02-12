@@ -196,7 +196,7 @@
                 <table class="table display">
                     <thead>
                         <tr>
-                            <th>Tên dự án</th>
+                            <th>Tên Sàn</th>
                             <th style="text-align: right;">{{ number_format($totals_san->sum('total_cost'), 0, ',', '.') }}</th>
                         </tr>
                     </thead>
@@ -236,7 +236,7 @@
                 <table class="table display">
                     <thead>
                         <tr>
-                            <th>Tên dự án</th>
+                            <th>Tên Nhóm</th>
                             <th style="text-align: right;">{{ number_format($totals_team->sum('total_cost'), 0, ',', '.') }}</th>
                         </tr>
                     </thead>
@@ -276,7 +276,7 @@
                 <table class="table display">
                     <thead>
                         <tr>
-                            <th>Tên dự án</th>
+                            <th>Tên Kênh</th>
                             <th style="text-align: right;"></th>
                         </tr>
                     </thead>
