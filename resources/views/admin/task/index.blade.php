@@ -113,6 +113,7 @@
                                     <th>Xác nhận</th>
                                     <th>Kênh chạy</th>
                                     <th>Nhà cung cấp</th>
+                                    <th>Công ty</th>
                                     <th>Nhân viên</th>
                                     <th>Thời gian</th>
                                     <th>Admin</th>
@@ -140,8 +141,12 @@
                                     <td>{{ $val->channel_id ? $val->Channel->name : ''}}</td>
                                     <td>{{ $val->supplier_id ? $val->Supplier->name : ''}}</td>
                                     <td>
+                                        <div>{{ $val->floor->name ?? 'Không có' }}</div>
+                                        <div class="small">{{ $val->company->name ?? ''  }}</div>
+                                    </td>
+                                    <td>
                                         <div>{{ $val->u_id?$val->User->yourname:'' }}</div>
-                                        <div class="small">{{ $val->team_id?$val->Team->name:'' }}</div>
+                                        <div class="small">{{ $val->team->name ?? ''  }}</div>
                                     </td>
                                     <td>
                                         <div>{{ \Carbon\Carbon::parse($val->date_start)->format('d/m/Y') }} - {{ \Carbon\Carbon::parse($val->date_end)->format('d/m/Y') }} </div>
