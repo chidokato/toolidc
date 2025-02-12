@@ -128,7 +128,7 @@
                                         <label class="container"><input name="id[]" value="{{$val->id}}" type="checkbox" id="task_{{ $val->id }}" class="task-checkbox" ><span class="checkmark"></span></label>
                                     </td>
                                     <td>
-                                        <div>{{$val->project_id ? $val->Project->name : ''}}</div>
+                                        <div>{{ $val->Project->name ?? '...' }}</div>
                                         <div class="small">Hỗ trợ: {{$val->support_rate}}</div class="sm">
                                     </td>
                                     <td>
@@ -141,12 +141,12 @@
                                     <td>{{ $val->channel_id ? $val->Channel->name : ''}}</td>
                                     <td>{{ $val->supplier_id ? $val->Supplier->name : ''}}</td>
                                     <td>
-                                        <div>{{ $val->floor->name ?? 'Không có' }}</div>
-                                        <div class="small">{{ $val->company->name ?? ''  }}</div>
+                                        <div>{{ $val->floor->name ?? '...' }}</div>
+                                        <div class="small">{{ $val->company->name ?? '...'  }}</div>
                                     </td>
                                     <td>
-                                        <div>{{ $val->u_id?$val->User->yourname:'' }}</div>
-                                        <div class="small">{{ $val->team->name ?? ''  }}</div>
+                                        <div>{{ $val->User->yourname ?? '...' }}</div>
+                                        <div class="small">{{ $val->team->name ?? '...'  }}</div>
                                     </td>
                                     <td>
                                         <div>{{ \Carbon\Carbon::parse($val->date_start)->format('d/m/Y') }} - {{ \Carbon\Carbon::parse($val->date_end)->format('d/m/Y') }} </div>
