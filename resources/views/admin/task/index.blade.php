@@ -138,8 +138,8 @@
                                         <label class="container"><input <?php if($val->confirm == 'TRUE' || $val->confirm == 'true'){echo "checked";} ?> type="checkbox" id='hot_post' ><span class="checkmark"></span></label>
                                     </td>
                                     <td>
-                                        <div>{{ $val->channel_id ? $val->Channel->name : ''}}</div>
-                                        <div class="small">{{ $val->supplier_id ? $val->Supplier->name : ''}}</div>
+                                        <div>{{ $val->Channel->name ?? '...' }}</div>
+                                        <div class="small">{{ val->Supplier->name ?? '...' }}</div>
                                     </td>
                                     <td>
                                         <div>{{ $val->floor->name ?? '...' }}</div>
