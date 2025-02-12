@@ -139,7 +139,7 @@
                                     </td>
                                     <td>
                                         <div>{{ $val->Channel->name ?? '...' }}</div>
-                                        <div class="small">{{ val->Supplier->name ?? '...' }}</div>
+                                        <div class="small">{{ $val->Supplier->name ?? '...' }}</div>
                                     </td>
                                     <td>
                                         <div>{{ $val->floor->name ?? '...' }}</div>
