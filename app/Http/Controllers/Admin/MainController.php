@@ -51,6 +51,16 @@ class MainController extends Controller
         ->orderByDesc('total_cost')
         ->get();
 
+        $channels = Channel::leftJoin('tasks', 'channels.id', '=', 'tasks.channel_id')
+        ->select(
+            'channels.id',
+            'channels.name',
+            'channels.parent',
+            \DB::raw('COALESCE(SUM(tasks.actual_costs), 0) as total_cost')
+        )
+        ->groupBy('channels.id', 'channels.name', 'channels.parent')
+        ->get();
+
         $totalAmount = collect($task)->sum(fn($t) => $t->actual_costs ?? 0);
 
         return view('admin.main.index', compact('totalAmount',
@@ -59,7 +69,8 @@ class MainController extends Controller
             'users',
             'totals_company',
             'totals_san',
-            'totals_team'
+            'totals_team',
+            'channels'
         ));
     }
 

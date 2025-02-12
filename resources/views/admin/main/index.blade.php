@@ -213,6 +213,20 @@
         </div>
     </div>
 
+<?php
+    $groupedChannels = [];
+    foreach ($channels as $channel) {
+        if ($channel->parent_id === null) {
+            $groupedChannels[$channel->id] = [
+                'channel' => $channel,
+                'children' => []
+            ];
+        } else {
+            $groupedChannels[$channel->parent_id]['children'][] = $channel;
+        }
+    }
+?>
+
     <div class="col-xl-3 col-lg-3">
         <div class="card shadow mb-4">
             <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
@@ -239,6 +253,57 @@
         </div>
     </div>
 
+<?php
+    $groupedChannels = [];
+    foreach ($channels as $channel) {
+        if ($channel->parent === 0) {
+            $groupedChannels[$channel->id] = [
+                'channel' => $channel,
+                'children' => []
+            ];
+        } else {
+            $groupedChannels[$channel->parent]['children'][] = $channel;
+        }
+    }
+?>
+
+    <div class="col-xl-3 col-lg-3">
+        <div class="card shadow mb-4">
+            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                <h6 class="m-0 font-weight-bold text-primary">Kênh</h6>
+            </div>
+            <div class="card-body">
+                <table class="table display">
+                    <thead>
+                        <tr>
+                            <th>Tên dự án</th>
+                            <th style="text-align: right;"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach($groupedChannels as $parent)
+                            @php
+                                $totalCost = $parent['channel']->total_cost;
+                                foreach ($parent['children'] as $child) {
+                                    $totalCost += $child->total_cost;
+                                }
+                            @endphp
+                            <tr>
+                                <td><strong>{{ $parent['channel']->name }}</strong> (Kênh cha)</td>
+                                <td>{{ number_format($totalCost, 0, ',', '.') }} VNĐ</td>
+                            </tr>
+                            @foreach($parent['children'] as $child)
+                                <tr>
+                                    <td>— {{ $child->name }} (Kênh con)</td>
+                                    <td>{{ number_format($child->total_cost, 0, ',', '.') }} VNĐ</td>
+                                </tr>
+                            @endforeach
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
     
     
 </div>

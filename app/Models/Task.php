@@ -11,10 +11,10 @@ class Task extends Model
 
     protected $table = 'tasks';
 
-    public function Channel()
-	{
-	    return $this->hasOne(Channel::class, 'id', 'channel_id');
-	}
+    public function channel()
+    {
+        return $this->belongsTo(Channel::class, 'channel_id');
+    }
 	public function Project()
 	{
 	    return $this->hasOne(Project::class, 'id', 'project_id');

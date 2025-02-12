@@ -9,8 +9,20 @@ class Channel extends Model
 {
     use HasFactory;
 
-    public function Task()
+    protected $table = 'channels';
+
+    public function parent()
     {
-        return $this->hasMany(Task::class, 'channel_id', 'id');
+        return $this->belongsTo(Channel::class, 'parent');
+    }
+
+    public function children()
+    {
+        return $this->hasMany(Channel::class, 'parent');
+    }
+
+    public function tasks()
+    {
+        return $this->hasMany(Task::class, 'channel_id');
     }
 }
