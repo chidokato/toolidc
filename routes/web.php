@@ -11,6 +11,7 @@ use App\Http\Controllers\Admin\ProjectController;
 use App\Http\Controllers\Admin\SupplierController;
 use App\Http\Controllers\Admin\TaskController;
 use App\Http\Controllers\Admin\TeamController;
+use App\Http\Controllers\Admin\AllocationController;
 
 use App\Http\Controllers\AjaxController;
 use App\Http\Controllers\ExcelController;
@@ -53,6 +54,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('project/export', [ProjectController::class, 'export']);
 
         Route::resource('channel',ChannelController::class);
+        Route::resource('allocation',AllocationController::class);
         Route::resource('project',ProjectController::class);
         Route::resource('supplier',SupplierController::class);
         Route::resource('team',TeamController::class);

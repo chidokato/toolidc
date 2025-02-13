@@ -35,6 +35,10 @@
     <li class="nav-item">
         <a class="nav-link" href="{{route('team.index')}}"><i class="fas fa-fw fa-chart-area"></i><span>Đội nhóm</span></a>
     </li>
+
+    <li class="nav-item">
+        <a class="nav-link" href="{{route('allocation.index')}}"><i class="fas fa-fw fa-chart-area"></i><span>Chi phí phân bổ</span></a>
+    </li>
     
     <!-- <li class="nav-item">
         <a class="nav-link" href="admin/messages/list"><i class="fas fa-fw fa-chart-area"></i><span>Messages</span></a>

@@ -290,7 +290,7 @@
                             @endphp
                             <tr>
                                 <td><strong>{{ $parent['channel']->name }}</strong></td>
-                                <td>{{ number_format($totalCost, 0, ',', '.') }} VNĐ</td>
+                                <td><strong>{{ number_format($totalCost, 0, ',', '.') }} VNĐ</strong></td>
                             </tr>
                             @foreach($parent['children'] as $child)
                                 <tr>

@@ -68,7 +68,7 @@
         <div class="col-xl-2 col-lg-2">
             <div class="form-group">
                 <label class="">Thời gian</label>
-                <input class="form-control" type="text" name="datefilter" value="{{request()->datefilter}}" />
+                <input class="form-control" type="text" name="datefilter" value="{{request()->datefilter}}" placeholder="..." />
             </div>
         </div>
         
