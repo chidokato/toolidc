@@ -71,14 +71,12 @@ class TaskController extends Controller
                 $query->whereBetween('date_start', [$startDate, $endDate]);
             }
         }
-
-        $totalCosts = $query->sum('actual_costs');
-
         $query->orderBy('id', 'DESC');
         $query->where('user_id', Auth::User()->id);
         // $query->orderBy('date_start', $sort);
-
+        $totalCosts = $query->clone()->sum('actual_costs');
         $data = $query->paginate($perPage);
+
 
         $Channel = Channel::get();
         $Project = Project::get();

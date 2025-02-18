@@ -119,6 +119,7 @@
                                     <th>Admin</th>
                                     <th></th>
                                 </tr>
+                                <div class="tatall">Tổng tiền: {{ number_format($totalCosts, 0, ',', '.') }}đ</div>
                             </thead>
                             
                             <tbody>
@@ -164,7 +165,7 @@
                                 @endforeach
                             </tbody>
                             </form>
-                            <div class="tatall">Tổng tiền: {{number_format($totalCosts)}} đ</div>
+                            
                         </table>
                         <div class="search paginate-search">
                             <div>Hiển thị: </div>
