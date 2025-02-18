@@ -253,19 +253,7 @@
         </div>
     </div>
 
-<?php
-    $groupedChannels = [];
-    foreach ($channels as $channel) {
-        if ($channel->parent === 0) {
-            $groupedChannels[$channel->id] = [
-                'channel' => $channel,
-                'children' => []
-            ];
-        } else {
-            $groupedChannels[$channel->parent]['children'][] = $channel;
-        }
-    }
-?>
+
 
     <div class="col-xl-3 col-lg-3">
         <div class="card shadow mb-4">
@@ -281,6 +269,19 @@
                         </tr>
                     </thead>
                     <tbody>
+                        <?php
+                            $groupedChannels = [];
+                            foreach ($channels as $channel) {
+                                if ($channel->parent === 0) {
+                                    $groupedChannels[$channel->id] = [
+                                        'channel' => $channel,
+                                        'children' => []
+                                    ];
+                                } else {
+                                    $groupedChannels[$channel->parent]['children'][] = $channel;
+                                }
+                            }
+                        ?>
                         @foreach($groupedChannels as $parent)
                             @php
                                 $totalCost = $parent['channel']->total_cost;

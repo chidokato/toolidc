@@ -4,13 +4,14 @@
 @include('admin.layout.header')
 @include('admin.alert')
 <div class="d-sm-flex align-items-center justify-content-between mb-3 flex">
-    <h2 class="h3 mb-0 text-gray-800 line-1 size-1-3-rem">Quản lý chi phí marketing INDOCHINE</h2>
+    <h2 class="h3 mb-0 text-gray-800 line-1 size-1-3-rem">QUẢN LÝ CHI PHÍ</h2>
     <form action="{{ route('task.upfile') }}" method="POST" enctype="multipart/form-data">
         @csrf
         <input type="file" name="txt_file">
         <button type="submit">Upload</button>
     </form>
-    <a class="add-iteam" href="{{route('task.create')}}"><button class="btn-success form-control" type="button"><i class="fa fa-plus" aria-hidden="true"></i> Thêm mới</button></a>
+    <a class="add-iteam" href="{{route('task.create')}}"><button class="btn-success form-control" type="button"><i class="fa fa-plus" aria-hidden="true"></i> MKT </button></a>
+    <a class="add-iteam" href="{{route('task.create')}}"><button class="btn-success form-control" type="button"><i class="fa fa-plus" aria-hidden="true"></i> MKT </button></a>
 </div>
 
 <form class="width100" action="{{ url()->current() }}" method="GET">

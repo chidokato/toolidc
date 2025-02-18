@@ -75,6 +75,7 @@ class TaskController extends Controller
         $totalCosts = $query->sum('actual_costs');
 
         $query->orderBy('id', 'DESC');
+        $query->where('user_id', Auth::User()->id);
         // $query->orderBy('date_start', $sort);
 
         $data = $query->paginate($perPage);

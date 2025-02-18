@@ -25,29 +25,6 @@
 </div>
 
 
-@php
-function renderTeams($teams, $level = 0) {
-    foreach ($teams as $team) {
-        // Tính tổng chi phí (bao gồm cả con cháu)
-        $totalCost = $team->total_cost;
-        foreach ($team->children as $child) {
-            $totalCost += $child->total_cost;
-        }
-@endphp
-        <tr>
-            <td style="padding-left: {{ $level * 20 }}px;">
-                @if($level > 0) — @endif
-                <strong>{{ $team->name }}</strong>
-            </td>
-            <td>{{ number_format($totalCost, 0, ',', '.') }} VNĐ</td>
-        </tr>
-@php
-        // Gọi đệ quy để hiển thị con cháu
-        renderTeams($team->children, $level + 1);
-    }
-}
-@endphp
-
 <div class="row">
     <div class="col-xl-12 col-lg-12">
         <div class="card shadow mb-4 mt-4">
@@ -66,7 +43,6 @@ function renderTeams($teams, $level = 0) {
                             </tr>
                         </thead>
                         <tbody>
-                            @php renderTeams($nestedTeams); @endphp
                         </tbody>
                     </table>
                 </div>
