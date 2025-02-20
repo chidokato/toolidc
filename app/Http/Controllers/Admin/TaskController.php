@@ -15,6 +15,8 @@ use App\Models\Supplier;
 use App\Models\Team;
 use App\Models\User;
 
+use App\Helpers\SimpleXLSX; // Import thư viện SimpleXLSX
+
 class TaskController extends Controller
 {
     /**
@@ -56,9 +58,9 @@ class TaskController extends Controller
                   ->orWhere('san_id', $team_id);
             });
         }
-        if ($admin_id) {
-            $query->where('user_id', $admin_id);
-        }
+        // if ($admin_id) {
+        //     $query->where('user_id', $admin_id);
+        // }
 
         // Xử lý datefilter
         if ($datefilter) {
@@ -161,31 +163,66 @@ class TaskController extends Controller
 
     public function upfile(Request $request)
     {
-        // $request->validate([
-        //     'txt_file' => 'required|file|mimes:txt',
-        // ]);
-        $file = $request->file('txt_file');
-        $fileContent = file($file->getRealPath(), FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
-        foreach ($fileContent as $line) {
-            $data = explode(',', $line);
-            $task = new Task();
-            $task->user_id = Auth::User()->id;
-            $task->channel_id = $data[5];
-            $task->project_id = $data[4];
-            $task->supplier_id = $data[6];
-            $task->cty_id = $data[3];
-            $task->san_id = $data[2];
-            $task->team_id = $data[1];
-            $task->u_id = $data[0];
-            $task->support_rate = $data[8];
-            $task->confirm = $data[9];
-            $task->expected_costs = str_replace( array('.') , '', $data[7] );
-            $task->actual_costs = str_replace( array('.') , '', $data[10] );
-            $task->date_start = $data[11];
-            $task->date_end = $data[12];
-            $task->save();
+        // $file = $request->file('txt_file');
+        // $fileContent = file($file->getRealPath(), FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+        // foreach ($fileContent as $line) {
+        //     $data = explode(',', $line);
+        //     $task = new Task();
+        //     $task->user_id = Auth::User()->id;
+        //     $task->channel_id = $data[5];
+        //     $task->project_id = $data[4];
+        //     $task->supplier_id = $data[6];
+        //     $task->cty_id = $data[3];
+        //     $task->san_id = $data[2];
+        //     $task->team_id = $data[1];
+        //     $task->u_id = $data[0];
+        //     $task->support_rate = $data[8];
+        //     $task->confirm = $data[9];
+        //     $task->expected_costs = str_replace( array('.') , '', $data[7] );
+        //     $task->actual_costs = str_replace( array('.') , '', $data[10] );
+        //     $task->date_start = $data[11];
+        //     $task->date_end = $data[12];
+        //     $task->save();
+        // }
+        // return back()->with('success', 'success.');
+
+        // Kiểm tra file hợp lệ
+        $request->validate([
+            'excel_file' => 'required|mimes:xlsx,xls',
+        ]);
+
+        $file = $request->file('excel_file');
+
+        // Đọc file Excel
+        if ($xlsx = SimpleXLSX::parse($file->getRealPath())) {
+            $rows = $xlsx->rows();
+            array_shift($rows); // Bỏ qua dòng tiêu đề
+
+            foreach ($rows as $row) {
+                Task::create([
+                    'user_id'        => Auth::id(),
+                    'u_id'           => $row[0],
+                    'team_id'        => $row[1],
+                    'san_id'         => $row[2],
+                    'cty_id'         => $row[3],
+                    'project_id'     => $row[4],
+                    'channel_id'     => $row[5],
+                    'supplier_id'    => $row[6],
+                    'expected_costs' => str_replace('.', '', $row[7]),
+                    'support_rate'   => $row[8],
+                    'confirm'        => $row[9],
+                    'actual_costs'   => str_replace('.', '', $row[10]),
+                    'date_start'     => $row[11],
+                    'date_end'       => $row[12],
+                ]);
+            }
+
+            return back()->with('success', 'File Excel đã được tải lên thành công!');
+        } else {
+            return back()->with('error', 'Không thể đọc file Excel');
         }
-        return back()->with('success', 'success.');
+
+
     }
 
     /**

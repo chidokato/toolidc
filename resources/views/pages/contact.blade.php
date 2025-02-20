@@ -1,6 +1,6 @@
 @extends('layout.index')
 
-@section('title') Công Ty Cổ Phần Bất Động Sản Indochine @endsection
+@section('title') Công Ty Cổ Phần VietnamHomes Group @endsection
 @section('description') Tầng 1, toà CT4-Vimeco (cạnh siêu thị Vinmart), Nguyễn Chánh, P. Trung Hoà Nhân Chính, Q. Cầu Giấy, HN @endsection
 @section('robots') index, follow @endsection
 @section('url'){{asset('')}}@endsection

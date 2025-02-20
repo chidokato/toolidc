@@ -7,25 +7,25 @@
     <h2 class="h3 mb-0 text-gray-800 line-1 size-1-3-rem">QUẢN LÝ CHI PHÍ</h2>
     <form action="{{ route('task.upfile') }}" method="POST" enctype="multipart/form-data">
         @csrf
-        <input type="file" name="txt_file">
+        <input type="file" name="excel_file" accept=".xls,.xlsx,.csv" required>
         <button type="submit">Upload</button>
     </form>
-    <a class="add-iteam" href="{{route('task.create')}}"><button class="btn-success form-control" type="button"><i class="fa fa-plus" aria-hidden="true"></i> MKT </button></a>
+    <a class="add-iteam" href="{{route('task.create')}}"><button class="btn-success form-control" type="button"><i class="fa fa-plus" aria-hidden="true"></i> HCNS </button></a>
     <a class="add-iteam" href="{{route('task.create')}}"><button class="btn-success form-control" type="button"><i class="fa fa-plus" aria-hidden="true"></i> MKT </button></a>
 </div>
 
 <form class="width100" action="{{ url()->current() }}" method="GET">
     <div class="row">
-        <div class="col-xl-1 col-lg-1">
+        <!-- <div class="col-xl-1 col-lg-1">
             <div class="form-group">
                 <label class="">Admin</label>
                 <select name="admin_id" class="form-control select2">
                     <option value="">...</option>
-                    <option <?php if(request()->admin_id==1){ echo 'selected'; } ?> value="1">Mr. Tuấn</option>
-                    <option <?php if(request()->admin_id==181){ echo 'selected'; } ?> value="181">Ms. Thúy</option>
+                    <option <?php //if(request()->admin_id==1){ echo 'selected'; } ?> value="1">Mr. Tuấn</option>
+                    <option <?php //if(request()->admin_id==181){ echo 'selected'; } ?> value="181">Ms. Thúy</option>
                 </select>
             </div>
-        </div>
+        </div> -->
         <div class="col-xl-2 col-lg-2">
             <div class="form-group">
                 <label class="">Dự án</label>

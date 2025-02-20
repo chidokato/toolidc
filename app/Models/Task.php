@@ -9,7 +9,12 @@ class Task extends Model
 {
     use HasFactory;
 
-    protected $table = 'tasks';
+    // protected $table = 'tasks';
+    protected $fillable = [
+        'user_id', 'u_id', 'team_id', 'san_id', 'cty_id', 
+        'project_id', 'channel_id', 'supplier_id', 'expected_costs', 
+        'support_rate', 'confirm', 'actual_costs', 'date_start', 'date_end'
+    ];
 
     public function channel()
     {
