@@ -26,12 +26,26 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <p>Chú ý:</p>
-                    <input type="file" name="excel_file" accept=".xls,.xlsx,.csv" required>
+                    <div class="chuy">
+                        <p>Bạn vui lòng kiểm tra và tải lại file mới để tránh sai lệch dữ liệu</p>
+                    </div>
+                    <ul>
+                        <li>Tải mẫu file nhập <a href="data/files/up.xlsx">tại đây</a></li>
+                        <li>File có dung lượng tối đa là 3MB và 5000 dòng</li>
+                    </ul>
+                    <label for="excel-file" id="custom-file-label" class="custom-file-upload">
+                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" width="24" height="24" font-size="24" color="#747C87" style="margin-right: 10px;">
+                            <path fill-rule="evenodd" clip-rule="evenodd" d="M12 4a8.003 8.003 0 0 1 7.763 6.058A5.001 5.001 0 0 1 19 20H6a6 6 0 0 1-.975-11.921A7.997 7.997 0 0 1 12 4Zm-6.652 6.053.948-.155.472-.837a6.003 6.003 0 0 1 11.054 1.481l.322 1.291 1.316.202A3.001 3.001 0 0 1 19 18H6a4 4 0 0 1-.652-7.947Z" fill="#747C87"></path>
+                            <path d="M13.45 12H16l-4 4-4-4h2.55V9h2.9v3Z" fill="#747C87"></path>
+                        </svg>
+                        <span id="file-label-text">Kéo thả file vào đây hoặc tải lên từ thiết bị</span>
+                    </label>
+                    <input id="excel-file" type="file" name="excel_file" accept=".xls,.xlsx,.csv" required style="display: none;">
+
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Save changes</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                    <button type="submit" class="btn btn-primary">Upload</button>
                 </div>
             </form>
         </div>
@@ -222,6 +236,33 @@
     .option button{ color:#858796 }
     .form-group{ margin-bottom:0px }
     .pd-2{ padding:.5rem }
+
+
+    .custom-file-upload {
+        display: inline-block;
+        width: 100%;
+        text-align: center;
+        padding: 10px 20px;
+        font-size: 16px;
+        border: 1px dashed #ddd;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: .9rem;
+        transition: background-color 0.3s ease;
+    }
+
+    .custom-file-upload:hover {
+    }
+
+    input[type="file"] {
+        display: none;
+    }
+
+    .chuy{ background: #FFDBDB; padding: 10px 10px; margin-bottom:15px; }
+    .chuy p{ font-size:.8rem; margin:0 }
+    .modal-body ul{ padding-left:20px }
+    .modal-body ul li{ font-size:.9rem }
+
 </style>
 
 <script type="text/javascript">
@@ -303,6 +344,15 @@ selectAllCheckbox.addEventListener('change', updateOptionDisplay);
 taskCheckboxes.forEach(checkbox => {
     checkbox.addEventListener('change', updateOptionDisplay);
 });
+
+
+document.getElementById("excel-file").addEventListener("change", function () {
+    let fileLabel = document.getElementById("file-label-text");
+    fileLabel.textContent = this.files.length > 0 ? this.files[0].name : "Kéo thả file vào đây hoặc tải lên từ thiết bị";
+});
+
+
+
 
 
 </script>
