@@ -11,8 +11,8 @@ class Task extends Model
 
     // protected $table = 'tasks';
     protected $fillable = [
-        'user_id', 'u_id', 'team_id', 'san_id', 'cty_id', 
-        'project_id', 'channel_id', 'supplier_id', 'expected_costs', 
+        'user_id', 'u_id', 'team_id', 'san_id', 'cty_id', 'content', 'office_id',
+        'project_id', 'channel_id', 'supplier_id', 'expected_costs', 'quantity',
         'support_rate', 'confirm', 'actual_costs', 'date_start', 'date_end'
     ];
 
@@ -24,6 +24,10 @@ class Task extends Model
 	{
 	    return $this->hasOne(Project::class, 'id', 'project_id');
 	}
+    public function Office()
+    {
+        return $this->hasOne(Office::class, 'id', 'office_id');
+    }
 	public function Supplier()
 	{
 	    return $this->hasOne(Supplier::class, 'id', 'supplier_id');

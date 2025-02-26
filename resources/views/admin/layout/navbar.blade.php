@@ -33,6 +33,9 @@
         <a class="nav-link" href="{{route('supplier.index')}}"><i class="fas fa-fw fa-chart-area"></i><span>Nhà cung cấp</span></a>
     </li>
     <li class="nav-item">
+        <a class="nav-link" href="{{route('office.index')}}"><i class="fas fa-fw fa-chart-area"></i><span>Văn phòng</span></a>
+    </li>
+    <li class="nav-item">
         <a class="nav-link" href="{{route('team.index')}}"><i class="fas fa-fw fa-chart-area"></i><span>Đội nhóm</span></a>
     </li>
 

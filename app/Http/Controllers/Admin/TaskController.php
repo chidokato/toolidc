@@ -13,8 +13,10 @@ use App\Models\Channel;
 use App\Models\Project;
 use App\Models\Supplier;
 use App\Models\Team;
+use App\Models\Office;
 use App\Models\User;
 
+use Carbon\Carbon;
 use App\Helpers\SimpleXLSX; // Import thư viện SimpleXLSX
 
 class TaskController extends Controller
@@ -147,6 +149,7 @@ class TaskController extends Controller
     {
         $Channel = Channel::get();
         $Project = Project::get();
+        $office = Office::get();
         $Supplier = Supplier::get();
         $cty = Team::where('parent',0)->get();
         $san = Team::where('parent',1)->get();
@@ -154,6 +157,7 @@ class TaskController extends Controller
         return view('admin.task.create', compact(
             'Channel',
             'Project',
+            'office',
             'Supplier',
             'cty',
             'san',
@@ -163,30 +167,7 @@ class TaskController extends Controller
 
     public function upfile(Request $request)
     {
-        // $file = $request->file('txt_file');
-        // $fileContent = file($file->getRealPath(), FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
-        // foreach ($fileContent as $line) {
-        //     $data = explode(',', $line);
-        //     $task = new Task();
-        //     $task->user_id = Auth::User()->id;
-        //     $task->channel_id = $data[5];
-        //     $task->project_id = $data[4];
-        //     $task->supplier_id = $data[6];
-        //     $task->cty_id = $data[3];
-        //     $task->san_id = $data[2];
-        //     $task->team_id = $data[1];
-        //     $task->u_id = $data[0];
-        //     $task->support_rate = $data[8];
-        //     $task->confirm = $data[9];
-        //     $task->expected_costs = str_replace( array('.') , '', $data[7] );
-        //     $task->actual_costs = str_replace( array('.') , '', $data[10] );
-        //     $task->date_start = $data[11];
-        //     $task->date_end = $data[12];
-        //     $task->save();
-        // }
-        // return back()->with('success', 'success.');
-
-        // Kiểm tra file hợp lệ
+       // Kiểm tra file hợp lệ
         $request->validate([
             'excel_file' => 'required|mimes:xlsx,xls',
         ]);
@@ -197,23 +178,57 @@ class TaskController extends Controller
         if ($xlsx = SimpleXLSX::parse($file->getRealPath())) {
             $rows = $xlsx->rows();
             array_shift($rows); // Bỏ qua dòng tiêu đề
-
             foreach ($rows as $row) {
+                $user = User::where('sku', trim($row[0]))->first();
+                $u_id = $user ? $user->id : null; // Nếu không tìm thấy, gán null
+
+
+                // Tìm ID của sàn
+                $san = Team::where('name', trim($row[2]))->first();
+                $san_id = $san ? $san->id : null; // Nếu không tìm thấy, gán null
+                $cty_id = $san ? $san->parent : null;
+
+                $team = Team::where('name', trim($row[4]))->first();
+                $team_id = $team ? $team->id : null; // Nếu không tìm thấy, gán null
+
+                $Project = Project::where('name', trim($row[5]))->first();
+                $project_id = $Project ? $Project->id : null; // Nếu không tìm thấy, gán null
+
+                $Channel = Channel::where('name', trim($row[6]))->first();
+                $channel_id = $Channel ? $Channel->id : null; // Nếu không tìm thấy, gán null
+
+                $Supplier = Supplier::where('name', trim($row[7]))->first();
+                $supplier_id = $Supplier ? $Supplier->id : null; // Nếu không tìm thấy, gán null
+
+                $Office = Office::where('name', trim($row[8]))->first();
+                $office_id = $Office ? $Office->id : null; // Nếu không tìm thấy, gán null
+                // dd ($offoce_id);
+                try {
+                    $date_start = !empty($row[13]) ? Carbon::createFromFormat('d/m/Y', $row[13])->format('Y-m-d') : null;
+                    $date_end = !empty($row[14]) ? Carbon::createFromFormat('d/m/Y', $row[14])->format('Y-m-d') : null;
+                } catch (\Exception $e) {
+                    $date_start = null;
+                    $date_end = null;
+                }
+
                 Task::create([
                     'user_id'        => Auth::id(),
-                    'u_id'           => $row[0],
-                    'team_id'        => $row[1],
-                    'san_id'         => $row[2],
-                    'cty_id'         => $row[3],
-                    'project_id'     => $row[4],
-                    'channel_id'     => $row[5],
-                    'supplier_id'    => $row[6],
-                    'expected_costs' => str_replace('.', '', $row[7]),
-                    'support_rate'   => $row[8],
-                    'confirm'        => $row[9],
-                    'actual_costs'   => str_replace('.', '', $row[10]),
-                    'date_start'     => $row[11],
-                    'date_end'       => $row[12],
+                    'u_id'           => $u_id,
+                    'content'           => $row[1],
+                    'san_id'         => $san_id,
+                    'quantity'         => $row[3],
+                    'cty_id'         => $cty_id,
+                    'team_id'        => $team_id,
+                    'project_id'     => $project_id,
+                    'channel_id'     => $channel_id,
+                    'supplier_id'    => $supplier_id,
+                    'office_id'    => $office_id,
+                    'expected_costs' => str_replace('.', '', $row[9]),
+                    'support_rate'   => $row[10],
+                    'confirm'        => $row[11],
+                    'actual_costs'   => str_replace('.', '', $row[12]),
+                    'date_start' => $date_start,
+                    'date_end'   => $date_end,
                 ]);
             }
 
@@ -238,6 +253,7 @@ class TaskController extends Controller
         $task = new Task();
         $task->user_id = Auth::User()->id;
         $task->channel_id = $data['channel_id'];
+        $task->office_id = $data['office_id'];
         $task->project_id = $data['project_id'];
         $task->supplier_id = $data['supplier_id'];
         $task->cty_id = $data['cty_id'];
@@ -285,6 +301,7 @@ class TaskController extends Controller
     {
         $data = Task::find($id);
         $Channel = Channel::get();
+        $office = Office::get();
         $Project = Project::get();
         $Supplier = Supplier::get();
         $cty = Team::where('parent',0)->get();
@@ -293,6 +310,7 @@ class TaskController extends Controller
         $user = User::get();
         return view('admin.task.edit', compact(
             'Channel', 
+            'office', 
             'Project', 
             'Supplier', 
             'cty', 
@@ -317,6 +335,7 @@ class TaskController extends Controller
         $task = Task::find($id);
         $task->channel_id = $data['channel_id'];
         $task->project_id = $data['project_id'];
+        $task->office_id = $data['office_id'];
         $task->supplier_id = $data['supplier_id'];
         $task->cty_id = $data['cty_id'];
         $task->san_id = $data['san_id'];

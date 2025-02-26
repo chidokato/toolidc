@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\Users\LoginController;
 use App\Http\Controllers\Admin\Users\UserController;
 use App\Http\Controllers\Admin\MainController;
 use App\Http\Controllers\Admin\ChannelController;
+use App\Http\Controllers\Admin\OfficeController;
 use App\Http\Controllers\Admin\ProjectController;
 use App\Http\Controllers\Admin\SupplierController;
 use App\Http\Controllers\Admin\TaskController;
@@ -53,6 +54,7 @@ Route::middleware(['auth'])->group(function () {
 
         Route::get('project/export', [ProjectController::class, 'export']);
 
+        Route::resource('office',OfficeController::class);
         Route::resource('channel',ChannelController::class);
         Route::resource('allocation',AllocationController::class);
         Route::resource('project',ProjectController::class);

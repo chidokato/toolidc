@@ -93,6 +93,18 @@
               </div>
 
               <div class="form-group row">
+                <label class="col-sm-2 col-form-label">Văn phòng</label>
+                <div class="col-sm-5">
+                  <select name="office_id" class="form-control select2" >
+                    <option value="">--Chọn Văn phòng--</option>
+                    @foreach($office as $val)
+                    <option value="{{$val->id}}">{{$val->name}}</option>
+                    @endforeach
+                  </select>
+                </div>
+              </div>
+
+              <div class="form-group row">
                 <label class="col-sm-2 col-form-label">Đội nhóm</label>
                 <div class="col-sm-3">
                   <select name="cty_id" class="form-control select2" id="cty">

@@ -38,7 +38,7 @@
                   <input type="text" value="{{ number_format($data->actual_costs) }}" class="form-control" name="actual_costs" id="currency-field" pattern="^\d{1,3}(,\d{3})*(\.\d+)?$" value="" data-type="currency" placeholder="Chi phí thực tế">
                 </div>
                 <div class="col-sm-5">
-                  <input type="text" value="{{ number_format($data->expected_costs) }}" class="form-control" name="expected_costs" id="currency-field" pattern="^\d{1,3}(,\d{3})*(\.\d+)?$" value="" data-type="currency" placeholder="Chi phí dự kiến">
+                  <input type="text" value="{{ number_format((float) ($data->expected_costs ?? 0)) }}" class="form-control" name="expected_costs" id="currency-field" pattern="^\d{1,3}(,\d{3})*(\.\d+)?$" value="" data-type="currency" placeholder="Chi phí dự kiến">
                 </div>
               </div>
 
@@ -82,6 +82,16 @@
                   <select name="supplier_id" class="form-control select2" >
                     <option value="">--Chọn nhà cung cấp--</option>
                     <?php addeditcat ($Supplier,0, $str='',$data['supplier_id']) ?>
+                  </select>
+                </div>
+              </div>
+
+              <div class="form-group row">
+                <label class="col-sm-2 col-form-label">Văn phòng</label>
+                <div class="col-sm-5">
+                  <select name="office_id" class="form-control select2" >
+                    <option value="">--Chọn văn phòng--</option>
+                    <?php addeditcat ($office,0, $str='',$data['office_id']) ?>
                   </select>
                 </div>
               </div>
