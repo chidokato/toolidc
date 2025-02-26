@@ -35,7 +35,7 @@
               <div class="form-group row">
                 <label class="col-sm-2 col-form-label">Chi phí</label>
                 <div class="col-sm-5">
-                  <input type="text" value="{{ number_format($data->actual_costs) }}" class="form-control" name="actual_costs" id="currency-field" pattern="^\d{1,3}(,\d{3})*(\.\d+)?$" value="" data-type="currency" placeholder="Chi phí thực tế">
+                  <input type="text" value="{{ number_format((float) ($data->actual_costs ?? 0)) }}" class="form-control" name="actual_costs" id="currency-field" pattern="^\d{1,3}(,\d{3})*(\.\d+)?$" value="" data-type="currency" placeholder="Chi phí thực tế">
                 </div>
                 <div class="col-sm-5">
                   <input type="text" value="{{ number_format((float) ($data->expected_costs ?? 0)) }}" class="form-control" name="expected_costs" id="currency-field" pattern="^\d{1,3}(,\d{3})*(\.\d+)?$" value="" data-type="currency" placeholder="Chi phí dự kiến">
