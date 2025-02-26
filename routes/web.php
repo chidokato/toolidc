@@ -55,8 +55,12 @@ Route::middleware(['auth'])->group(function () {
         Route::get('project/export', [ProjectController::class, 'export']);
 
         Route::resource('office',OfficeController::class);
+
         Route::resource('channel',ChannelController::class);
+        
         Route::resource('allocation',AllocationController::class);
+        Route::post('allocation/export', [AllocationController::class, 'export'])->name('allocation.export');
+
         Route::resource('project',ProjectController::class);
         Route::resource('supplier',SupplierController::class);
         Route::resource('team',TeamController::class);
@@ -72,6 +76,7 @@ Route::middleware(['auth'])->group(function () {
         Route::post('project/upfile', [ProjectController::class, 'upfile'])->name('project.upfile');
         Route::post('users/upfile', [UserController::class, 'upfile'])->name('users.upfile');
         Route::post('task/upfile', [TaskController::class, 'upfile'])->name('task.upfile');
+        
     });
 });
 

@@ -40,7 +40,7 @@
     </li>
 
     <li class="nav-item">
-        <a class="nav-link" href="{{route('allocation.index')}}"><i class="fas fa-fw fa-chart-area"></i><span>Chi phí phân bổ</span></a>
+        <a class="nav-link" href="{{route('allocation.index')}}"><i class="fas fa-fw fa-chart-area"></i><span>Báo cáo</span></a>
     </li>
     
     <!-- <li class="nav-item">

@@ -24,6 +24,16 @@ class AllocationController extends Controller
         return view('admin.allocation.index');
     }
 
+    public function export(Request $request)
+    {
+        $data = $request->all();
+        $report = new Report();
+        $report->user_id = Auth::User()->id;
+        $report->name = $data['name'];
+        $report->save();
+        return redirect()->back();
+    }
+
 
 
     /**

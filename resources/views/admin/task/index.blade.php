@@ -152,6 +152,7 @@
                                     <th>Nhân viên</th>
                                     <th>Thời gian</th>
                                     <th>Admin</th>
+                                    <th>Content</th>
                                     <th></th>
                                 </tr>
                                 <div class="tatall">Tổng tiền: {{ number_format($totalCosts, 0, ',', '.') }}đ</div>
@@ -195,6 +196,9 @@
                                     <td>
                                         {{ $val->user_id==1 ? 'Mr. Tuấn':'' }}
                                         {{ $val->user_id==181 ? 'Ms. Thúy':'' }}
+                                    </td>
+                                    <td>
+                                        {{ $val->content ?? '...' }}
                                     </td>
                                     <td style="display: flex;">
                                         <a href="{{route('task.edit',[$val->id])}}" class="mr-2"><i class="fas fa-edit" aria-hidden="true"></i></a>
