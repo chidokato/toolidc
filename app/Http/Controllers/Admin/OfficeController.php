@@ -48,6 +48,7 @@ class OfficeController extends Controller
         $office = new Office();
         $office->user_id = Auth::User()->id;
         $office->name = $data['name'];
+        $office->address = $data['address'];
         $office->save();
         return redirect('admin/office')->with('success','successfully');
     }
@@ -88,6 +89,7 @@ class OfficeController extends Controller
         // dd($data);
         $office = Office::find($id);
         $office->name = $data['name'];
+        $office->address = $data['address'];
         $office->save();
 
         return redirect()->back();

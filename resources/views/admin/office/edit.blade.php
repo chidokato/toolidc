@@ -40,6 +40,12 @@
                           <input value="{{$data->name}}" name="name" placeholder="..." type="text" class="form-control">
                       </div>
                   </div>
+                  <div class="col-md-6">
+                      <div class="form-group">
+                          <label>Địa chỉ</label>
+                          <input value="{{$data->address}}" name="address" placeholder="Địa chỉ" type="text" class="form-control">
+                      </div>
+                  </div>
                   
               </div>
             </div>

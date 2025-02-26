@@ -36,7 +36,13 @@
                   <div class="col-md-6">
                       <div class="form-group">
                           <label>Tên văn phòng</label>
-                          <input name="name" placeholder="..." type="text" class="form-control">
+                          <input name="name" placeholder="Tên văn phòng" type="text" class="form-control">
+                      </div>
+                  </div>
+                  <div class="col-md-6">
+                      <div class="form-group">
+                          <label>Địa chỉ</label>
+                          <input name="address" placeholder="Địa chỉ" type="text" class="form-control">
                       </div>
                   </div>
                   
