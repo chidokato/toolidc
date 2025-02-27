@@ -52,9 +52,9 @@
                         <label>Phân loại báo cáo</label>
                         <select class="form-control" name="classify">
                             <option value="Báo cáo theo sàn / chi nhánh">Báo cáo theo sàn / chi nhánh</option>
-                            <option value="Báo cáo theo dự án">Báo cáo theo dự án</option>
-                            <option value="Báo cáo theo Kênh">Báo cáo theo Kênh</option>
-                            <option value="Báo cáo theo Nhà cung cấp">Báo cáo theo Nhà cung cấp</option>
+                            <!-- <option value="Báo cáo theo dự án">Báo cáo theo dự án</option> -->
+                            <!-- <option value="Báo cáo theo Kênh">Báo cáo theo Kênh</option> -->
+                            <!-- <option value="Báo cáo theo Nhà cung cấp">Báo cáo theo Nhà cung cấp</option> -->
                         </select>
                     </div>
                 </div>
@@ -85,6 +85,7 @@
                                 <th>Tên báo cáo</th>
                                 <th>Thời gian</th>
                                 <th>Loại báo cáo</th>
+                                <th></th>
                             </tr>
                         </thead>
                         <tbody>

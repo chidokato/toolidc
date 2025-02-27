@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 
 use App\Models\Report;
 use App\Models\Team;
+use App\Models\Task;
 use Illuminate\Support\Facades\Auth;
 
 use Image;
@@ -27,6 +28,12 @@ class AllocationController extends Controller
 
     public function export(Request $request)
     {
+        $dates = explode(' - ', $data['datefilter']); // Tách chuỗi thành mảng
+        if (count($dates) == 2) {
+            $start_date = Carbon::createFromFormat('d/m/Y', trim($dates[0]))->format('Y-m-d');
+            $end_date = Carbon::createFromFormat('d/m/Y', trim($dates[1]))->format('Y-m-d');
+        }
+        
         $data = $request->all();
         $report = new Report();
         $report->user_id = Auth::User()->id;
@@ -36,13 +43,39 @@ class AllocationController extends Controller
         $report->parent = 0;
         $report->save();
 
-        
+
+
+        $tasks = Task::where('date_end', $data['datefilter'])->get();
+
+        // Thêm danh sách công ty, sàn /  chi nhánh vào báo cáo
+        if ($data['classify'] == 'Báo cáo theo sàn / chi nhánh') {
+            $teams_ctys = Team::where('parent',0)->get();
+            foreach($teams_ctys as $teams_cty){
+                $report_cty = new Report();
+                $report_cty->user_id = Auth::User()->id;
+                $report_cty->name = $teams_cty->name;
+                $report_cty->team_id = $teams_cty->id;
+                $report_cty->parent = $report['id'];
 
 
 
 
 
-        // return redirect()->back();
+                $report_cty->save();
+
+                $teams_sans = Team::where('parent',$teams_cty->id)->get();
+                foreach($teams_sans as $teams_san){
+                    $report_san = new Report();
+                    $report_san->user_id = Auth::User()->id;
+                    $report_san->name = $teams_san->name;
+                    $report_san->team_id = $teams_san->id;
+                    $report_san->parent = $report_cty['id'];
+                    $report_san->save();
+                }
+            }
+        }
+
+        return redirect()->back();
     }
 
 
