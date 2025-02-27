@@ -209,7 +209,7 @@
                                         {{ $val->content ?? '...' }}
                                     </td>
                                     <td>
-                                        {{ $val->classify ?? '...' }}
+                                        {{ $val->Classify->name ?? '...' }}
                                     </td>
                                     <td style="display: flex;">
                                         <a href="{{route('task.edit',[$val->id])}}" class="mr-2"><i class="fas fa-edit" aria-hidden="true"></i></a>

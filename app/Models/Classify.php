@@ -11,4 +11,8 @@ class Classify extends Model
 
     protected $table = 'classifys';
 
+    public function tasks()
+    {
+        return $this->hasMany(Task::class, 'classify_id');
+    }
 }

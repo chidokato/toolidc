@@ -14,6 +14,7 @@ use App\Models\Project;
 use App\Models\Supplier;
 use App\Models\Team;
 use App\Models\Office;
+use App\Models\Classify;
 use App\Models\User;
 
 use Carbon\Carbon;
@@ -197,6 +198,9 @@ class TaskController extends Controller
                 $san_id = $san ? $san->id : null; // Nếu không tìm thấy, gán null
                 $cty_id = $san ? $san->parent : null;
 
+                $classify = Classify::where('name', trim($row[3]))->first();
+                $classify_id = $classify ? $classify->id : null; // Nếu không tìm thấy, gán null
+
                 $team = Team::where('name', trim($row[4]))->first();
                 $team_id = $team ? $team->id : null; // Nếu không tìm thấy, gán null
 
@@ -223,9 +227,9 @@ class TaskController extends Controller
                 Task::create([
                     'user_id'        => Auth::id(),
                     'u_id'           => $u_id,
-                    'content'           => $row[1],
+                    'content'        => $row[1],
                     'san_id'         => $san_id,
-                    'classify'         => $row[3],
+                    'classify_id'    => $classify_id,
                     'cty_id'         => $cty_id,
                     'team_id'        => $team_id,
                     'project_id'     => $project_id,
@@ -265,7 +269,7 @@ class TaskController extends Controller
         $task->office_id = $data['office_id'];
         $task->project_id = $data['project_id'];
         $task->supplier_id = $data['supplier_id'];
-        $task->classify = $data['classify'];
+        $task->classify_id = $data['classify_id'];
         $task->cty_id = $data['cty_id'];
         $task->san_id = $data['san_id'];
         $task->team_id = $data['team_id'];
@@ -311,6 +315,7 @@ class TaskController extends Controller
     {
         $data = Task::find($id);
         $Channel = Channel::get();
+        $Classify = Classify::get();
         $office = Office::get();
         $Project = Project::get();
         $Supplier = Supplier::get();
@@ -320,6 +325,7 @@ class TaskController extends Controller
         $user = User::get();
         return view('admin.task.edit', compact(
             'Channel', 
+            'Classify', 
             'office', 
             'Project', 
             'Supplier', 
@@ -347,7 +353,7 @@ class TaskController extends Controller
         $task->project_id = $data['project_id'];
         $task->office_id = $data['office_id'];
         $task->supplier_id = $data['supplier_id'];
-        $task->classify = $data['classify'];
+        $task->classify_id = $data['classify_id'];
         $task->cty_id = $data['cty_id'];
         $task->san_id = $data['san_id'];
         $task->team_id = $data['team_id'];

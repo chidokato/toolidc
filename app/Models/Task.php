@@ -12,7 +12,7 @@ class Task extends Model
     // protected $table = 'tasks';
     protected $fillable = [
         'user_id', 'u_id', 'team_id', 'san_id', 'cty_id', 'content', 'office_id',
-        'project_id', 'channel_id', 'supplier_id', 'expected_costs', 'classify',
+        'project_id', 'channel_id', 'supplier_id', 'expected_costs', 'classify_id',
         'support_rate', 'confirm', 'actual_costs', 'date_start', 'date_end'
     ];
 
@@ -48,5 +48,10 @@ class Task extends Model
 	{
 	    return $this->hasOne(User::class, 'id', 'u_id');
 	}
+
+    public function Classify()
+    {
+        return $this->belongsTo(Classify::class, 'classify_id');
+    }
 }
 

@@ -146,7 +146,7 @@
               <div class="form-group row">
                 <label class="col-sm-2 col-form-label">Loại chi phí</label>
                 <div class="col-sm-5">
-                  <select name="classify" class="form-control select2" id="user">
+                  <select name="classify_id" class="form-control select2" id="user">
                     <option value="">--Chọn loại chi phí--</option>
                     <option value="Marketing">Marketing</option>
                   </select>
