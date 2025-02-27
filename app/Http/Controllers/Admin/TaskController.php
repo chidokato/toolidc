@@ -29,10 +29,10 @@ class TaskController extends Controller
     public function index(Request $request)
     {
 
-        $update = Task::where('classify', 3)->get();
+        $update = Task::where('classify', 10)->get();
         foreach($update as $val){
             $data = Task::find($val->id);
-            $data->classify = 6;
+            $data->classify = 3;
             $data->save();
         }
 
