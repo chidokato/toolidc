@@ -38,6 +38,9 @@
     <li class="nav-item">
         <a class="nav-link" href="{{route('team.index')}}"><i class="fas fa-fw fa-chart-area"></i><span>Đội nhóm</span></a>
     </li>
+    <li class="nav-item">
+        <a class="nav-link" href="{{route('classify.index')}}"><i class="fas fa-fw fa-chart-area"></i><span>Loại chi phí</span></a>
+    </li>
 
     <li class="nav-item">
         <a class="nav-link" href="{{route('allocation.index')}}"><i class="fas fa-fw fa-chart-area"></i><span>Báo cáo</span></a>
