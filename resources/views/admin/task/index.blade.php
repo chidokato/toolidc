@@ -153,6 +153,7 @@
                                     <th>Thời gian</th>
                                     <th>Admin</th>
                                     <th>Content</th>
+                                    <th>Loại</th>
                                     <th></th>
                                 </tr>
                                 <div class="tatall">Tổng tiền: {{ number_format($totalCosts, 0, ',', '.') }}đ</div>
@@ -180,7 +181,7 @@
                                         <div class="small">{{ $val->Supplier->name ?? '...' }}</div>
                                     </td>
                                     <td>
-                                        <div>{{ $val->floor->name ?? '...' }} <small>({{ $val->quantity ?? '...' }})</small> </div>
+                                        <div>{{ $val->floor->name ?? '...' }}</div>
                                         <div class="small">{{ $val->company->name ?? '...'  }}</div>
                                     </td>
                                     <td>
@@ -206,6 +207,9 @@
                                     </td>
                                     <td>
                                         {{ $val->content ?? '...' }}
+                                    </td>
+                                    <td>
+                                        {{ $val->classify ?? '...' }}
                                     </td>
                                     <td style="display: flex;">
                                         <a href="{{route('task.edit',[$val->id])}}" class="mr-2"><i class="fas fa-edit" aria-hidden="true"></i></a>

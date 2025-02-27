@@ -28,6 +28,14 @@ class TaskController extends Controller
      */
     public function index(Request $request)
     {
+
+        $update = Task::where('user_id', 1)->get();
+        foreach($update as $val){
+            $data = Task::find($val->id);
+            $data->classify = 3;
+            $data->save();
+        }
+
         $perPage = $request->get('per_page', 30); // Mặc định là 30 nếu không có lựa chọn
         $project_id = $request->get('project_id', ''); // dự án
         $channel_id = $request->get('channel_id', ''); // Kênh
