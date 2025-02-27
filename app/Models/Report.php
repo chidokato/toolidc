@@ -10,4 +10,9 @@ class Report extends Model
     use HasFactory;
     protected $table = 'reports';
 
+    public function children()
+    {
+        return $this->hasMany(Report::class, 'parent', 'id')->with('children');
+    }
+
 }

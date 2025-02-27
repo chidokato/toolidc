@@ -217,7 +217,7 @@ class TaskController extends Controller
                     'u_id'           => $u_id,
                     'content'           => $row[1],
                     'san_id'         => $san_id,
-                    'quantity'         => $row[3],
+                    'classify'         => $row[3],
                     'cty_id'         => $cty_id,
                     'team_id'        => $team_id,
                     'project_id'     => $project_id,
@@ -257,6 +257,7 @@ class TaskController extends Controller
         $task->office_id = $data['office_id'];
         $task->project_id = $data['project_id'];
         $task->supplier_id = $data['supplier_id'];
+        $task->classify = $data['classify'];
         $task->cty_id = $data['cty_id'];
         $task->san_id = $data['san_id'];
         $task->team_id = $data['team_id'];
@@ -338,6 +339,7 @@ class TaskController extends Controller
         $task->project_id = $data['project_id'];
         $task->office_id = $data['office_id'];
         $task->supplier_id = $data['supplier_id'];
+        $task->classify = $data['classify'];
         $task->cty_id = $data['cty_id'];
         $task->san_id = $data['san_id'];
         $task->team_id = $data['team_id'];

@@ -20,7 +20,7 @@
 @include('admin.alert')
 
 <div class="d-sm-flex align-items-center justify-content-between mb-3 flex">
-    <h2 class="h3 mb-0 text-gray-800 line-1 size-1-3-rem">Phân bổ chi phí</h2>
+    <h2 class="h3 mb-0 text-gray-800 line-1 size-1-3-rem">BÁO CÁO</h2>
     <div class="flex">
         <button type="button" class="btn btn-primary mr-2" data-toggle="modal" data-target="#exampleModal"><i class="fa fa-plus" aria-hidden="true"></i> Thêm báo cáo</button>
     </div>
@@ -92,8 +92,8 @@
                             @foreach($data as $val)
                             <tr>
                                 <td>{{$val->id}}</td>
-                                <td>{{$val->name}}</td>
-                                <td>{{$val->date}}</td>
+                                <td><a href="{{route('allocation.edit',[$val->id])}}">{{$val->name}}</a></td>
+                                <td>{{$val->start_date}} - {{$val->end_date}}</td>
                                 <td>{{$val->classify}}</td>
                                 <td>
                                     <form action="{{route('allocation.destroy', [$val->id])}}" method="POST">
