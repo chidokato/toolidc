@@ -178,6 +178,7 @@ class TaskController extends Controller
         if ($xlsx = SimpleXLSX::parse($file->getRealPath())) {
             $rows = $xlsx->rows();
             array_shift($rows); // Bỏ qua dòng tiêu đề
+
             foreach ($rows as $row) {
                 $user = User::where('sku', trim($row[0]))->first();
                 $u_id = $user ? $user->id : null; // Nếu không tìm thấy, gán null
@@ -204,8 +205,8 @@ class TaskController extends Controller
                 $office_id = $Office ? $Office->id : null; // Nếu không tìm thấy, gán null
                 // dd ($offoce_id);
                 try {
-                    $date_start = !empty($row[13]) ? Carbon::createFromFormat('d/m/Y', $row[13])->format('Y-m-d') : null;
-                    $date_end = !empty($row[14]) ? Carbon::createFromFormat('d/m/Y', $row[14])->format('Y-m-d') : null;
+                    $date_start = !empty($row[13]) ? Carbon::parse($row[13])->format('Y-m-d') : null;
+                    $date_end   = !empty($row[14]) ? Carbon::parse($row[14])->format('Y-m-d') : null;
                 } catch (\Exception $e) {
                     $date_start = null;
                     $date_end = null;

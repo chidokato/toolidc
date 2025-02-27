@@ -191,7 +191,14 @@
                                         <div class="small">{{ $val->team->name ?? '...'  }}</div>
                                     </td>
                                     <td>
-                                        <div>{{ \Carbon\Carbon::parse($val->date_start)->format('d/m/Y') }} <div class="small">- {{ \Carbon\Carbon::parse($val->date_end)->format('d/m/Y') }}</div> </div>
+                                        <div>
+                                            @if (!empty($val->date_end))
+                                                {{ \Carbon\Carbon::parse($val->date_end)->format('d/m/Y') }}
+                                            @endif
+                                            @if (!empty($val->date_start))
+                                                <div class="small">{{ \Carbon\Carbon::parse($val->date_start)->format('d/m/Y') }}</div>
+                                            @endif
+                                        </div>
                                     </td>
                                     <td>
                                         {{ $val->user_id==1 ? 'Mr. Tuấn':'' }}

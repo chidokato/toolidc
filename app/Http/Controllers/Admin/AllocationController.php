@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 
 use App\Models\Report;
 use App\Models\Team;
+use Illuminate\Support\Facades\Auth;
 
 use Image;
 use File;
@@ -20,8 +21,8 @@ class AllocationController extends Controller
      */
     public function index()
     {
-        
-        return view('admin.allocation.index');
+        $data = Report::get();
+        return view('admin.allocation.index' , compact('data'));
     }
 
     public function export(Request $request)
@@ -30,8 +31,18 @@ class AllocationController extends Controller
         $report = new Report();
         $report->user_id = Auth::User()->id;
         $report->name = $data['name'];
+        $report->date = $data['datefilter'];
+        $report->classify = $data['classify'];
+        $report->parent = 0;
         $report->save();
-        return redirect()->back();
+
+        
+
+
+
+
+
+        // return redirect()->back();
     }
 
 
@@ -97,8 +108,9 @@ class AllocationController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
-        //
+        Report::find($id)->delete();
+        return redirect()->back();
     }
 }

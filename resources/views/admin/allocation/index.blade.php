@@ -50,11 +50,11 @@
                     </div>
                     <div class="form-group">
                         <label>Phân loại báo cáo</label>
-                        <select class="form-control">
-                            <option value="1">Báo cáo theo sàn / chi nhánh</option>
-                            <option value="2">Báo cáo theo dự án</option>
-                            <option value="3">Báo cáo theo Kênh</option>
-                            <option value="4">Báo cáo theo Nhà cung cấp</option>
+                        <select class="form-control" name="classify">
+                            <option value="Báo cáo theo sàn / chi nhánh">Báo cáo theo sàn / chi nhánh</option>
+                            <option value="Báo cáo theo dự án">Báo cáo theo dự án</option>
+                            <option value="Báo cáo theo Kênh">Báo cáo theo Kênh</option>
+                            <option value="Báo cáo theo Nhà cung cấp">Báo cáo theo Nhà cung cấp</option>
                         </select>
                     </div>
                 </div>
@@ -81,11 +81,28 @@
                     <table class="table">
                         <thead>
                             <tr>
-                                <th></th>
-                                <th></th>
+                                <th>#</th>
+                                <th>Tên báo cáo</th>
+                                <th>Thời gian</th>
+                                <th>Loại báo cáo</th>
                             </tr>
                         </thead>
                         <tbody>
+                            @foreach($data as $val)
+                            <tr>
+                                <td>{{$val->id}}</td>
+                                <td>{{$val->name}}</td>
+                                <td>{{$val->date}}</td>
+                                <td>{{$val->classify}}</td>
+                                <td>
+                                    <form action="{{route('allocation.destroy', [$val->id])}}" method="POST">
+                                      @method('DELETE')
+                                      @csrf
+                                      <button class="button_none" onclick="return confirm('Bạn muốn xóa bản ghi ?')"><i class="fas fa-trash-alt"></i></button>
+                                    </form>
+                                </td>
+                            </tr>
+                            @endforeach
                         </tbody>
                     </table>
                 </div>
