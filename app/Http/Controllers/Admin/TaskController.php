@@ -29,12 +29,12 @@ class TaskController extends Controller
     public function index(Request $request)
     {
 
-        $update = Task::where('classify', 'Bảo hiểm xã hội')->get();
-        foreach($update as $val){
-            $data = Task::find($val->id);
-            $data->classify = 5;
-            $data->save();
-        }
+        // $update = Task::where('classify', 'Bảo hiểm xã hội')->get();
+        // foreach($update as $val){
+        //     $data = Task::find($val->id);
+        //     $data->classify = 5;
+        //     $data->save();
+        // }
 
         $perPage = $request->get('per_page', 30); // Mặc định là 30 nếu không có lựa chọn
         $project_id = $request->get('project_id', ''); // dự án
