@@ -86,7 +86,7 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="col-xl-2 col-lg-2">
+                            <div class="col-xl-1 col-lg-1">
                                 <div class="form-group">
                                     <select name="channel_id" class="form-control select2">
                                         <option value="">-Kênh chạy-</option>
@@ -109,6 +109,14 @@
                                     <select name="team_id" class="form-control select2">
                                         <option value="">-Đội nhóm-</option>
                                         <?php addeditcat ($team,0,$str='',request()->team_id); ?> 
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-xl-2 col-lg-2">
+                                <div class="form-group">
+                                    <select name="classify_id" class="form-control select2">
+                                        <option value="">-Loại tác vụ-</option>
+                                        <?php addeditcat ($Classify,0,$str='',request()->classify_id); ?> 
                                     </select>
                                 </div>
                             </div>
@@ -223,10 +231,8 @@
                         <div class="search paginate-search">
                             <div>Hiển thị: </div>
                             <select class="form-control paginate" name="per_page" onchange="this.form.submit()">
-                                <option value="30" {{ request()->per_page == 30 ? 'selected' : '' }}>30</option>
-                                <option value="50" {{ request()->per_page == 50 ? 'selected' : '' }}>50</option>
                                 <option value="100" {{ request()->per_page == 100 ? 'selected' : '' }}>100</option>
-                                <option value="500" {{ request()->per_page == 500 ? 'selected' : '' }}>500</option>
+                                <option value="500" {{ request()->per_page == 200 ? 'selected' : '' }}>200</option>
                             </select>
                             <div> Từ {{ $data->firstItem() }} đến {{ $data->lastItem() }} trên tổng {{ $data->total() }} </div>
                             {{ $data->appends(request()->all())->links() }}

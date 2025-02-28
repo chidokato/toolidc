@@ -93,7 +93,45 @@ class AllocationController extends Controller
      */
     public function store(Request $request)
     {
-        // $data = Task::where('')->get();
+        $datas = Report::where('parent', $request->id)->get();
+        foreach($datas as $val){
+            // Lấy tổng actual_costs theo từng classify_id trong 1 truy vấn
+            $totals = Task::whereBetween('date_end', [$request->start_date, $request->end_date])
+                ->where('cty_id', $val->team_id)
+                ->whereIn('classify_id', [3, 4, 5, 6])
+                ->selectRaw('classify_id, SUM(actual_costs) as total_cost')
+                ->groupBy('classify_id')
+                ->pluck('total_cost', 'classify_id'); // Kết quả sẽ có dạng [3 => total_3, 4 => total_4, 6 => total_6]
+            $update_report = Report::find($val->id);
+            if ($update_report) {
+                $update_report->mkt_price = $totals[3] ?? 0; // Marketing
+                $update_report->luong_price = $totals[4] ?? 0; // Lương
+                $update_report->bhxh_price = $totals[5] ?? 0; // Bảo hiểm xã hội
+                $update_report->vhnp_price = $totals[6] ?? 0; // Vận hành VP
+                $update_report->save();
+            }
+
+            foreach($val->children as $child){
+                // Lấy tổng actual_costs theo từng classify_id trong 1 truy vấn
+                $totals = Task::whereBetween('date_end', [$request->start_date, $request->end_date])
+                    ->where('san_id', $child->team_id)
+                    ->whereIn('classify_id', [3, 4, 5, 6])
+                    ->selectRaw('classify_id, SUM(actual_costs) as total_cost')
+                    ->groupBy('classify_id')
+                    ->pluck('total_cost', 'classify_id'); // Kết quả sẽ có dạng [3 => total_3, 4 => total_4, 6 => total_6]
+                $update_report = Report::find($child->id);
+                if ($update_report) {
+                    $update_report->mkt_price = $totals[3] ?? 0; // Marketing
+                    $update_report->luong_price = $totals[4] ?? 0; // Lương
+                    $update_report->bhxh_price = $totals[5] ?? 0; // Bảo hiểm xã hội
+                    $update_report->vhnp_price = $totals[6] ?? 0; // Vận hành VP
+                    $update_report->save();
+                }
+            }
+
+        }
+
+        // dd($datas);
         return redirect()->back();
     }
 

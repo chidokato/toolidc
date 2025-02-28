@@ -14,5 +14,6 @@ class Report extends Model
     {
         return $this->hasMany(Report::class, 'parent', 'id')->with('children');
     }
+    
 
 }

@@ -37,9 +37,10 @@ class TaskController extends Controller
         //     $data->save();
         // }
 
-        $perPage = $request->get('per_page', 30); // Mặc định là 30 nếu không có lựa chọn
+        $perPage = $request->get('per_page', 100); // Mặc định là 30 nếu không có lựa chọn
         $project_id = $request->get('project_id', ''); // dự án
         $channel_id = $request->get('channel_id', ''); // Kênh
+        $classify_id = $request->get('classify_id', ''); // Kênh
         $supplier_id = $request->get('supplier_id', ''); // Nhà cung cấp
         $team_id = $request->get('team_id', ''); // nhóm
         $admin_id = $request->get('admin_id', ''); // admin
@@ -62,6 +63,9 @@ class TaskController extends Controller
         if ($supplier_id) {
             $query->where('supplier_id', $supplier_id);
         }
+        if ($classify_id) {
+            $query->where('classify_id', $classify_id);
+        }
         if ($team_id) {
             $query->where(function ($q) use ($team_id) {
                 $q->where('team_id', $team_id)
@@ -81,11 +85,11 @@ class TaskController extends Controller
                 $startDate = \Carbon\Carbon::createFromFormat('m/d/Y', trim($dates[0]))->format('Y-m-d');
                 $endDate = \Carbon\Carbon::createFromFormat('m/d/Y', trim($dates[1]))->format('Y-m-d');
 
-                $query->whereBetween('date_start', [$startDate, $endDate]);
+                $query->whereBetween('date_end', [$startDate, $endDate]);
             }
         }
         $query->orderBy('id', 'DESC');
-        $query->where('user_id', Auth::User()->id);
+        // $query->where('user_id', Auth::User()->id);
         // $query->orderBy('date_start', $sort);
         $totalCosts = $query->clone()->sum('actual_costs');
         $data = $query->paginate($perPage);
@@ -95,11 +99,13 @@ class TaskController extends Controller
         $Project = Project::get();
         $Supplier = Supplier::get();
         $team = Team::get();
+        $Classify = Classify::get();
         return view('admin.task.index', compact(
             'Channel',
             'Project',
             'Supplier',
             'team',
+            'Classify',
             'data',
             'totalCosts',
         ));
