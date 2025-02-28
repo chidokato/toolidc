@@ -89,7 +89,7 @@ class TaskController extends Controller
             }
         }
         $query->orderBy('id', 'DESC');
-        // $query->where('user_id', Auth::User()->id);
+        $query->where('user_id', Auth::User()->id);
         // $query->orderBy('date_start', $sort);
         $totalCosts = $query->clone()->sum('actual_costs');
         $data = $query->paginate($perPage);
