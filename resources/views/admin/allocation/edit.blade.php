@@ -2,7 +2,8 @@
 
 @section('content')
 @include('admin.alert')
-
+<form method="post" action="{{route('allocation.store')}}">
+@csrf
 <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow fixed">
     <button type="button" id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3"><i class="fa fa-bars"></i></button>
     <ul class="navbar-nav ">
@@ -10,22 +11,18 @@
     </ul>
     <ul class="navbar-nav ml-auto">
         <li class="nav-item mobile-hide">
-            <button type="reset" class="btn-danger mr-2 form-control"><i class="fas fa-sync"></i> Làm mới</button>
-        </li>
-        <div class="topbar-divider d-none d-sm-block"></div>
-        <li class="nav-item">
-            <button type="submit" class="btn-success form-control"><i class="far fa-save"></i> Lưu lại</button>
+            <button type="submit" class="btn-success mr-2 form-control"><i class="fas fa-sync"></i> Cập nhật báo cáo</button>
         </li>
     </ul>
 </nav>
+</form>
 
-<div class="d-sm-flex align-items-center justify-content-between mb-3 flex">
-    <h2 class="h3 mb-0 text-gray-800 line-1 size-1-3-rem">Chi tiết báo cáo: <strong>{{$data->name}}</strong> ({{$data->classify}}) </h2>
-    <div class="flex">
-        <!-- <button type="button" class="btn btn-primary mr-2" data-toggle="modal" data-target="#exampleModal"><i class="fa fa-plus" aria-hidden="true"></i> Thêm báo cáo</button> -->
+<div class="d-sm-flex align-items-center justify-content-between flex">
+    <div>
+        <h2 class="h3 mb-0 text-gray-800 line-1 size-1-3-rem">Chi tiết báo cáo: <strong>{{$data->name}}</strong> ({{$data->classify}}) </h2>
+        <div>{{$data->start_date}} - {{$data->end_date}}</div>
     </div>
 </div>
-
 
 <div class="row">
     <div class="col-xl-12 col-lg-12">
@@ -52,12 +49,14 @@
                                     <!-- <td>{{ $child->id }}</td> -->
                                     <td>{{ $child->name }}</td>
                                     <td>Công ty</td>
+                                    <td></td>
                                 </tr>
                                 @foreach($child->children as $grandChild)
                                     <tr>
                                         <!-- <td>{{ $grandChild->id }}</td> -->
                                         <td>-- {{ $grandChild->name }}</td>
                                         <td>Sàn</td>
+                                        <td></td>
                                     </tr>
                                 @endforeach
                             @endforeach

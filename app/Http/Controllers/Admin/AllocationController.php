@@ -93,7 +93,8 @@ class AllocationController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // $data = Task::where('')->get();
+        return redirect()->back();
     }
 
     /**

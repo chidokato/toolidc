@@ -158,6 +158,7 @@ class TaskController extends Controller
     {
         $Channel = Channel::get();
         $Project = Project::get();
+        $Classify = Classify::get();
         $office = Office::get();
         $Supplier = Supplier::get();
         $cty = Team::where('parent',0)->get();
@@ -165,6 +166,7 @@ class TaskController extends Controller
         $user = User::get();
         return view('admin.task.create', compact(
             'Channel',
+            'Classify',
             'Project',
             'office',
             'Supplier',

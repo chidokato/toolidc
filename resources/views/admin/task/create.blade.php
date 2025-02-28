@@ -146,9 +146,11 @@
               <div class="form-group row">
                 <label class="col-sm-2 col-form-label">Loại chi phí</label>
                 <div class="col-sm-5">
-                  <select name="classify_id" class="form-control select2" id="user">
-                    <option value="">--Chọn loại chi phí--</option>
-                    <option value="Marketing">Marketing</option>
+                  <select required name="classify_id" class="form-control select2" id="user">
+                    <option value="">-Chọn loại chi phí-</option>
+                    @foreach($Classify as $val)
+                    <option value="{{$val->id}}">{{$val->name}}</option>
+                    @endforeach
                   </select>
                 </div>
               </div>
