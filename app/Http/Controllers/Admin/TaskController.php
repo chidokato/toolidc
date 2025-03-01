@@ -301,7 +301,7 @@ class TaskController extends Controller
                 $task->date_end = \Carbon\Carbon::createFromFormat('m/d/Y', trim($dates[1]))->format('Y-m-d');
             }
         }
-        $task->name = $data['name'];
+        // $task->name = $data['name'];
         $task->content = $data['content'];
         $task->save();
         return redirect('admin/task')->with('success','successfully');
@@ -385,7 +385,7 @@ class TaskController extends Controller
                 $task->date_end = \Carbon\Carbon::createFromFormat('m/d/Y', trim($dates[1]))->format('Y-m-d');
             }
         }
-        $task->name = $data['name'];
+        // $task->name = $data['name'];
         $task->content = $data['content'];
         $task->save();
 
