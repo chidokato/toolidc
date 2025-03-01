@@ -50,7 +50,7 @@ class TaskController extends Controller
         $query = Task::query();
 
         if ($request->get('content', '')) {
-            $query->where('content', $request->get('content', ''));
+            $query->where('content', 'LIKE', '%' . $request->get('content') . '%');
         }
 
         if ($project_id) {
