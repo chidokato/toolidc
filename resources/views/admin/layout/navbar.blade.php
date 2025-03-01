@@ -23,23 +23,24 @@
     <li class="nav-item">
         <a class="nav-link" href="{{route('task.index')}}"><i class="fas fa-fw fa-chart-area"></i><span>Tác vụ</span></a>
     </li>
+
     <li class="nav-item">
-        <a class="nav-link" href="{{route('channel.index')}}"><i class="fas fa-fw fa-chart-area"></i><span>Kênh chạy</span></a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link" href="{{route('project.index')}}"><i class="fas fa-fw fa-chart-area"></i><span>Dự án</span></a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link" href="{{route('supplier.index')}}"><i class="fas fa-fw fa-chart-area"></i><span>Nhà cung cấp</span></a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link" href="{{route('office.index')}}"><i class="fas fa-fw fa-chart-area"></i><span>Văn phòng</span></a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link" href="{{route('team.index')}}"><i class="fas fa-fw fa-chart-area"></i><span>Đội nhóm</span></a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link" href="{{route('classify.index')}}"><i class="fas fa-fw fa-chart-area"></i><span>Loại chi phí</span></a>
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#option"
+            aria-expanded="true" aria-controls="option">
+            <i class="fas fa-fw fa-wrench"></i>
+            <span>Dữ liệu</span>
+        </a>
+        <div id="option" class="collapse" aria-labelledby="headingUtilities"
+            data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <a class="collapse-item" href="{{route('channel.index')}}">Kênh chạy</a>
+                <a class="collapse-item" href="{{route('project.index')}}">Dự án</a>
+                <a class="collapse-item" href="{{route('supplier.index')}}">Nhà cung cấp</a>
+                <a class="collapse-item" href="{{route('office.index')}}">Văn phòng</a>
+                <a class="collapse-item" href="{{route('team.index')}}">Đội nhóm</a>
+                <a class="collapse-item" href="{{route('classify.index')}}">Loại chi phí</a>
+            </div>
+        </div>
     </li>
 
     <li class="nav-item">

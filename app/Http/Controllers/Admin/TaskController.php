@@ -49,9 +49,14 @@ class TaskController extends Controller
 
         $query = Task::query();
 
+        if ($request->get('content', '')) {
+            $query->where('content', $request->get('content', ''));
+        }
+
         if ($project_id) {
             $query->where('project_id', $project_id);
         }
+
         if ($channel_id) {
             $channel_array = [$channel_id];
             $Channels = Channel::where('parent', $channel_id)->get();

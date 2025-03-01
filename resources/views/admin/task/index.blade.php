@@ -65,73 +65,52 @@
                 </div>
                 <div class="tab-content pd-2">
                     <form class="width100" action="{{ url()->current() }}" method="GET">
-                        <div class="row">
-                            <!-- <div class="col-xl-1 col-lg-1">
-                                <div class="form-group">
-                                    <label class="">Admin</label>
-                                    <select name="admin_id" class="form-control select2">
-                                        <option value="">...</option>
-                                        <option <?php //if(request()->admin_id==1){ echo 'selected'; } ?> value="1">Mr. Tuấn</option>
-                                        <option <?php //if(request()->admin_id==181){ echo 'selected'; } ?> value="181">Ms. Thúy</option>
-                                    </select>
-                                </div>
-                            </div> -->
-                            <div class="col-xl-2 col-lg-2">
-                                <div class="form-group">
-                                    <select id="baba" name="project_id" class="form-control select2">
-                                        <option value="">-Dự án-</option>
-                                        @foreach($Project as $val)
-                                        <option <?php if(request()->project_id==$val->id){ echo 'selected'; } ?> value="{{$val->id}}">{{$val->name}}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
+                        <div class="main-search">
+                            <div class="form-group">
+                                <input class="form-control" value="{{request()->content}}" type="text" name="content" placeholder="-Ghi chú-" />
                             </div>
-                            <div class="col-xl-1 col-lg-1">
-                                <div class="form-group">
-                                    <select name="channel_id" class="form-control select2">
-                                        <option value="">-Kênh chạy-</option>
-                                        <?php addeditcat ($Channel,0,$str='',request()->channel_id); ?> 
-                                    </select>
-                                </div>
+                            <div class="form-group">
+                                <select id="baba" name="project_id" class="form-control select2">
+                                    <option value="">-Dự án-</option>
+                                    @foreach($Project as $val)
+                                    <option <?php if(request()->project_id==$val->id){ echo 'selected'; } ?> value="{{$val->id}}">{{$val->name}}</option>
+                                    @endforeach
+                                </select>
                             </div>
-                            <div class="col-xl-2 col-lg-2">
-                                <div class="form-group">
-                                    <select name="supplier_id" class="form-control select2">
-                                        <option value="">-Nhà cung cấp-</option>
-                                        @foreach($Supplier as $val)
-                                        <option <?php if(request()->supplier_id==$val->id){ echo 'selected'; } ?> value="{{$val->id}}">{{$val->name}}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
+                            <div class="form-group">
+                                <select name="channel_id" class="form-control select2">
+                                    <option value="">-Kênh chạy-</option>
+                                    <?php addeditcat ($Channel,0,$str='',request()->channel_id); ?> 
+                                </select>
                             </div>
-                            <div class="col-xl-2 col-lg-2">
-                                <div class="form-group">
-                                    <select name="team_id" class="form-control select2">
-                                        <option value="">-Đội nhóm-</option>
-                                        <?php addeditcat ($team,0,$str='',request()->team_id); ?> 
-                                    </select>
-                                </div>
+                            <div class="form-group">
+                                <select name="supplier_id" class="form-control select2">
+                                    <option value="">-Nhà cung cấp-</option>
+                                    @foreach($Supplier as $val)
+                                    <option <?php if(request()->supplier_id==$val->id){ echo 'selected'; } ?> value="{{$val->id}}">{{$val->name}}</option>
+                                    @endforeach
+                                </select>
                             </div>
-                            <div class="col-xl-2 col-lg-2">
-                                <div class="form-group">
-                                    <select name="classify_id" class="form-control select2">
-                                        <option value="">-Loại tác vụ-</option>
-                                        <?php addeditcat ($Classify,0,$str='',request()->classify_id); ?> 
-                                    </select>
-                                </div>
+                            <div class="form-group">
+                                <select name="team_id" class="form-control select2">
+                                    <option value="">-Đội nhóm-</option>
+                                    <?php addeditcat ($team,0,$str='',request()->team_id); ?> 
+                                </select>
                             </div>
-                            <div class="col-xl-2 col-lg-2">
-                                <div class="form-group">
-                                    <input class="form-control" type="text" name="datefilter" value="{{request()->datefilter}}" placeholder="-Thời gian-" />
-                                </div>
+                            <div class="form-group">
+                                <select name="classify_id" class="form-control select2">
+                                    <option value="">-Loại tác vụ-</option>
+                                    <?php addeditcat ($Classify,0,$str='',request()->classify_id); ?> 
+                                </select>
                             </div>
-                            
-                            <div class="col-xl-1 col-lg-1">
-                                <div class="form-group">
-                                    <div class="input-group">
-                                        <button type="submit" class="form-control btn btn-primary"><i class="fas fa-search"></i> </button>
-                                        <button type="button" class="form-control btn btn-secondary" onclick="window.location.href='{{ url()->current() }}'"><i class="fas fa-sync-alt"></i></button>
-                                    </div>
+
+                            <div class="form-group">
+                                <input class="form-control" type="text" name="datefilter" value="{{request()->datefilter}}" placeholder="-Thời gian-" />
+                            </div>
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <button type="submit" class="form-control btn btn-primary"><i class="fas fa-search"></i> </button>
+                                    <button type="button" class="form-control btn btn-secondary" onclick="window.location.href='{{ url()->current() }}'"><i class="fas fa-sync-alt"></i></button>
                                 </div>
                             </div>
                         </div>
@@ -160,8 +139,9 @@
                                     <th>Nhân viên</th>
                                     <th>Thời gian</th>
                                     <th>Admin</th>
-                                    <th>Content</th>
+                                    
                                     <th>Loại</th>
+                                    <th>Note</th>
                                     <th></th>
                                 </tr>
                                 <div class="tatall">Tổng tiền: {{ number_format($totalCosts, 0, ',', '.') }}đ</div>
@@ -213,11 +193,12 @@
                                         {{ $val->user_id==1 ? 'Mr. Tuấn':'' }}
                                         {{ $val->user_id==181 ? 'Ms. Thúy':'' }}
                                     </td>
-                                    <td>
-                                        {{ $val->content ?? '...' }}
-                                    </td>
+                                    
                                     <td>
                                         {{ $val->Classify->name ?? '...' }}
+                                    </td>
+                                    <td>
+                                        {{ $val->content ?? '...' }}
                                     </td>
                                     <td style="display: flex;">
                                         <a href="{{route('task.edit',[$val->id])}}" class="mr-2"><i class="fas fa-edit" aria-hidden="true"></i></a>

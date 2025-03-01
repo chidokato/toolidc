@@ -170,17 +170,17 @@
                 </div>
               </div>
 
-              <div class="form-group row">
+              <!-- <div class="form-group row">
                 <label class="col-sm-2 col-form-label">Tên tác vụ</label>
                 <div class="col-sm-10">
                   <input name="name" type="text" class="form-control" placeholder="Tên tác vụ">
                 </div>
-              </div>
+              </div> -->
 
               <div class="form-group row">
                 <label class="col-sm-2 col-form-label">Ghi chú</label>
                 <div class="col-sm-10">
-                  <textarea rows="3" name="content" class="form-control" placeholder="Ghi chú"></textarea>
+                  <input name="content" type="text" class="form-control" placeholder="Ghi chú">
                 </div>
               </div>
 
