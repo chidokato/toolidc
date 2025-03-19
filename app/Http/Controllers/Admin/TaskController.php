@@ -16,6 +16,7 @@ use App\Models\Team;
 use App\Models\Office;
 use App\Models\Classify;
 use App\Models\User;
+use App\Models\Setting;
 
 use Carbon\Carbon;
 use App\Helpers\SimpleXLSX; // Import thư viện SimpleXLSX
@@ -36,6 +37,8 @@ class TaskController extends Controller
         //     $data->classify = 5;
         //     $data->save();
         // }
+
+
 
         $perPage = $request->get('per_page', 100); // Mặc định là 30 nếu không có lựa chọn
         $project_id = $request->get('project_id', ''); // dự án
@@ -105,6 +108,7 @@ class TaskController extends Controller
         $Supplier = Supplier::get();
         $team = Team::get();
         $Classify = Classify::get();
+        $setting = Setting::find(1);
         return view('admin.task.index', compact(
             'Channel',
             'Project',
@@ -113,6 +117,7 @@ class TaskController extends Controller
             'Classify',
             'data',
             'totalCosts',
+            'setting',
         ));
     }
 

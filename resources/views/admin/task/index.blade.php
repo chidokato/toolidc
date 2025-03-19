@@ -30,7 +30,7 @@
                         <p>Bạn vui lòng kiểm tra và tải lại file mới để tránh sai lệch dữ liệu</p>
                     </div>
                     <ul>
-                        <li>Tải mẫu file nhập <a href="data/files/up.xlsx">tại đây</a></li>
+                        <li>Tải mẫu file nhập <a href="{{ asset( $setting->file_name ) }}" target="_blank">Tại đây</a></li>
                         <li>File có dung lượng tối đa là 3MB và 5000 dòng</li>
                     </ul>
                     <label for="excel-file" id="custom-file-label" class="custom-file-upload">

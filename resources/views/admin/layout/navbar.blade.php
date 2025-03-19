@@ -39,6 +39,7 @@
                 <a class="collapse-item" href="{{route('office.index')}}">Văn phòng</a>
                 <a class="collapse-item" href="{{route('team.index')}}">Đội nhóm</a>
                 <a class="collapse-item" href="{{route('classify.index')}}">Loại chi phí</a>
+                <a class="collapse-item" href="{{route('setting.index')}}">Cầu hình</a>
             </div>
         </div>
     </li>

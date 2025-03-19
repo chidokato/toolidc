@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\Users\LoginController;
 use App\Http\Controllers\Admin\Users\UserController;
 use App\Http\Controllers\Admin\MainController;
 use App\Http\Controllers\Admin\ChannelController;
+use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\ClassifyController;
 use App\Http\Controllers\Admin\OfficeController;
 use App\Http\Controllers\Admin\ProjectController;
@@ -58,6 +59,7 @@ Route::middleware(['auth'])->group(function () {
         Route::resource('office',OfficeController::class);
 
         Route::resource('channel',ChannelController::class);
+        Route::resource('setting',SettingController::class);
         Route::resource('classify',ClassifyController::class);
         
         Route::resource('allocation',AllocationController::class);
