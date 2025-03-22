@@ -242,6 +242,8 @@ class TaskController extends Controller
                     $date_end = null;
                 }
 
+                // dd($row[10]);
+
                 Task::create([
                     'user_id'        => Auth::id(),
                     'u_id'           => $u_id,
@@ -255,7 +257,7 @@ class TaskController extends Controller
                     'supplier_id'    => $supplier_id,
                     'office_id'    => $office_id,
                     'expected_costs' => str_replace('.', '', $row[9]),
-                    'support_rate'   => $row[10],
+                    'support_rate' => is_numeric($row[10]) ? ($row[10] * 100) . '%' : $row[10],
                     'confirm'        => $row[11],
                     'actual_costs'   => str_replace('.', '', $row[12]),
                     'date_start' => $date_start,
