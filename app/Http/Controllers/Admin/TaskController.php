@@ -39,7 +39,9 @@ class TaskController extends Controller
         $sort = $request->get('sort', 'desc'); // Mặc định là sắp xếp giảm dần
         $datefilter = $request->get('datefilter'); // datefilter
         $admin_id = $request->get('admin_id', []);
-        if ($admin_id === ['all']) {
+        if (empty($admin_id)) {
+            $admin_id = [Auth::user()->id]; // Nếu không có request, gán ID của user đang đăng nhập
+        } elseif ($admin_id === ['all']) {
             $admin_id = User::pluck('id')->toArray(); // Nếu chọn "Tất cả", lấy tất cả ID
         } elseif (!is_array($admin_id)) {
             $admin_id = [$admin_id]; // Chuyển giá trị đơn thành mảng
@@ -76,9 +78,7 @@ class TaskController extends Controller
                   ->orWhere('san_id', $team_id);
             });
         }
-        if (!empty($admin_id)) {
-            $query->whereIn('user_id', $admin_id);
-        }
+        $query->whereIn('user_id', $admin_id);
 
         // Xử lý datefilter
         if ($datefilter) {

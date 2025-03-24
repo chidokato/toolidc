@@ -62,9 +62,12 @@
             <div class="form-group row">
                 <label class="col-sm-4">Admin</label>
                 <select name="admin_id[]" class="form-control select2 col-sm-7">
-                    <option value="all">all</option>
+                    <option value="all" {{ request()->admin_id == 'all' ? 'selected' : '' }}>Tất cả</option>
                     @foreach($User as $val)
-                    <option value="{{ $val->id }}" {{ in_array($val->id, (array) request()->admin_id) ? 'selected' : '' }}>{{ $val->yourname }}</option>
+                        <option value="{{ $val->id }}" 
+                            {{ in_array($val->id, (array) request()->admin_id ?: [Auth::user()->id]) ? 'selected' : '' }}>
+                            {{ $val->yourname }}
+                        </option>
                     @endforeach
                 </select>
             </div>
