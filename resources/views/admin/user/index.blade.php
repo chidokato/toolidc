@@ -17,11 +17,10 @@
 <form class="width100" action="{{ url()->current() }}" method="GET">
     <div class="col-xl-12 col-lg-12 search flex-start">
         <input type="text" value="{{ request()->key ?? '' }}" placeholder="Tìm kiếm..." class="form-control" name="key" onchange="this.form.submit()">
-        <select name="team" class="form-control" onchange="this.form.submit()">
-            <option value="">...</option>
-            @foreach($teams as $val)
-            <option {{ request()->team == $val->id ? 'selected' : '' }} value="{{$val->id}}">{{$val->name}}</option>
-            @endforeach
+        <select name="permission" class="form-control" onchange="this.form.submit()">
+            <option value="">All Users</option>
+            <option <?php if(request()->permission=='1'){ echo 'selected'; } ?> value="1">SuperAdmin</option>
+            <option <?php if(request()->permission=='2'){ echo 'selected'; } ?> value="2">Admin</option>
         </select>
         <button type="submit" class="btn btn-success mr-2">Tìm kiếm</button>
         <a href="{{ url()->current() }}" class="btn btn-warning">

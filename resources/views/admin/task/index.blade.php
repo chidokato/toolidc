@@ -3,6 +3,9 @@
 @section('content')
 @include('admin.layout.header')
 @include('admin.alert')
+
+<link rel="stylesheet" type="text/css" href="admin_asset/css/task.css">
+
 <div class="d-sm-flex align-items-center justify-content-between mb-3 flex">
     <h2 class="h3 mb-0 text-gray-800 line-1 size-1-3-rem">QUẢN LÝ CHI PHÍ</h2>
     
@@ -51,6 +54,9 @@
         </div>
     </div>
 </div>
+
+
+<button class="timkiem btn btn-primary">Tìm kiếm</button>
 
 
     <div class="row">
@@ -225,47 +231,6 @@
     </div>
 
 
-
-<style type="text/css">
-    .table{ position: relative; }
-    .tatall{ position: absolute; top: 10px; right: 20px; color: red; font-weight: bold; }
-    .small{ font-size:.8rem }
-    .main-check{ position:relative; }
-    .option{ position:absolute; background:#f4f6f8; top: 0;
-    left: 40px;
-    width: 90%;
-    height: 40px; line-height:40px; padding-left:30px;  }
-    .option button{ color:#858796 }
-    .form-group{ margin-bottom:0px }
-    .pd-2{ padding:.5rem }
-
-
-    .custom-file-upload {
-        display: inline-block;
-        width: 100%;
-        text-align: center;
-        padding: 10px 20px;
-        font-size: 16px;
-        border: 1px dashed #ddd;
-        border-radius: 5px;
-        cursor: pointer;
-        font-size: .9rem;
-        transition: background-color 0.3s ease;
-    }
-
-    .custom-file-upload:hover {
-    }
-
-    input[type="file"] {
-        display: none;
-    }
-
-    .chuy{ background: #FFDBDB; padding: 10px 10px; margin-bottom:15px; }
-    .chuy p{ font-size:.8rem; margin:0 }
-    .modal-body ul{ padding-left:20px }
-    .modal-body ul li{ font-size:.9rem }
-
-</style>
 
 <script type="text/javascript">
 $(function() {

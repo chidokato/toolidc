@@ -30,7 +30,7 @@ class UserController extends Controller
         $teams = Team::orderBy('id', 'DESC')->get();
         $perPage = $request->get('per_page', 20); // Mặc định là 20 nếu không có lựa chọn
         $key = $request->get('key', '');
-        $team_id = $request->get('team', '');
+        $permission = $request->get('permission', '');
         
         $query = User::query();
 
@@ -38,8 +38,8 @@ class UserController extends Controller
             $query->where('yourname', 'like', '%' . $key . '%');
         }
 
-        if ($team_id) {
-            $query->where('team_id', $team_id);
+        if ($permission) {
+            $query->where('permission', $permission);
         }
 
         $users = $query->orderBy('id', 'DESC')->paginate($perPage);

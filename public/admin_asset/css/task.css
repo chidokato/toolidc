@@ -1,0 +1,35 @@
+.table{ position: relative; }
+.tatall{ position: absolute; top: 10px; right: 20px; color: red; font-weight: bold; }
+.small{ font-size:.8rem }
+.main-check{ position:relative; }
+.option{ position:absolute; background:#f4f6f8; top: 0;
+left: 40px;
+width: 90%;
+height: 40px; line-height:40px; padding-left:30px;  }
+.option button{ color:#858796 }
+.form-group{ margin-bottom:0px }
+.pd-2{ padding:.5rem }
+.custom-file-upload {
+    display: inline-block;
+    width: 100%;
+    text-align: center;
+    padding: 10px 20px;
+    font-size: 16px;
+    border: 1px dashed #ddd;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: .9rem;
+    transition: background-color 0.3s ease;
+}
+.custom-file-upload:hover {
+}
+
+input[type="file"] {
+    display: none;
+}
+.chuy{ background: #FFDBDB; padding: 10px 10px; margin-bottom:15px; }
+.chuy p{ font-size:.8rem; margin:0 }
+.modal-body ul{ padding-left:20px }
+.modal-body ul li{ font-size:.9rem }
+
+.timkiem{ position:fixed; right:-29px; top:200px; z-index:9; border:none; transform: rotate(90deg); }

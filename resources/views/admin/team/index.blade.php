@@ -13,7 +13,21 @@
     <a class="add-iteam" href="{{route('team.create')}}"><button class="btn-success form-control" type="button"><i class="fa fa-plus" aria-hidden="true"></i> Thêm mới</button></a>
 </div>
 
+
+<form class="width100" action="{{ url()->current() }}" method="GET">
 <div class="row">
+    <div class="col-xl-12 col-lg-12 search flex-start">
+        <!-- <input type="text" value="{{ request()->key ?? '' }}" placeholder="Tìm kiếm..." class="form-control" name="key" onchange="this.form.submit()"> -->
+        <select name="cty" class="form-control" onchange="this.form.submit()">
+            <option value="">All</option>
+            <option <?php if(request()->cty=='1'){ echo 'selected'; } ?> value="1">INDOCHINE</option>
+            <option <?php if(request()->cty=='29'){ echo 'selected'; } ?> value="29">VIETNAM HOMES</option>
+        </select>
+        <!-- <button type="submit" class="btn btn-success mr-2">Tìm kiếm</button> -->
+        <a href="{{ url()->current() }}" class="btn btn-warning">
+            Reset
+        </a>
+    </div>
     <div class="col-xl-12 col-lg-12">
         <div class="card shadow mb-4">
             <div class="card-header d-flex flex-row align-items-center justify-content-between">
@@ -23,18 +37,64 @@
             </div>
             <div class="tab-content overflow">
                 <div class="tab-pane active" id="tab2">
-                    @if(count($data) > 0)
+                    @if(count($teams) > 0)
                     <table class="table">
                             <thead>
                                 <tr>
                                     <th>ID</th>
                                     <th>Name</th>
+                                    <th>Phân cấp</th>
                                     <th>date</th>
                                     <th></th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <?php dequycategory ($data,0,$str='',old('parent')); ?>  
+                                @foreach($teams as $team)
+                                <tr>
+                                    <td><strong>{{$team->name}}</strong></td>
+                                    <td>Công ty</td>
+                                    <td>{{$team->updated_at}}</td>
+                                    <td style="display: flex;">
+                                        <a href="{{route('team.edit',[$team->id])}}" class="mr-3"><i class="fas fa-edit" aria-hidden="true"></i></a>
+                                        <form action="{{route('team.destroy', [$team->id])}}" method="POST">
+                                          @method('DELETE')
+                                          @csrf
+                                          <button class="button_none" onclick="return confirm('Bạn muốn xóa bản ghi ?')"><i class="fas fa-trash-alt"></i></button>
+                                        </form>
+                                    </td>
+                                </tr>
+                                    @foreach($team->children as $chil)
+                                    <tr>
+                                        <td>--{{$chil->name}}</td>
+                                        <td>Sàn/chi nhánh</td>
+                                        <td>{{$chil->updated_at}}</td>
+                                        <td style="display: flex;">
+                                            <a href="{{route('team.edit',[$chil->id])}}" class="mr-3"><i class="fas fa-edit" aria-hidden="true"></i></a>
+                                            <form action="{{route('team.destroy', [$chil->id])}}" method="POST">
+                                              @method('DELETE')
+                                              @csrf
+                                              <button class="button_none" onclick="return confirm('Bạn muốn xóa bản ghi ?')"><i class="fas fa-trash-alt"></i></button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                        @foreach($chil->children as $chil2)
+                                        <tr>
+                                            <td>----{{$chil2->name}}</td>
+                                            <td>Đội nhóm</td>
+                                            <td>{{$chil2->updated_at}}</td>
+                                            <td style="display: flex;">
+                                                <a href="{{route('team.edit',[$chil2->id])}}" class="mr-3"><i class="fas fa-edit" aria-hidden="true"></i></a>
+                                                <form action="{{route('team.destroy', [$chil2->id])}}" method="POST">
+                                                  @method('DELETE')
+                                                  @csrf
+                                                  <button class="button_none" onclick="return confirm('Bạn muốn xóa bản ghi ?')"><i class="fas fa-trash-alt"></i></button>
+                                                </form>
+                                            </td>
+                                        </tr>
+                                        @endforeach
+                                    @endforeach
+                                
+                                @endforeach
                             </tbody>
                     </table>
                     @endif
@@ -43,34 +103,7 @@
         </div>
     </div>
 </div>
+</form>
 
-
-<?php 
-    function dequycategory ($menulist, $parent=0, $str='')
-    {
-        foreach ($menulist as $val) 
-        {
-            if ($val['parent'] == $parent) 
-            { 
-                ?>
-                    <tr style="border-bottom: 1px solid #f3f6f9;">
-                        <td>{{$val->id}}</td>
-                        <td><a href="{{route('team.edit',[$val->id])}}">{{$str}}{{$val->name}}</a></td>
-                        <td class="date">{{date('d/m/Y',strtotime($val->created_at))}} <sup title="Sửa lần cuối: {{date('d/m/Y',strtotime($val->updated_at))}}"><i class="fa fa-question-circle-o" aria-hidden="true"></i></sup> </td>
-                        <td style="display: flex;">
-                            <a href="{{route('team.edit',[$val->id])}}" class="mr-3"><i class="fas fa-edit" aria-hidden="true"></i></a>
-                            <form action="{{route('team.destroy', [$val->id])}}" method="POST">
-                              @method('DELETE')
-                              @csrf
-                              <button class="button_none" onclick="return confirm('Bạn muốn xóa bản ghi ?')"><i class="fas fa-trash-alt"></i></button>
-                            </form>
-                        </td>
-                    </tr>
-                <?php
-                dequycategory ($menulist, $val['id'], $str.'__');
-            }
-        }
-    }
-?>
 
 @endsection

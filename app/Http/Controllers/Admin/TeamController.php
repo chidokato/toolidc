@@ -18,12 +18,22 @@ class TeamController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        // $data = Team::first();
-        $data = Team::get();
+        // $key = $request->get('key', '');
+        $cty = $request->get('cty', '');
+
+        $query = Team::query();
+        // if ($key) {
+        //     $query->where('name', 'like', '%' . $key . '%');
+        // }
+        if ($cty) {
+            $query->where('id', $cty);
+        }
+        $teams = $query->where('parent', 0)->get();
+
         return view('admin.team.index', compact(
-            'data',
+            'teams',
         ));
     }
 

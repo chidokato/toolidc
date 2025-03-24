@@ -40,7 +40,7 @@ class TaskController extends Controller
 
 
 
-        $perPage = $request->get('per_page', 100); // Mặc định là 30 nếu không có lựa chọn
+        $perPage = $request->get('per_page', 20); // Mặc định là 30 nếu không có lựa chọn
         $project_id = $request->get('project_id', ''); // dự án
         $channel_id = $request->get('channel_id', ''); // Kênh
         $classify_id = $request->get('classify_id', ''); // Kênh
