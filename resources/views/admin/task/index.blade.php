@@ -119,6 +119,12 @@
                 <label class="col-sm-4">Thời gian</label>
                 <input class="form-control col-sm-7" type="text" name="datefilter" value="{{request()->datefilter}}" placeholder="..." />
             </div>
+
+            <div class="form-group row">
+                <label class="col-sm-4">Ngày đăng</label>
+                <input class="form-control col-sm-7" type="text" name="datefilter1" value="{{request()->datefilter1}}" placeholder="..." />
+            </div>
+
             <div class="form-group">
                 <div class="input-group">
                     <button type="submit" class="form-control btn btn-primary"><i class="fas fa-search"></i> </button>
@@ -247,15 +253,17 @@
                             </form>
                             
                         </table>
+                        <form class="width100" action="{{ url()->current() }}" method="GET">
                         <div class="search paginate-search">
                             <div>Hiển thị: </div>
                             <select class="form-control paginate" name="per_page" onchange="this.form.submit()">
                                 <option value="100" {{ request()->per_page == 100 ? 'selected' : '' }}>100</option>
-                                <option value="500" {{ request()->per_page == 200 ? 'selected' : '' }}>200</option>
+                                <option value="200" {{ request()->per_page == 200 ? 'selected' : '' }}>200</option>
                             </select>
                             <div> Từ {{ $data->firstItem() }} đến {{ $data->lastItem() }} trên tổng {{ $data->total() }} </div>
                             {{ $data->appends(request()->all())->links() }}
                         </div>
+                        </form>
                     </div>
                 </div>
             </div>

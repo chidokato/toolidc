@@ -96,43 +96,34 @@
     
     <script type="text/javascript">
     $(document).ready(function() {
-        // Khởi tạo DateRangePicker
-        $('input[name="datefilter"]').daterangepicker({
-            autoUpdateInput: false,
-            locale: { cancelLabel: 'Clear' }
-        });
+        function initDateRangePicker(selector) {
+            $(selector).daterangepicker({
+                autoUpdateInput: false,
+                locale: { cancelLabel: 'Clear' }
+            });
 
-        // Khi chọn ngày và nhấn Apply, cập nhật input và giữ .timkiem mở
-        $('input[name="datefilter"]').on('apply.daterangepicker', function(ev, picker) {
-            $(this).val(picker.startDate.format('MM/DD/YYYY') + ' - ' + picker.endDate.format('MM/DD/YYYY'));
-            $(".timkiem").addClass("active"); // Giữ lại class active
-        });
+            $(selector).on('apply.daterangepicker', function(ev, picker) {
+                $(this).val(picker.startDate.format('MM/DD/YYYY') + ' - ' + picker.endDate.format('MM/DD/YYYY'));
+                $(".timkiem").addClass("active");
+            });
 
-        // Khi nhấn Clear trong DateRangePicker
-        $('input[name="datefilter"]').on('cancel.daterangepicker', function(ev, picker) {
-            $(this).val('');
-        });
+            $(selector).on('cancel.daterangepicker', function(ev, picker) {
+                $(this).val('');
+            });
+        }
 
-        // Khi click vào nút "Tìm kiếm" -> Toggle class active
+        // Khởi tạo DateRangePicker cho cả 2 input
+        initDateRangePicker('input[name="datefilter"]');
+        initDateRangePicker('input[name="datefilter1"]');
+
+        // Toggle class active khi nhấn nút tìm kiếm
         $(".search-button").click(function(event) {
-            event.stopPropagation(); 
+            event.stopPropagation();
             $(".timkiem").toggleClass("active");
         });
 
-        // Khi click vào nút Apply -> Không đóng .timkiem
-        $(document).on("click", ".applyBtn", function(event) {
-            event.stopPropagation();
-            $(".timkiem").addClass("active");
-        });
-
-        // Khi click vào nút Apply -> Không đóng .timkiem
-        $(document).on("click", ".prev", function(event) {
-            event.stopPropagation();
-            $(".timkiem").addClass("active");
-        });
-
-        // Khi click vào nút Apply -> Không đóng .timkiem
-        $(document).on("click", ".next", function(event) {
+        // Giữ lại .timkiem khi chọn ngày
+        $(document).on("click", ".applyBtn, .prev, .next", function(event) {
             event.stopPropagation();
             $(".timkiem").addClass("active");
         });
@@ -144,6 +135,7 @@
             }
         });
     });
+
 
 
     </script>

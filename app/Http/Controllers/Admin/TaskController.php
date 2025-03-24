@@ -30,7 +30,7 @@ class TaskController extends Controller
      */
     public function index(Request $request)
     {
-        $perPage = $request->get('per_page', 20); // Mặc định là 30 nếu không có lựa chọn
+        $perPage = $request->get('per_page', 100); // Mặc định là 30 nếu không có lựa chọn
         $project_id = $request->get('project_id', ''); // dự án
         $channel_id = $request->get('channel_id', ''); // Kênh
         $classify_id = $request->get('classify_id', ''); // Kênh
@@ -38,6 +38,7 @@ class TaskController extends Controller
         $team_id = $request->get('team_id', ''); // nhóm
         $sort = $request->get('sort', 'desc'); // Mặc định là sắp xếp giảm dần
         $datefilter = $request->get('datefilter'); // datefilter
+        $datefilter1 = $request->get('datefilter1'); // datefilter
         $admin_id = $request->get('admin_id', []);
         if (empty($admin_id)) {
             $admin_id = [Auth::user()->id]; // Nếu không có request, gán ID của user đang đăng nhập
@@ -91,11 +92,22 @@ class TaskController extends Controller
                 $query->whereBetween('date_end', [$startDate, $endDate]);
             }
         }
+
+        if ($datefilter1) {
+            $dates = explode(' - ', $datefilter1);
+            if (count($dates) === 2) {
+                // Chuyển đổi từ định dạng MM/DD/YYYY sang YYYY-MM-DD
+                $startDate = \Carbon\Carbon::createFromFormat('m/d/Y', trim($dates[0]))->format('Y-m-d');
+                $endDate = \Carbon\Carbon::createFromFormat('m/d/Y', trim($dates[1]))->format('Y-m-d');
+
+                $query->whereBetween('created_at', [$startDate, $endDate]);
+            }
+        }
+
         $query->orderBy('id', 'DESC');
         // $query->orderBy('date_start', $sort);
         $totalCosts = $query->clone()->sum('actual_costs');
         $data = $query->paginate($perPage);
-
 
         $User = User::wherein('permission', [1,2,3])->get();
         $Channel = Channel::get();
