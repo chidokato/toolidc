@@ -36,7 +36,8 @@ class TaskController extends Controller
         $classify_id = $request->get('classify_id', ''); // Kênh
         $supplier_id = $request->get('supplier_id', ''); // Nhà cung cấp
         $team_id = $request->get('team_id', ''); // nhóm
-        $admin_id = $request->get('admin_id', ''); // admin
+        if($request->get('admin_id', '')){$admin_id = $request->get('admin_id', '');}else{$admin_id = Auth::User()->id;}
+        
         $sort = $request->get('sort', 'desc'); // Mặc định là sắp xếp giảm dần
         $datefilter = $request->get('datefilter'); // datefilter
 
@@ -87,7 +88,6 @@ class TaskController extends Controller
             }
         }
         $query->orderBy('id', 'DESC');
-        $query->where('user_id', Auth::User()->id);
         // $query->orderBy('date_start', $sort);
         $totalCosts = $query->clone()->sum('actual_costs');
         $data = $query->paginate($perPage);
