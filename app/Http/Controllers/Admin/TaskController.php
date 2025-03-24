@@ -36,10 +36,14 @@ class TaskController extends Controller
         $classify_id = $request->get('classify_id', ''); // Kênh
         $supplier_id = $request->get('supplier_id', ''); // Nhà cung cấp
         $team_id = $request->get('team_id', ''); // nhóm
-        if($request->get('admin_id', '')){$admin_id = $request->get('admin_id', '');}else{$admin_id = Auth::User()->id;}
-        
         $sort = $request->get('sort', 'desc'); // Mặc định là sắp xếp giảm dần
         $datefilter = $request->get('datefilter'); // datefilter
+        $admin_id = $request->get('admin_id', []);
+        if ($admin_id === ['all']) {
+            $admin_id = User::pluck('id')->toArray(); // Nếu chọn "Tất cả", lấy tất cả ID
+        } elseif (!is_array($admin_id)) {
+            $admin_id = [$admin_id]; // Chuyển giá trị đơn thành mảng
+        }
 
         $query = Task::query();
 
@@ -72,8 +76,8 @@ class TaskController extends Controller
                   ->orWhere('san_id', $team_id);
             });
         }
-        if ($admin_id) {
-            $query->where('user_id', $admin_id);
+        if (!empty($admin_id)) {
+            $query->whereIn('user_id', $admin_id);
         }
 
         // Xử lý datefilter

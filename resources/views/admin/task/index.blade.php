@@ -61,10 +61,10 @@
         <div class="main-search">
             <div class="form-group row">
                 <label class="col-sm-4">Admin</label>
-                <select id="baba" name="admin_id" class="form-control select2 col-sm-7">
-                    <option value="">...</option>
+                <select name="admin_id[]" class="form-control select2 col-sm-7">
+                    <option value="all">all</option>
                     @foreach($User as $val)
-                    <option <?php if(request()->admin_id==$val->id){ echo 'selected'; } ?> value="{{$val->id}}">{{$val->yourname}}</option>
+                    <option value="{{ $val->id }}" {{ in_array($val->id, (array) request()->admin_id) ? 'selected' : '' }}>{{ $val->yourname }}</option>
                     @endforeach
                 </select>
             </div>
@@ -74,7 +74,7 @@
             </div>
             <div class="form-group row">
                 <label class="col-sm-4">Dự án</label>
-                <select id="baba" name="project_id" class="form-control select2 col-sm-7">
+                <select name="project_id" class="form-control select2 col-sm-7">
                     <option value="">...</option>
                     @foreach($Project as $val)
                     <option <?php if(request()->project_id==$val->id){ echo 'selected'; } ?> value="{{$val->id}}">{{$val->name}}</option>
@@ -226,8 +226,7 @@
                                         </div>
                                     </td>
                                     <td>
-                                        {{ $val->user_id==1 ? 'Mr. Tuấn':'' }}
-                                        {{ $val->user_id==181 ? 'Ms. Thúy':'' }}
+                                        {{ $User->firstWhere('id', $val->user_id)->yourname }}
                                     </td>
                                     
                                     <td>
