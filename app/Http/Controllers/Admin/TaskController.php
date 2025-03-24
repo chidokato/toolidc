@@ -30,16 +30,6 @@ class TaskController extends Controller
      */
     public function index(Request $request)
     {
-
-        // $update = Task::where('classify', 'Bảo hiểm xã hội')->get();
-        // foreach($update as $val){
-        //     $data = Task::find($val->id);
-        //     $data->classify = 5;
-        //     $data->save();
-        // }
-
-
-
         $perPage = $request->get('per_page', 20); // Mặc định là 30 nếu không có lựa chọn
         $project_id = $request->get('project_id', ''); // dự án
         $channel_id = $request->get('channel_id', ''); // Kênh
@@ -81,9 +71,9 @@ class TaskController extends Controller
                   ->orWhere('san_id', $team_id);
             });
         }
-        // if ($admin_id) {
-        //     $query->where('user_id', $admin_id);
-        // }
+        if ($admin_id) {
+            $query->where('user_id', $admin_id);
+        }
 
         // Xử lý datefilter
         if ($datefilter) {
@@ -103,6 +93,7 @@ class TaskController extends Controller
         $data = $query->paginate($perPage);
 
 
+        $User = User::wherein('permission', [1,2,3])->get();
         $Channel = Channel::get();
         $Project = Project::get();
         $Supplier = Supplier::get();
@@ -110,6 +101,7 @@ class TaskController extends Controller
         $Classify = Classify::get();
         $setting = Setting::find(1);
         return view('admin.task.index', compact(
+            'User',
             'Channel',
             'Project',
             'Supplier',

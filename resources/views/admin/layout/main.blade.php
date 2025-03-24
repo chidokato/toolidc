@@ -95,20 +95,57 @@
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
     
     <script type="text/javascript">
-    $(function() {
+    $(document).ready(function() {
+        // Khởi tạo DateRangePicker
         $('input[name="datefilter"]').daterangepicker({
-          autoUpdateInput: false,
-          locale: {
-              cancelLabel: 'Clear'
-          }
+            autoUpdateInput: false,
+            locale: { cancelLabel: 'Clear' }
         });
+
+        // Khi chọn ngày và nhấn Apply, cập nhật input và giữ .timkiem mở
         $('input[name="datefilter"]').on('apply.daterangepicker', function(ev, picker) {
-          $(this).val(picker.startDate.format('MM/DD/YYYY') + ' - ' + picker.endDate.format('MM/DD/YYYY'));
+            $(this).val(picker.startDate.format('MM/DD/YYYY') + ' - ' + picker.endDate.format('MM/DD/YYYY'));
+            $(".timkiem").addClass("active"); // Giữ lại class active
         });
+
+        // Khi nhấn Clear trong DateRangePicker
         $('input[name="datefilter"]').on('cancel.daterangepicker', function(ev, picker) {
-          $(this).val('');
+            $(this).val('');
+        });
+
+        // Khi click vào nút "Tìm kiếm" -> Toggle class active
+        $(".search-button").click(function(event) {
+            event.stopPropagation(); 
+            $(".timkiem").toggleClass("active");
+        });
+
+        // Khi click vào nút Apply -> Không đóng .timkiem
+        $(document).on("click", ".applyBtn", function(event) {
+            event.stopPropagation();
+            $(".timkiem").addClass("active");
+        });
+
+        // Khi click vào nút Apply -> Không đóng .timkiem
+        $(document).on("click", ".prev", function(event) {
+            event.stopPropagation();
+            $(".timkiem").addClass("active");
+        });
+
+        // Khi click vào nút Apply -> Không đóng .timkiem
+        $(document).on("click", ".next", function(event) {
+            event.stopPropagation();
+            $(".timkiem").addClass("active");
+        });
+
+        // Đóng .timkiem khi click ra ngoài (trừ DateRangePicker)
+        $(document).click(function(event) {
+            if (!$(event.target).closest('.timkiem, .daterangepicker').length) {
+                $(".timkiem").removeClass("active");
+            }
         });
     });
+
+
     </script>
 
     <!-- select2 multiple JavaScript -->

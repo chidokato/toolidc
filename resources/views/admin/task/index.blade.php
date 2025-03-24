@@ -55,8 +55,77 @@
     </div>
 </div>
 
+<div class="timkiem">
+    <button class="btn btn-primary search-button">Tìm kiếm</button>
+    <form class="width100" action="{{ url()->current() }}" method="GET">
+        <div class="main-search">
+            <div class="form-group row">
+                <label class="col-sm-4">Admin</label>
+                <select id="baba" name="admin_id" class="form-control select2 col-sm-7">
+                    <option value="">...</option>
+                    @foreach($User as $val)
+                    <option <?php if(request()->admin_id==$val->id){ echo 'selected'; } ?> value="{{$val->id}}">{{$val->yourname}}</option>
+                    @endforeach
+                </select>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-4">Ghi chú</label>
+                <input class="form-control col-sm-7" value="{{request()->content}}" type="text" name="content" placeholder="..." />
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-4">Dự án</label>
+                <select id="baba" name="project_id" class="form-control select2 col-sm-7">
+                    <option value="">...</option>
+                    @foreach($Project as $val)
+                    <option <?php if(request()->project_id==$val->id){ echo 'selected'; } ?> value="{{$val->id}}">{{$val->name}}</option>
+                    @endforeach
+                </select>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-4">Kênh chạy</label>
+                <select name="channel_id" class="form-control select2 col-sm-7">
+                    <option value="">...</option>
+                    <?php addeditcat ($Channel,0,$str='',request()->channel_id); ?> 
+                </select>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-4">Nhà cung cấp</label>
+                <select name="supplier_id" class="form-control select2 col-sm-7">
+                    <option value="">...</option>
+                    @foreach($Supplier as $val)
+                    <option <?php if(request()->supplier_id==$val->id){ echo 'selected'; } ?> value="{{$val->id}}">{{$val->name}}</option>
+                    @endforeach
+                </select>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-4">Đội nhóm</label>
+                <select name="team_id" class="form-control select2 col-sm-7">
+                    <option value="">...</option>
+                    <?php addeditcat ($team,0,$str='',request()->team_id); ?> 
+                </select>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-4">Loại tác vụ</label>
+                <select name="classify_id" class="form-control select2 col-sm-7">
+                    <option value="">...</option>
+                    <?php addeditcat ($Classify,0,$str='',request()->classify_id); ?> 
+                </select>
+            </div>
 
-<button class="timkiem btn btn-primary">Tìm kiếm</button>
+            <div class="form-group row">
+                <label class="col-sm-4">Thời gian</label>
+                <input class="form-control col-sm-7" type="text" name="datefilter" value="{{request()->datefilter}}" placeholder="..." />
+            </div>
+            <div class="form-group">
+                <div class="input-group">
+                    <button type="submit" class="form-control btn btn-primary"><i class="fas fa-search"></i> </button>
+                    <button type="button" class="form-control btn btn-secondary" onclick="window.location.href='{{ url()->current() }}'"><i class="fas fa-sync-alt"></i></button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
 
 
     <div class="row">
@@ -69,58 +138,19 @@
                         <!-- <li><a data-toggle="tab" class="nav-link" href="#tab3">Ẩn</a></li> -->
                     </ul>
                 </div>
-                <div class="tab-content pd-2">
-                    <form class="width100" action="{{ url()->current() }}" method="GET">
-                        <div class="main-search">
-                            <div class="form-group">
-                                <input class="form-control" value="{{request()->content}}" type="text" name="content" placeholder="-Ghi chú-" />
-                            </div>
-                            <div class="form-group">
-                                <select id="baba" name="project_id" class="form-control select2">
-                                    <option value="">-Dự án-</option>
-                                    @foreach($Project as $val)
-                                    <option <?php if(request()->project_id==$val->id){ echo 'selected'; } ?> value="{{$val->id}}">{{$val->name}}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <select name="channel_id" class="form-control select2">
-                                    <option value="">-Kênh chạy-</option>
-                                    <?php addeditcat ($Channel,0,$str='',request()->channel_id); ?> 
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <select name="supplier_id" class="form-control select2">
-                                    <option value="">-Nhà cung cấp-</option>
-                                    @foreach($Supplier as $val)
-                                    <option <?php if(request()->supplier_id==$val->id){ echo 'selected'; } ?> value="{{$val->id}}">{{$val->name}}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <select name="team_id" class="form-control select2">
-                                    <option value="">-Đội nhóm-</option>
-                                    <?php addeditcat ($team,0,$str='',request()->team_id); ?> 
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <select name="classify_id" class="form-control select2">
-                                    <option value="">-Loại tác vụ-</option>
-                                    <?php addeditcat ($Classify,0,$str='',request()->classify_id); ?> 
-                                </select>
-                            </div>
+                <div class="view-search">
+                    @if(request()->content)
+                        <span>{{ e(request()->content) }}</span>
+                    @endif
 
-                            <div class="form-group">
-                                <input class="form-control" type="text" name="datefilter" value="{{request()->datefilter}}" placeholder="-Thời gian-" />
-                            </div>
-                            <div class="form-group">
-                                <div class="input-group">
-                                    <button type="submit" class="form-control btn btn-primary"><i class="fas fa-search"></i> </button>
-                                    <button type="button" class="form-control btn btn-secondary" onclick="window.location.href='{{ url()->current() }}'"><i class="fas fa-sync-alt"></i></button>
-                                </div>
-                            </div>
-                        </div>
-                    </form>
+                    @if($project = $Project->firstWhere('id', request()->project_id))
+                        <span>{{ $project->name }}</span>
+                    @endif
+
+                    @if($classify = $Classify->firstWhere('id', request()->classify_id))
+                        <span>{{ $classify->name }}</span>
+                    @endif
+
                 </div>
                 <div class="tab-content overflow">
                     <div class="tab-pane active">
@@ -251,6 +281,8 @@ $(function() {
   });
 
 });
+
+
 </script>
 
 <script type="text/javascript">
@@ -317,7 +349,6 @@ document.getElementById("excel-file").addEventListener("change", function () {
     let fileLabel = document.getElementById("file-label-text");
     fileLabel.textContent = this.files.length > 0 ? this.files[0].name : "Kéo thả file vào đây hoặc tải lên từ thiết bị";
 });
-
 
 
 
