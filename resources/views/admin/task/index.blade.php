@@ -31,6 +31,7 @@
                 <div class="modal-body">
                     <div class="chuy">
                         <p>Bạn vui lòng kiểm tra và tải lại file mới để tránh sai lệch dữ liệu</p>
+                        <p>Dữ liệu được update mới nhất lúc: {{$setting->updated_at}}</p>
                     </div>
                     <ul>
                         <li>Tải mẫu file nhập <a href="{{ asset( $setting->file_name ) }}" target="_blank">Tại đây</a></li>
