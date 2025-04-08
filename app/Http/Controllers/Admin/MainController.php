@@ -32,12 +32,14 @@ class MainController extends Controller
         ->select('companies.id', 'companies.name as company_name', \DB::raw('SUM(tasks.actual_costs) as total_cost'))
         ->groupBy('companies.id', 'companies.name')
         ->orderByDesc('total_cost')
+        ->where('tasks.classify_id', 3)
         ->get();
 
         $totals_san = Task::join('teams as sans', 'tasks.san_id', '=', 'sans.id')
         ->select('sans.id', 'sans.name as san_name', \DB::raw('SUM(tasks.actual_costs) as total_cost'))
         ->groupBy('sans.id', 'sans.name')
         ->orderByDesc('total_cost')
+        ->where('tasks.classify_id', 3)
         ->get();
 
         $totals_team = Task::join('teams as team', 'tasks.team_id', '=', 'team.id')
@@ -49,6 +51,7 @@ class MainController extends Controller
         )
         ->groupBy('team.id', 'team.name')
         ->orderByDesc('total_cost')
+        ->where('tasks.classify_id', 3)
         ->get();
 
         $channels = Channel::leftJoin('tasks', 'channels.id', '=', 'tasks.channel_id')
