@@ -21,6 +21,12 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'google_id',
+        'avatar',
+        'google_token',
+        'google_refresh_token',
+        'google_token_expires_at',
+        'permission', // thêm dòng này
     ];
 
     /**

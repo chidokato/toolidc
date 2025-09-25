@@ -20,22 +20,17 @@ use App\Http\Controllers\AjaxController;
 use App\Http\Controllers\ExcelController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ExcelImportController;
-use Laravel\Socialite\Facades\Socialite;
+
+use App\Http\Controllers\Auth\GoogleController;
 
 Route::get('/', [LoginController::class, 'index']);
 Route::get('admin', [LoginController::class, 'index'])->name('login');
 Route::POST('admin', [LoginController::class, 'store']);
 Route::get('logout', [LoginController::class, 'logout'])->name('logout');
 
-Route::get('/auth/google', function () {
-    return Socialite::driver('google')->redirect();
-});
-
-Route::get('/auth/google/callback', function () {
-    $user = Socialite::driver('google')->user();
-    dd($user);
-    // $user->token
-});
+// google login
+Route::get('auth/google', [GoogleController::class, 'redirectToGoogle'])->name('google.redirect');
+Route::get('auth/google/callback', [GoogleController::class, 'handleGoogleCallback'])->name('google.callback');
 
 
 // ajax
