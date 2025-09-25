@@ -76,7 +76,7 @@ class GoogleController extends Controller
         } else {
             Auth::logout(); // thoát luôn để tránh user chưa đủ quyền vẫn giữ session
             return redirect('/')
-                ->with('error', 'Bạn không có quyền truy cập vào trang quản trị');
+                ->with('error', 'Liên hệ Admin để cấp quyền truy cập');
         }
     }
 }
